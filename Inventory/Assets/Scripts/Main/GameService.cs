@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class GameService : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private EventService eventService;
+
+    [SerializeField] private GameObject inventoryPanel;
+    public GameObject InventoryPanel => inventoryPanel;
+
+    private void Awake()
     {
-        
+        eventService = new EventService();
+        ServiceLocator.Register(eventService);
+        ServiceLocator.Register(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        eventService.Update();
     }
 }
