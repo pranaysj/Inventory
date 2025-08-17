@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
     private GameObject inventoryPanel;  
     private EventService eventService;
+
+    [SerializeField]
+    private GameObject prefabItem;  
 
     private void Start()
     {
@@ -15,6 +19,9 @@ public class InventoryController : MonoBehaviour
 
         if(inventoryPanel != null)
             inventoryPanel.SetActive(false); // Ensure the inventory panel is initially hidden
+
+
+         
     }
 
     private void OnDestroy()
@@ -26,5 +33,10 @@ public class InventoryController : MonoBehaviour
     {
         if (inventoryPanel != null)
             inventoryPanel.SetActive(!inventoryPanel.activeInHierarchy);
+    }
+
+    private void InitializedItem()
+    {
+
     }
 }
