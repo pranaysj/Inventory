@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ancient_Gear_0
+      name: Material_Ancient_Gear_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,7 +131,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -144,7 +144,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Beast_Hide_1
+      name: Material_Beast_Hide_1
       rect:
         serializedVersion: 2
         x: 480
@@ -152,7 +152,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,7 +165,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Crystal_Dust_2
+      name: Material_Crystal_Dust_2
       rect:
         serializedVersion: 2
         x: 960
@@ -173,7 +173,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -186,7 +186,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ember_Core_3
+      name: Material_Ember_Core_3
       rect:
         serializedVersion: 2
         x: 1440
@@ -194,7 +194,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -207,7 +207,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Iron_Shader_4
+      name: Material_Iron_Shader_4
       rect:
         serializedVersion: 2
         x: 0
@@ -215,7 +215,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -228,7 +228,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: oak_Timber_5
+      name: Material_oak_Timber_5
       rect:
         serializedVersion: 2
         x: 480
@@ -236,7 +236,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -249,7 +249,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Toxic_Spores_6
+      name: Material_Toxic_Spores_6
       rect:
         serializedVersion: 2
         x: 962
@@ -257,7 +257,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -280,13 +280,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ancient_Gear_0: 1738765012
-      Beast_Hide_1: 492121208
-      Crystal_Dust_2: -2037308650
-      Ember_Core_3: 806047229
-      Iron_Shader_4: 973149635
-      Toxic_Spores_6: 13230082
-      oak_Timber_5: -143038429
+      Material_Ancient_Gear_0: 1738765012
+      Material_Beast_Hide_1: 492121208
+      Material_Crystal_Dust_2: -2037308650
+      Material_Ember_Core_3: 806047229
+      Material_Iron_Shader_4: 973149635
+      Material_Toxic_Spores_6: 13230082
+      Material_oak_Timber_5: -143038429
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

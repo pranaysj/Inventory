@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Antidote_Vial_0
+      name: Consumable_Antidote_Vial_0
       rect:
         serializedVersion: 2
         x: 0
@@ -144,7 +144,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Elixir_of_Clarity_1
+      name: Consumable_Elixir_of_Clarity_1
       rect:
         serializedVersion: 2
         x: 480
@@ -165,7 +165,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Firecracker_2
+      name: Consumable_Firecracker_2
       rect:
         serializedVersion: 2
         x: 958
@@ -186,7 +186,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mana_Biscuit_3
+      name: Consumable_Mana_Biscuit_3
       rect:
         serializedVersion: 2
         x: 1440
@@ -207,7 +207,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Minor_Health_Potion_4
+      name: Consumable_Minor_Health_Potion_4
       rect:
         serializedVersion: 2
         x: 0
@@ -228,7 +228,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shield_Tonic_5
+      name: Consumable_Shield_Tonic_5
       rect:
         serializedVersion: 2
         x: 480
@@ -249,7 +249,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Smoke_Bomb_6
+      name: Consumable_Smoke_Bomb_6
       rect:
         serializedVersion: 2
         x: 960
@@ -270,7 +270,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stamina_Bew_7
+      name: Consumable_Stamina_Bew_7
       rect:
         serializedVersion: 2
         x: 1440
@@ -301,14 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Antidote_Vial_0: 785379054
-      Elixir_of_Clarity_1: 867648997
-      Firecracker_2: 533284548
-      Mana_Biscuit_3: -1179250897
-      Minor_Health_Potion_4: -1465168372
-      Shield_Tonic_5: 767863399
-      Smoke_Bomb_6: -368955128
-      Stamina_Bew_7: 755658646
+      Consumable_Antidote_Vial_0: 785379054
+      Consumable_Elixir_of_Clarity_1: 867648997
+      Consumable_Firecracker_2: 533284548
+      Consumable_Mana_Biscuit_3: -1179250897
+      Consumable_Minor_Health_Potion_4: -1465168372
+      Consumable_Shield_Tonic_5: 767863399
+      Consumable_Smoke_Bomb_6: -368955128
+      Consumable_Stamina_Bew_7: 755658646
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

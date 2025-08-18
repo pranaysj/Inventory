@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Arcane_Scepter_0
+      name: Weapon_Arcane_Scepter_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,7 +131,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -144,7 +144,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ember_Blade_1
+      name: Weapon_Ember_Blade_1
       rect:
         serializedVersion: 2
         x: 480
@@ -152,7 +152,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,7 +165,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Obsidean_Great_Word_2
+      name: Weapon_Obsidean_Great_Word_2
       rect:
         serializedVersion: 2
         x: 960
@@ -173,7 +173,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -186,7 +186,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rusted_Dagger_3
+      name: Weapon_Rusted_Dagger_3
       rect:
         serializedVersion: 2
         x: 1440
@@ -194,7 +194,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -207,7 +207,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Storm_Pike_4
+      name: Weapon_Storm_Pike_4
       rect:
         serializedVersion: 2
         x: 0
@@ -215,7 +215,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -228,7 +228,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Twinfant_Claws_5
+      name: Weapon_Twinfant_Claws_5
       rect:
         serializedVersion: 2
         x: 480
@@ -236,7 +236,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -249,7 +249,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Venom_Bow_6
+      name: Weapon_Venom_Bow_6
       rect:
         serializedVersion: 2
         x: 960
@@ -257,7 +257,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -280,13 +280,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Arcane_Scepter_0: 2042455294
-      Ember_Blade_1: -729001627
-      Obsidean_Great_Word_2: 158040670
-      Rusted_Dagger_3: 123876238
-      Storm_Pike_4: -1290610531
-      Twinfant_Claws_5: -644593723
-      Venom_Bow_6: 1227516436
+      Weapon_Arcane_Scepter_0: 2042455294
+      Weapon_Ember_Blade_1: -729001627
+      Weapon_Obsidean_Great_Word_2: 158040670
+      Weapon_Rusted_Dagger_3: 123876238
+      Weapon_Storm_Pike_4: -1290610531
+      Weapon_Twinfant_Claws_5: -644593723
+      Weapon_Venom_Bow_6: 1227516436
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

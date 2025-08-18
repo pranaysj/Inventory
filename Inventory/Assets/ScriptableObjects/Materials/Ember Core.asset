@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5485aee91c63f4a83cb5c62ae6ae85, type: 3}
+  m_Name: Ember Core
+  m_EditorClassIdentifier: 
+  itemType: 0
+  itemName: Ember Core
+  icon: {fileID: 806047229, guid: 75af8a8d319e6294e8d9351d7b8eacdd, type: 3}
+  description: A glowing core from fire elementals.
+  buyingPrice: 120
+  sellingPrice: 50
+  weight: 2
+  rarity: 2

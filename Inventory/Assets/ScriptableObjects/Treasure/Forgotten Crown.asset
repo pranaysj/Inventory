@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5485aee91c63f4a83cb5c62ae6ae85, type: 3}
+  m_Name: Forgotten Crown
+  m_EditorClassIdentifier: 
+  itemType: 3
+  itemName: Forgotten Crown
+  icon: {fileID: 86913741, guid: 311330784c42bb54c851ef04e308c41d, type: 3}
+  description: A regal crown from a fallen kingdom.
+  buyingPrice: 500
+  sellingPrice: 250
+  weight: 4
+  rarity: 4

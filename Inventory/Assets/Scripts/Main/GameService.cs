@@ -16,6 +16,12 @@ public class GameService : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] tabButton;
     public TextMeshProUGUI[] TabButton => tabButton;
 
+    [SerializeField] private ShopDatabaseSO shopDatabase;
+    public ShopDatabaseSO ShopDatabase => shopDatabase;
+
+    [SerializeField] private GameObject shopItemPrefab;
+    public GameObject ShopItemPrefab => shopItemPrefab;
+
     private void Awake()
     {
         eventService = new EventService();

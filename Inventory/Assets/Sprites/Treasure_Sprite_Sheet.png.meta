@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ancient_Coin_0
+      name: Treasure_Ancient_Coin_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,7 +131,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -144,7 +144,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enchanted_Relic_1
+      name: Treasure_Enchanted_Relic_1
       rect:
         serializedVersion: 2
         x: 480
@@ -152,7 +152,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,7 +165,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Forgotten_Crow_2
+      name: Treasure_Forgotten_Crow_2
       rect:
         serializedVersion: 2
         x: 960
@@ -173,7 +173,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -186,7 +186,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Golden_Chalice_3
+      name: Treasure_Golden_Chalice_3
       rect:
         serializedVersion: 2
         x: 1440
@@ -194,7 +194,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -207,7 +207,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jeweled_Scrab_4
+      name: Treasure_Jeweled_Scrab_4
       rect:
         serializedVersion: 2
         x: 0
@@ -215,7 +215,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -228,7 +228,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sapphire_Ring_5
+      name: Treasure_Sapphire_Ring_5
       rect:
         serializedVersion: 2
         x: 480
@@ -236,7 +236,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -249,7 +249,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Silver_Idol_6
+      name: Treasure_Silver_Idol_6
       rect:
         serializedVersion: 2
         x: 960
@@ -257,7 +257,7 @@ TextureImporter:
         width: 480
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -280,13 +280,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ancient_Coin_0: -461360076
-      Enchanted_Relic_1: 1597846890
-      Forgotten_Crow_2: 86913741
-      Golden_Chalice_3: 1469663640
-      Jeweled_Scrab_4: 682386896
-      Sapphire_Ring_5: 1149972215
-      Silver_Idol_6: 933713803
+      Treasure_Ancient_Coin_0: -461360076
+      Treasure_Enchanted_Relic_1: 1597846890
+      Treasure_Forgotten_Crow_2: 86913741
+      Treasure_Golden_Chalice_3: 1469663640
+      Treasure_Jeweled_Scrab_4: 682386896
+      Treasure_Sapphire_Ring_5: 1149972215
+      Treasure_Silver_Idol_6: 933713803
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
