@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameService : MonoBehaviour
@@ -8,6 +9,12 @@ public class GameService : MonoBehaviour
 
     [SerializeField] private GameObject inventoryPanel;
     public GameObject InventoryPanel => inventoryPanel;
+
+    [SerializeField] private GameObject[] tabPanel;
+    public GameObject[] TabPanel => tabPanel;
+
+    [SerializeField] private TextMeshProUGUI[] tabButton;
+    public TextMeshProUGUI[] TabButton => tabButton;
 
     private void Awake()
     {
