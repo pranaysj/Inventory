@@ -13,7 +13,7 @@ public class InventoryController : MonoBehaviour
 
     private void Start()
     {
-        inventoryPanel = ServiceLocator.Get<GameService>().InventoryPanel;
+        //inventoryPanel = ServiceLocator.Get<GameService>().InventoryPanel;
         eventService = ServiceLocator.Get<EventService>();
         eventService.OnInventoryKeyPressed += ToggleInventoryPanel;
 

@@ -7,10 +7,10 @@ using UnityEngine.UIElements;
 
 public class TabController : MonoBehaviour
 {
-    [SerializeField] private ShopDatabaseSO shopDatabase;
-    [SerializeField] private GameObject[] tabPanels;
-    [SerializeField] private TextMeshProUGUI[] tabsButton;
-    [SerializeField] private GameObject shopItemPrefab;
+    private ShopDatabaseSO shopDatabase;
+    private GameObject[] tabPanels;
+    private TextMeshProUGUI[] tabsButton;
+    private GameObject shopItemPrefab;
 
     private Color activeColor = new Color32(220,219,218,225);
     private Color inactiveColor = new Color32(115, 115, 115,225);

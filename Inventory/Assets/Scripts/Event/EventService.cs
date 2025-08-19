@@ -9,7 +9,7 @@ public class EventService
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.Tab))
         {
             OnInventoryKeyPressed?.Invoke();
         }
