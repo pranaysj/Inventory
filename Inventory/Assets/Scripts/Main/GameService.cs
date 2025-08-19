@@ -14,6 +14,8 @@ public class GameService : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI description;
+    [SerializeField] private TextMeshProUGUI weight;
+    [SerializeField] private TextMeshProUGUI buyingPrice;
 
     [Header("HIERARCHY : UIManager")]
     [SerializeField] private ShopView shopView;
@@ -28,6 +30,12 @@ public class GameService : MonoBehaviour
     public TextMeshProUGUI[] TabButton => tabButton;
     public ShopDatabaseSO ShopDatabase => shopDatabase;
     public GameObject ShopItemPrefab => shopItemPrefab;
+
+    public Image Icon => icon;
+    public TextMeshProUGUI ItemName => itemName;
+    public TextMeshProUGUI Description => description;
+    public TextMeshProUGUI Weight => weight;
+    public TextMeshProUGUI BuyingPrice => buyingPrice;
 
     private EventService eventService;
     private ShopService shopService;

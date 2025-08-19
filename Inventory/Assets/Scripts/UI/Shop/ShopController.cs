@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UI;
 
 public class ShopController
 {
@@ -21,10 +23,18 @@ public class ShopController
         shopModel = new ShopModel(this, database);
     }
 
-    public void Initialize(TextMeshProUGUI[] tabsButtons, GameObject[] tabsPanels, GameObject shopItemPrefab)
+    public void Initialize(
+        TextMeshProUGUI[] tabsButtons,
+        GameObject[] tabsPanels,
+        GameObject shopItemPrefab,
+        Image icon,
+        TextMeshProUGUI itemName,
+        TextMeshProUGUI description,
+        TextMeshProUGUI weight,
+        TextMeshProUGUI buyingPrice)
     {
         shopView.Initialize(this);
-        shopModel.Initialize(tabsButtons, tabsPanels, shopItemPrefab);
+        shopModel.Initialize(tabsButtons, tabsPanels, shopItemPrefab, icon, itemName, description, weight, buyingPrice);
     }
 
     public void Switch(int tabID)
@@ -67,5 +77,9 @@ public class ShopController
     public GameObject GetShopItemPrefab()
     {
         return shopModel.GetShopItemPrefab();
+    }
+    public void SetItemInfo(string name)
+    {
+        shopModel.SetItemInfo(name);
     }
 }

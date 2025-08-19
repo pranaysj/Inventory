@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ShopView : MonoBehaviour
 {
@@ -31,8 +32,8 @@ public class ShopView : MonoBehaviour
             {
                 if (item.itemType == (ItemType)i)
                 {
-                    GameObject shopItem = Instantiate(ShopController.GetShopItemPrefab(), contentHolder.transform);
-                    TabView tabView = shopItem.GetComponent<TabView>();
+                    TabView tabView = Instantiate(ShopController.GetShopItemPrefab(), contentHolder.transform).GetComponent<TabView>();
+                    tabView.Initialize(this);
 
                     var name = tabView._name;
                     var icon = tabView.icon;
@@ -46,5 +47,10 @@ public class ShopView : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void FillItemInfo(string itemName)
+    {
+        ShopController.SetItemInfo(itemName);
     }
 }
