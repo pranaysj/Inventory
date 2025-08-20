@@ -5,38 +5,29 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    private GameObject inventoryPanel;  
+    private GameObject inventoryPanel;
     private EventService eventService;
-
-    [SerializeField]
-    private GameObject prefabItem;  
 
     private void Start()
     {
-        //inventoryPanel = ServiceLocator.Get<GameService>().InventoryPanel;
+        inventoryPanel = ServiceLocator.Get<GameService>().InventoryPanel;
         eventService = ServiceLocator.Get<EventService>();
+
         eventService.OnInventoryKeyPressed += ToggleInventoryPanel;
 
-        if(inventoryPanel != null)
+
+        if (inventoryPanel != null)
             inventoryPanel.SetActive(false); // Ensure the inventory panel is initially hidden
-
-
-         
     }
 
     private void OnDestroy()
     {
-        eventService.OnInventoryKeyPressed -= ToggleInventoryPanel;
+        eventService.OnInventoryKeyPressed -= ToggleInventoryPanel; 
     }
 
     private void ToggleInventoryPanel()
     {
         if (inventoryPanel != null)
             inventoryPanel.SetActive(!inventoryPanel.activeInHierarchy);
-    }
-
-    private void InitializedItem()
-    {
-
     }
 }

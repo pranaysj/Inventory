@@ -15,9 +15,9 @@ public class ShopView : MonoBehaviour
     }
     private void Start()
     {
-        if (shopController != null)
+        if (ShopController != null)
         {
-            shopController.Switch(0); // Switch to the first tab by default
+            ShopController.Switch(0); // Switch to the first tab by default
             FillTabs();
         }
     }

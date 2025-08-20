@@ -33,53 +33,53 @@ public class ShopController
         TextMeshProUGUI weight,
         TextMeshProUGUI buyingPrice)
     {
-        shopView.Initialize(this);
-        shopModel.Initialize(tabsButtons, tabsPanels, shopItemPrefab, icon, itemName, description, weight, buyingPrice);
+        ShopView.Initialize(this);
+        ShopModel.Initialize(tabsButtons, tabsPanels, shopItemPrefab, icon, itemName, description, weight, buyingPrice);
     }
 
     public void Switch(int tabID)
     {
-        foreach (var button in shopModel.GetTabButtonList())
+        foreach (var button in ShopModel.GetTabButtonList())
         {
             if (button != null)
-                button.color = shopModel.inactiveColor;
+                button.color = ShopModel.inactiveColor;
         }
 
-        foreach (var panel in shopModel.GetTabPanelsList())
+        foreach (var panel in ShopModel.GetTabPanelsList())
         {
             if (panel != null)
                 panel.SetActive(false);
         }
 
-        if (shopModel.GetTabButton(tabID) != null)
-            shopModel.GetTabButton(tabID).color = shopModel.activeColor;
+        if (ShopModel.GetTabButton(tabID) != null)
+            ShopModel.GetTabButton(tabID).color = ShopModel.activeColor;
 
-        if (shopModel.GetTabPanel(tabID) != null)
-            shopModel.GetTabPanel(tabID).SetActive(true);
+        if (ShopModel.GetTabPanel(tabID) != null)
+            ShopModel.GetTabPanel(tabID).SetActive(true);
     }
 
     public GameObject[] GetTabsPanelList()
     {
-        return shopModel.GetTabPanelsList();
+        return ShopModel.GetTabPanelsList();
     }
     public GameObject GetTabPanel(int tabID)
     {
-        return shopModel.GetTabPanel(tabID);
+        return ShopModel.GetTabPanel(tabID);
     }
     public TextMeshProUGUI[] GetTabsButton()
     {
-        return shopModel.GetTabButtonList();
+        return ShopModel.GetTabButtonList();
     }
     public ShopDatabaseSO GetShopDatabase()
     {
-        return shopModel.ShopDataBase;
+        return ShopModel.ShopDataBase;
     }
     public GameObject GetShopItemPrefab()
     {
-        return shopModel.GetShopItemPrefab();
+        return ShopModel.GetShopItemPrefab();
     }
     public void SetItemInfo(string name)
     {
-        shopModel.SetItemInfo(name);
+        ShopModel.SetItemInfo(name);
     }
 }
