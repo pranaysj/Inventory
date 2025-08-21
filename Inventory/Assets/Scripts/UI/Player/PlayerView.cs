@@ -18,14 +18,17 @@ public class PlayerView : MonoBehaviour
     private Dictionary<string, int> playerItemTabs = new Dictionary<string, int>();
     private Dictionary<string, GameObject> prefabItemList = new Dictionary<string, GameObject>();
 
+    private Image tempIcon;
     private Image icon;
-    private TextMeshProUGUI material;
+    private TextMeshProUGUI type;
+    private TextMeshProUGUI rarity;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI description;
+    private ShopItemSO tempItem;
 
     private void Start()
     {
-        ServiceLocator.Get<EventService>().OnPlayerGetItem += SpawnItemInPlayerInventory;
+        ServiceLocator.Get<EventService>().OnPlayerGetItem += GetTemporaryItemInPanel;
     }
 
     public void Initialize(PlayerController playerController)
@@ -38,14 +41,18 @@ public class PlayerView : MonoBehaviour
         shopDatabaseSO = ServiceLocator.Get<GameService>().ShopDatabase;
 
         icon = ServiceLocator.Get<UIService>().IconR;
-        material = ServiceLocator.Get<UIService>().MaterialR;
+        type = ServiceLocator.Get<UIService>().TypeR;
+        rarity = ServiceLocator.Get<UIService>().RarityR;
         itemName = ServiceLocator.Get<UIService>().ItemNameR;
         description = ServiceLocator.Get<UIService>().DescriptionR;
+
+        tempIcon = icon;
+        Reset();
     }
 
     private void OnDestroy()
     {
-        ServiceLocator.Get<EventService>().OnPlayerGetItem -= SpawnItemInPlayerInventory;
+        ServiceLocator.Get<EventService>().OnPlayerGetItem -= GetTemporaryItemInPanel;
     }
 
     private ShopItemSO GetItemData()
@@ -60,9 +67,9 @@ public class PlayerView : MonoBehaviour
         return playerItemTabs.ContainsKey(itemName);
     }
 
-    private void SpawnItemInPlayerInventory()
+    private void SpawnItemInPlayerInventory(ShopItemSO tempItem)
     {
-        string itemName = GetItemData().itemName;
+        string itemName = tempItem.itemName;
         int itemQuantity = playerItemTabs.ContainsKey(itemName) ? playerItemTabs[itemName] : 0;
 
         if (IsItemAlreadyInInventory(itemName))
@@ -87,13 +94,33 @@ public class PlayerView : MonoBehaviour
 
             prefabItemList.Add(itemName, itemInstance);
 
-            tabView.Initialize(shopView, GetItemData(), GameService.TabType.Player);
+            tabView.Initialize(shopView, tempItem, GameService.TabType.Player);
             tabView.ItemsQuantity(playerItemTabs[itemName]);
         }
     }
 
-    public void TemporaryItemPanel()
+    public void GetTemporaryItemInPanel()
     {
-        
+        tempItem = GetItemData();
+
+        icon.sprite = tempItem.icon;
+        type.text = tempItem.itemType.ToString();
+        rarity.text = tempItem.rarity.ToString();
+        itemName.text = tempItem.itemName;
+        description.text = tempItem.description;
+    }
+
+    public void GetTempItemInPlayerInventory()
+    {
+        SpawnItemInPlayerInventory(tempItem);
+    }
+
+    private void Reset()
+    {
+        icon.sprite = tempIcon.sprite;
+        type.text = "Item Type";
+        rarity.text = "Rarity";
+        itemName.text = "Name";
+        description.text = "Description";
     }
 }

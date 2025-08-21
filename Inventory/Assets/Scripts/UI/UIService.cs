@@ -26,7 +26,8 @@ public class UIService : MonoBehaviour
 
     [Header("HIERARCHY : Canvas/Menu/Inventory/Item Panel/Player/Random Resources/Item")]
     [SerializeField] private Image r_icon;
-    [SerializeField] private TextMeshProUGUI r_material;
+    [SerializeField] private TextMeshProUGUI r_type;
+    [SerializeField] private TextMeshProUGUI r_rarity;
     [SerializeField] private TextMeshProUGUI r_itemName;
     [SerializeField] private TextMeshProUGUI r_description;
 
@@ -43,7 +44,8 @@ public class UIService : MonoBehaviour
     public TextMeshProUGUI Price => price;
 
     public Image IconR => r_icon;
-    public TextMeshProUGUI MaterialR => r_material;
+    public TextMeshProUGUI TypeR => r_type;
+    public TextMeshProUGUI RarityR => r_rarity;
     public TextMeshProUGUI ItemNameR => r_itemName;
     public TextMeshProUGUI DescriptionR => r_description;
 }

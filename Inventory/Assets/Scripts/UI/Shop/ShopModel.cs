@@ -15,6 +15,7 @@ public class ShopModel
     private TextMeshProUGUI[] tabsButton;
     private GameObject shopItemPrefab;
 
+    private Image tempIcon;
     private Image icon;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI description;
@@ -27,7 +28,6 @@ public class ShopModel
 
     public Color activeColor = new Color32(220, 219, 218, 225);
     public Color inactiveColor = new Color32(115, 115, 115, 225);
-
 
     public ShopModel(ShopController shopController, ShopDatabaseSO shopDataBase)
     {
@@ -55,6 +55,9 @@ public class ShopModel
         this.weight = weight;
         this.transaction = transaction;
         this.price = price;
+
+        this.tempIcon = icon;
+        Reset();
     }
 
     public TextMeshProUGUI[] GetTabButtonList()
@@ -114,5 +117,11 @@ public class ShopModel
             }
         }
         Debug.LogWarning("Item not found: " + name);
+    }
+    private void Reset()
+    {
+        icon.sprite = tempIcon.sprite;
+        itemName.text = "Name";
+        description.text = "Description";
     }
 }
