@@ -6,24 +6,8 @@ using UnityEngine.UI;
 
 public class GameService : MonoBehaviour
 {
-    [Header("HIERARCHY : Canvas/Menu/Inventory")]
-    [SerializeField] private GameObject inventoryPanel;
-
-    [Header("HIERARCHY : Canvas/Menu/Inventory/Item Panel/Shop/Tabs")]
-    [SerializeField] private GameObject[] tabPanel;
-    [SerializeField] private TextMeshProUGUI[] tabButton;
-
-    [Header("HIERARCHY : Canvas/Menu/Inventory/Item Panel/Player/Inventory")]
-    [SerializeField] private GameObject itemContainer;
-
-    [Header("HIERARCHY : Canvas/Menu/Inventory/Item Panel/Shop/Item Info")]
-    [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI itemName;
-    [SerializeField] private TextMeshProUGUI description;
-    [SerializeField] private TextMeshProUGUI weight;
-    [SerializeField] private TextMeshProUGUI buyingPrice;
-
-    [Header("HIERARCHY : UIManager")]
+    [Header("HIERARCHY : UIService")]
+    [SerializeField] private UIService uiService;
     [SerializeField] private ShopView shopView;
     [SerializeField] private PlayerView playerView;
 
@@ -34,20 +18,9 @@ public class GameService : MonoBehaviour
     [SerializeField] private GameObject shopItemPrefab;
     [SerializeField] private GameObject playerItemPrefab;
 
-    public GameObject[] TabPanel => tabPanel;
-    public TextMeshProUGUI[] TabButton => tabButton;
     public ShopDatabaseSO ShopDatabase => shopDatabase;
     public GameObject ShopItemPrefab => shopItemPrefab;
     public GameObject PlayerItemPrefab => playerItemPrefab;
-    public GameObject InventoryPanel => inventoryPanel;
-    public GameObject ItemContainer => itemContainer;
-
-    public Image Icon => icon;
-    public TextMeshProUGUI ItemName => itemName;
-    public TextMeshProUGUI Description => description;
-    public TextMeshProUGUI Weight => weight;
-    public TextMeshProUGUI BuyingPrice => buyingPrice;
-
     public PlayerView PlayerView => playerView;
 
     private EventService eventService;
@@ -61,7 +34,8 @@ public class GameService : MonoBehaviour
         ServiceLocator.Register(this);
         ServiceLocator.Register(eventService);
 
-        shopService = new ShopService(shopView, shopDatabase);
+        ServiceLocator.Register(uiService);
+        shopService = new ShopService(shopView, ShopDatabase);
         playerService = new PlayerService();
 
         ServiceLocator.Register(shopService);

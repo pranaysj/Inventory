@@ -25,7 +25,7 @@ public class PlayerView : MonoBehaviour
 
     private void GetItemData()
     {
-        GameObject contentHolder = ServiceLocator.Get<GameService>().ItemContainer;
+        GameObject contentHolder = ServiceLocator.Get<UIService>().Content;
         GameObject itemPrefab = ServiceLocator.Get<GameService>().PlayerItemPrefab;
         GameObject itemInstance = Instantiate(itemPrefab, contentHolder.transform);
         SpawnItemInPlayerInventory();

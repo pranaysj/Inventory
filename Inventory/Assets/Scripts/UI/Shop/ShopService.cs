@@ -26,15 +26,15 @@ public class ShopService
 
     public void Initialize()
     {
-        tabsButton = ServiceLocator.Get<GameService>().TabButton;
-        tabPanels = ServiceLocator.Get<GameService>().TabPanel;
+        tabsButton = ServiceLocator.Get<UIService>().TanNames;
+        tabPanels = ServiceLocator.Get<UIService>().TabItems;
         shopItemPrefab = ServiceLocator.Get<GameService>().ShopItemPrefab;
 
-        icon = ServiceLocator.Get<GameService>().Icon;
-        itemName = ServiceLocator.Get<GameService>().ItemName;
-        description = ServiceLocator.Get<GameService>().Description;
-        weight = ServiceLocator.Get<GameService>().Weight;
-        buyingPrice = ServiceLocator.Get<GameService>().BuyingPrice;
+        icon = ServiceLocator.Get<UIService>().Icon;
+        itemName = ServiceLocator.Get<UIService>().ItemName;
+        description = ServiceLocator.Get<UIService>().Description;
+        weight = ServiceLocator.Get<UIService>().Weight;
+        buyingPrice = ServiceLocator.Get<UIService>().BuyingPrice;
 
         shopController.Initialize(tabsButton, tabPanels, shopItemPrefab, icon, itemName, description, weight, buyingPrice);
     }

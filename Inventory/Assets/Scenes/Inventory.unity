@@ -4448,7 +4448,7 @@ GameObject:
   - component: {fileID: 933704399}
   - component: {fileID: 933704398}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameService
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4466,23 +4466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4c14953f22ac04cbae2607071dbaf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryPanel: {fileID: 1646394360}
-  tabPanel:
-  - {fileID: 26530981}
-  - {fileID: 1798967067}
-  - {fileID: 775669609}
-  - {fileID: 1724579635}
-  tabButton:
-  - {fileID: 409130596}
-  - {fileID: 2093650737}
-  - {fileID: 1889773210}
-  - {fileID: 1452948112}
-  itemContainer: {fileID: 643946684}
-  icon: {fileID: 772952964}
-  itemName: {fileID: 1787911956}
-  description: {fileID: 1938451901}
-  weight: {fileID: 244439228}
-  buyingPrice: {fileID: 1965054119}
+  uiService: {fileID: 1592680159}
   shopView: {fileID: 1592680156}
   playerView: {fileID: 1592680158}
   shopDatabase: {fileID: 11400000, guid: 88439876ea731ed449c557a091fe4919, type: 2}
@@ -5081,10 +5065,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 165927500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559.92004, y: -50}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1186991525
 MonoBehaviour:
@@ -7120,10 +7104,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 165927500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 499.92004, y: -50}
-  m_SizeDelta: {x: 85.68, y: 42.01}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1561228439
 MonoBehaviour:
@@ -7342,11 +7326,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1592680155}
+  - component: {fileID: 1592680159}
   - component: {fileID: 1592680156}
   - component: {fileID: 1592680157}
   - component: {fileID: 1592680158}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: UIService
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7403,6 +7388,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b835217f0bddb234cae9ade13752a17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1592680159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592680153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714bd540239a00346912b800daed3601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 1646394360}
+  tabNames:
+  - {fileID: 409130596}
+  - {fileID: 2093650737}
+  - {fileID: 1889773210}
+  - {fileID: 1452948112}
+  tabItems:
+  - {fileID: 26530981}
+  - {fileID: 1798967067}
+  - {fileID: 775669609}
+  - {fileID: 1724579635}
+  content: {fileID: 643946684}
+  icon: {fileID: 772952964}
+  itemName: {fileID: 1787911956}
+  description: {fileID: 1938451901}
+  weight: {fileID: 244439228}
+  buyingPrice: {fileID: 1965054119}
 --- !u!1 &1600265535
 GameObject:
   m_ObjectHideFlags: 0
@@ -9676,7 +9690,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 1600265539}
-  - {fileID: 703915114}
   - {fileID: 933704399}
   - {fileID: 1592680155}
+  - {fileID: 1600265539}
+  - {fileID: 703915114}
