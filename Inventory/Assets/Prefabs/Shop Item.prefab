@@ -120,15 +120,8 @@ MonoBehaviour:
   nameGameobject: {fileID: 285246950895611971}
   iconGameobject: {fileID: 8023462249807525201}
   rarityGameobject: {fileID: 8579967402041134777}
-  buyingPriceGameobject: {fileID: 8258307991924721921}
-  itemType: 0
-  itemName: 
-  icon: {fileID: 0}
-  description: 
-  buyingPrice: 0
-  sellingPrice: 0
-  weight: 0
-  rarity: 0
+  priceGameobject: {fileID: 8258307991924721921}
+  tabType: 0
 --- !u!1 &2179744213647902777
 GameObject:
   m_ObjectHideFlags: 0

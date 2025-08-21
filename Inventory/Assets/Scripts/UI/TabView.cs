@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static GameService;
 using static UnityEditor.Progress;
 
 public class TabView : MonoBehaviour, IPointerClickHandler
@@ -13,8 +14,10 @@ public class TabView : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI nameGameobject;
     public Image iconGameobject;
     public TextMeshProUGUI rarityGameobject;
-    public TextMeshProUGUI buyingPriceGameobject;
+    public TextMeshProUGUI priceGameobject;
+    public TextMeshProUGUI quantityGameobject;
 
+    public TabType tabType;
     private ItemType itemType;
     private string itemName;
     private Sprite icon;
@@ -23,21 +26,23 @@ public class TabView : MonoBehaviour, IPointerClickHandler
     private int sellingPrice;
     private int weight;
     private Rarity rarity;
+    public int quantity;
 
     private ShopView shopView;
 
-    public void Initialize(ShopView shopView, ShopItemSO itemSO)
+    public void Initialize(ShopView shopView, ShopItemSO itemSO, TabType tabType)
     {
         this.shopView = shopView;
-        AssignData(itemSO);
+        AssignData(tabType, itemSO);
     }
-    private void AssignData(ShopItemSO itemSO)
+    private void AssignData(TabType tabType, ShopItemSO itemSO)
     {
-        if(nameGameobject) nameGameobject.text = itemSO.itemName;
+        if (nameGameobject) nameGameobject.text = itemSO.itemName;
         if (iconGameobject != null) iconGameobject.sprite = itemSO.icon;
         if (rarityGameobject) rarityGameobject.text = itemSO.rarity.ToString();
-        if (buyingPriceGameobject) buyingPriceGameobject.text = itemSO.buyingPrice.ToString() + " G";
+        if (priceGameobject) priceGameobject.text = itemSO.buyingPrice.ToString() + " G";
 
+        this.tabType = tabType;
         itemType = itemSO.itemType;
         itemName = itemSO.itemName;
         icon = itemSO.icon;
@@ -50,6 +55,12 @@ public class TabView : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if(itemName != null)
-            shopView.FillItemInfo(itemName);
+            shopView.FillItemInfo(tabType, itemName);
+    }
+
+    public void ItemsQuantity(int quantity)
+    {
+        this.quantity = quantity;
+        if (quantityGameobject) quantityGameobject.text = "x " + this.quantity.ToString();
     }
 }

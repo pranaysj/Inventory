@@ -16,7 +16,8 @@ public class ShopService
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI description;
     private TextMeshProUGUI weight;
-    private TextMeshProUGUI buyingPrice;
+    private TextMeshProUGUI transaction;
+    private TextMeshProUGUI price;
 
     public ShopService(ShopView shopView, ShopDatabaseSO shopDatabase)
     {
@@ -34,9 +35,10 @@ public class ShopService
         itemName = ServiceLocator.Get<UIService>().ItemName;
         description = ServiceLocator.Get<UIService>().Description;
         weight = ServiceLocator.Get<UIService>().Weight;
-        buyingPrice = ServiceLocator.Get<UIService>().BuyingPrice;
+        transaction = ServiceLocator.Get<UIService>().Transaction;
+        price = ServiceLocator.Get<UIService>().Price;
 
-        shopController.Initialize(tabsButton, tabPanels, shopItemPrefab, icon, itemName, description, weight, buyingPrice);
+        shopController.Initialize(tabsButton, tabPanels, shopItemPrefab, icon, itemName, description, weight, transaction, price);
     }
 
     public void Switch(int tabID)

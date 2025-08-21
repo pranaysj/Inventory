@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameService;
 
 public class ShopModel
 {
@@ -18,7 +19,8 @@ public class ShopModel
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI description;
     private TextMeshProUGUI weight;
-    private TextMeshProUGUI buyingPrice;
+    private TextMeshProUGUI transaction;
+    private TextMeshProUGUI price;
 
     public ShopDatabaseSO ShopDataBase => shopDataBase;
     public ShopController ShopController => shopController;
@@ -41,7 +43,8 @@ public class ShopModel
         TextMeshProUGUI itemName,
         TextMeshProUGUI description,
         TextMeshProUGUI weight,
-        TextMeshProUGUI buyingPrice)
+        TextMeshProUGUI transaction,
+        TextMeshProUGUI price)
     {
         this.tabsButton = tabsButtons;
         this.tabPanels = tabsPanels;
@@ -50,7 +53,8 @@ public class ShopModel
         this.itemName = itemName;
         this.description = description;
         this.weight = weight;
-        this.buyingPrice = buyingPrice;
+        this.transaction = transaction;
+        this.price = price;
     }
 
     public TextMeshProUGUI[] GetTabButtonList()
@@ -82,7 +86,7 @@ public class ShopModel
     {
         return shopItemPrefab;
     }
-    public void SetItemInfo(string name)
+    public void SetItemInfo(TabType tabType, string name)
     {
         foreach (var item in shopDataBase.shopItems)
         {
@@ -92,7 +96,20 @@ public class ShopModel
                 itemName.text = item.itemName;
                 description.text = item.description;
                 weight.text = item.weight.ToString() + " kg";
-                buyingPrice.text = item.buyingPrice.ToString() + " G";
+
+                switch (tabType)
+                {
+                    case TabType.Shop:
+                        transaction.text = "Buying Price";
+                        price.text = item.buyingPrice.ToString() + " G";
+                        break;
+
+                    case TabType.Player:
+                        transaction.text = "Selling Price";
+                        price.text = item.sellingPrice.ToString() + " G";
+                        break;
+                }
+                
                 return;
             }
         }

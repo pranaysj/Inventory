@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static GameService;
 
 public class ShopView : MonoBehaviour
 {
@@ -33,14 +34,14 @@ public class ShopView : MonoBehaviour
                 if (item.itemType == (ItemType)i)
                 {
                     TabView tabView = Instantiate(ShopController.GetShopItemPrefab(), contentHolder.transform).GetComponent<TabView>();
-                    tabView.Initialize(this, item);
+                    tabView.Initialize(this, item, GameService.TabType.Shop);
                 }
             }
         }
     }
 
-    public void FillItemInfo(string itemName)
+    public void FillItemInfo(TabType tabType, string itemName)
     {
-        ShopController.SetItemInfo(itemName);
+        ShopController.SetItemInfo(tabType, itemName);
     }
 }

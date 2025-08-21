@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
+using static GameService;
 
 public class ShopController
 {
@@ -31,10 +32,11 @@ public class ShopController
         TextMeshProUGUI itemName,
         TextMeshProUGUI description,
         TextMeshProUGUI weight,
-        TextMeshProUGUI buyingPrice)
+        TextMeshProUGUI transaction,
+        TextMeshProUGUI price)
     {
         ShopView.Initialize(this);
-        ShopModel.Initialize(tabsButtons, tabsPanels, shopItemPrefab, icon, itemName, description, weight, buyingPrice);
+        ShopModel.Initialize(tabsButtons, tabsPanels, shopItemPrefab, icon, itemName, description, weight, transaction, price);
     }
 
     public void Switch(int tabID)
@@ -78,8 +80,8 @@ public class ShopController
     {
         return ShopModel.GetShopItemPrefab();
     }
-    public void SetItemInfo(string name)
+    public void SetItemInfo(TabType tabType, string name)
     {
-        ShopModel.SetItemInfo(name);
+        ShopModel.SetItemInfo(tabType, name);
     }
 }

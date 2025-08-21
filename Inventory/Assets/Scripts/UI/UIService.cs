@@ -21,7 +21,14 @@ public class UIService : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI weight;
-    [SerializeField] private TextMeshProUGUI buyingPrice;
+    [SerializeField] private TextMeshProUGUI transaction;
+    [SerializeField] private TextMeshProUGUI price;
+
+    [Header("HIERARCHY : Canvas/Menu/Inventory/Item Panel/Player/Random Resources/Item")]
+    [SerializeField] private Image r_icon;
+    [SerializeField] private TextMeshProUGUI r_material;
+    [SerializeField] private TextMeshProUGUI r_itemName;
+    [SerializeField] private TextMeshProUGUI r_description;
 
     public TextMeshProUGUI[] TanNames => tabNames;
     public GameObject[] TabItems => tabItems;
@@ -32,5 +39,11 @@ public class UIService : MonoBehaviour
     public TextMeshProUGUI ItemName => itemName;
     public TextMeshProUGUI Description => description;
     public TextMeshProUGUI Weight => weight;
-    public TextMeshProUGUI BuyingPrice => buyingPrice;
+    public TextMeshProUGUI Transaction => transaction;
+    public TextMeshProUGUI Price => price;
+
+    public Image IconR => r_icon;
+    public TextMeshProUGUI MaterialR => r_material;
+    public TextMeshProUGUI ItemNameR => r_itemName;
+    public TextMeshProUGUI DescriptionR => r_description;
 }

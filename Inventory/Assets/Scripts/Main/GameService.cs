@@ -61,4 +61,9 @@ public class GameService : MonoBehaviour
         }
 
     }
+    public enum TabType
+    {
+        Shop,
+        Player
+    }
 }
