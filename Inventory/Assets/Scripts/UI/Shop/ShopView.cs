@@ -33,17 +33,7 @@ public class ShopView : MonoBehaviour
                 if (item.itemType == (ItemType)i)
                 {
                     TabView tabView = Instantiate(ShopController.GetShopItemPrefab(), contentHolder.transform).GetComponent<TabView>();
-                    tabView.Initialize(this);
-
-                    var name = tabView._name;
-                    var icon = tabView.icon;
-                    var rarity = tabView.rarity;
-                    var buyingPrice = tabView.buyingPrice;
-
-                    if (name) name.text = item.itemName;
-                    if (icon != null) icon.sprite = item.icon;
-                    if (rarity) rarity.text = item.rarity.ToString();
-                    if (buyingPrice) buyingPrice.text = item.buyingPrice.ToString() + " G";
+                    tabView.Initialize(this, item);
                 }
             }
         }

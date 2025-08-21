@@ -26,9 +26,19 @@ public class PlayerView : MonoBehaviour
     private void GetItemData()
     {
         GameObject contentHolder = ServiceLocator.Get<UIService>().Content;
+
         GameObject itemPrefab = ServiceLocator.Get<GameService>().PlayerItemPrefab;
+
+        ShopView shopView = ServiceLocator.Get<GameService>().ShopView;
+
+        ShopDatabaseSO shopDatabaseSO = ServiceLocator.Get<GameService>().ShopDatabase;
+        int randomIndex = Random.Range(0, shopDatabaseSO.shopItems.Count);
+        ShopItemSO itemData = shopDatabaseSO.shopItems[randomIndex];
+
         GameObject itemInstance = Instantiate(itemPrefab, contentHolder.transform);
-        SpawnItemInPlayerInventory();
+        TabView tabView = itemInstance.GetComponent<TabView>();
+
+        tabView.Initialize(shopView, itemData);
     }
 
     private void SpawnItemInPlayerInventory()

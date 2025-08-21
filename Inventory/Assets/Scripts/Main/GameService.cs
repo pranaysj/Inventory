@@ -21,6 +21,7 @@ public class GameService : MonoBehaviour
     public ShopDatabaseSO ShopDatabase => shopDatabase;
     public GameObject ShopItemPrefab => shopItemPrefab;
     public GameObject PlayerItemPrefab => playerItemPrefab;
+    public ShopView ShopView => shopView;
     public PlayerView PlayerView => playerView;
 
     private EventService eventService;
