@@ -18,12 +18,13 @@ public class PlayerView : MonoBehaviour
     private Dictionary<string, int> playerItemTabs = new Dictionary<string, int>();
     private Dictionary<string, GameObject> prefabItemList = new Dictionary<string, GameObject>();
 
-    private Image tempIcon;
     private Image icon;
     private TextMeshProUGUI type;
     private TextMeshProUGUI rarity;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI description;
+    
+    public Sprite tempIcon;
     private ShopItemSO tempItem;
 
     private void Start()
@@ -46,7 +47,7 @@ public class PlayerView : MonoBehaviour
         itemName = ServiceLocator.Get<UIService>().ItemNameR;
         description = ServiceLocator.Get<UIService>().DescriptionR;
 
-        tempIcon = icon;
+        tempIcon = icon.sprite;
         Reset();
     }
 
@@ -108,16 +109,22 @@ public class PlayerView : MonoBehaviour
         rarity.text = tempItem.rarity.ToString();
         itemName.text = tempItem.itemName;
         description.text = tempItem.description;
+
     }
 
     public void GetTempItemInPlayerInventory()
     {
-        SpawnItemInPlayerInventory(tempItem);
+        if (tempItem != null)
+        {
+            SpawnItemInPlayerInventory(tempItem);
+            tempItem = null;
+            Reset();
+        }
     }
 
     private void Reset()
     {
-        icon.sprite = tempIcon.sprite;
+        icon.sprite = tempIcon;
         type.text = "Item Type";
         rarity.text = "Rarity";
         itemName.text = "Name";

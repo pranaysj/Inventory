@@ -2831,8 +2831,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1587931787}
   m_HandleRect: {fileID: 1587931786}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2888,7 +2888,7 @@ GameObject:
   - component: {fileID: 468690534}
   - component: {fileID: 468690536}
   m_Layer: 5
-  m_Name: Material
+  m_Name: Type
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3460,7 +3460,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 160, y: 160}
+  m_CellSize: {x: 160, y: 180}
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 1
   m_ConstraintCount: 4
@@ -4478,10 +4478,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 447593159}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 810, y: 549.69305}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &830500308
 MonoBehaviour:
@@ -4518,7 +4518,6 @@ GameObject:
   - component: {fileID: 908879959}
   - component: {fileID: 908879962}
   - component: {fileID: 908879961}
-  - component: {fileID: 908879960}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -4545,26 +4544,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000022888184, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &908879960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908879958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: 200
-  m_PreferredHeight: 200
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
 --- !u!114 &908879961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5401,10 +5380,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 165927500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 559.92004, y: -50}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1186991525
 MonoBehaviour:
@@ -6313,8 +6292,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2072946959}
   m_HandleRect: {fileID: 2072946958}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9999999
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6770,7 +6749,7 @@ GameObject:
   - component: {fileID: 1426990609}
   - component: {fileID: 1426990608}
   m_Layer: 5
-  m_Name: ' TAB Txt'
+  m_Name: TAB Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7750,10 +7729,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 165927500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 499.92004, y: -50}
-  m_SizeDelta: {x: 85.68, y: 42.01}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1561228439
 MonoBehaviour:
@@ -8065,8 +8044,9 @@ MonoBehaviour:
   transaction: {fileID: 732468473}
   price: {fileID: 1965054119}
   r_icon: {fileID: 1633931458}
-  r_material: {fileID: 468690534}
-  r_itemName: {fileID: 1371114775}
+  r_type: {fileID: 468690534}
+  r_rarity: {fileID: 1371114775}
+  r_itemName: {fileID: 1214509713}
   r_description: {fileID: 159515877}
 --- !u!1 &1600265535
 GameObject:
