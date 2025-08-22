@@ -31,6 +31,10 @@ public class UIService : MonoBehaviour
     [SerializeField] private TextMeshProUGUI r_itemName;
     [SerializeField] private TextMeshProUGUI r_description;
 
+    [Header("PROJECT")]
+    [SerializeField] private Sprite selectedShopItemBGIcon;
+    [SerializeField] private Sprite selectedPlayerItemBGIcon;
+
     public TextMeshProUGUI[] TanNames => tabNames;
     public GameObject[] TabItems => tabItems;
     public GameObject InventoryPanel => inventoryPanel;
@@ -48,4 +52,7 @@ public class UIService : MonoBehaviour
     public TextMeshProUGUI RarityR => r_rarity;
     public TextMeshProUGUI ItemNameR => r_itemName;
     public TextMeshProUGUI DescriptionR => r_description;
+
+    public Sprite SelectedShopItemBGIcon => selectedShopItemBGIcon;
+    public Sprite SelectedPlayerItemBGIcon => selectedPlayerItemBGIcon;
 }

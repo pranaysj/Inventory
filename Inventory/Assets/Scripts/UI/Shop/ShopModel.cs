@@ -79,7 +79,7 @@ public class ShopModel
             return null;
         return tabPanels;
     }
-    public GameObject GetTabPanel(int tabID)
+    public GameObject GetTabPanelbyID(int tabID)
     {
         if (tabID < 0 || tabID >= tabPanels.Length)
             return null;

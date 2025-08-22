@@ -15,8 +15,8 @@ public class PlayerView : MonoBehaviour
     private ShopView shopView;
     private ShopDatabaseSO shopDatabaseSO;
 
-    private Dictionary<string, int> playerItemTabs = new Dictionary<string, int>();
-    private Dictionary<string, GameObject> prefabItemList = new Dictionary<string, GameObject>();
+    private Dictionary<string, int> itemsCountByName = new Dictionary<string, int>();
+    private Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
 
     private Image icon;
     private TextMeshProUGUI type;
@@ -30,6 +30,8 @@ public class PlayerView : MonoBehaviour
     private void Start()
     {
         ServiceLocator.Get<EventService>().OnPlayerGetItem += GetTemporaryItemInPanel;
+        ServiceLocator.Get<EventService>().OnClikedIPlayerItem += SelectPlayerItem;
+        ServiceLocator.Get<EventService>().OnClickedAnotehrItem += UnSelectAnotherItem;
     }
 
     public void Initialize(PlayerController playerController)
@@ -54,6 +56,8 @@ public class PlayerView : MonoBehaviour
     private void OnDestroy()
     {
         ServiceLocator.Get<EventService>().OnPlayerGetItem -= GetTemporaryItemInPanel;
+        ServiceLocator.Get<EventService>().OnClikedIPlayerItem -= SelectPlayerItem;
+        ServiceLocator.Get<EventService>().OnClickedAnotehrItem -= UnSelectAnotherItem;
     }
 
     private ShopItemSO GetItemData()
@@ -65,38 +69,35 @@ public class PlayerView : MonoBehaviour
 
     private bool IsItemAlreadyInInventory(string itemName)
     {
-        return playerItemTabs.ContainsKey(itemName);
+        return itemsCountByName.ContainsKey(itemName);
     }
 
     private void SpawnItemInPlayerInventory(ShopItemSO tempItem)
     {
         string itemName = tempItem.itemName;
-        int itemQuantity = playerItemTabs.ContainsKey(itemName) ? playerItemTabs[itemName] : 0;
+        int itemQuantity = itemsCountByName.ContainsKey(itemName) ? itemsCountByName[itemName] : 0;
 
         if (IsItemAlreadyInInventory(itemName))
         {
-            playerItemTabs[itemName]++;
+            itemsCountByName[itemName]++;
 
-            TabView tabView = prefabItemList.TryGetValue(itemName, out GameObject itemInstance) 
+            TabView tabView = itemInstanceByName.TryGetValue(itemName, out GameObject itemInstance) 
                 ? itemInstance.GetComponent<TabView>() 
                 : null;
 
-            tabView?.ItemsQuantity(playerItemTabs[itemName]);
+            tabView?.ItemsQuantity(itemsCountByName[itemName]);
         }
         else
         {
-            playerItemTabs.Add(itemName, 1);
-
-            // Instantiate the item prefab inside the temporary content holder
-            // pushing the item to plater inventory
+            itemsCountByName.Add(itemName, 1);
 
             GameObject itemInstance = Instantiate(itemPrefab, contentHolder.transform);
             TabView tabView = itemInstance.GetComponent<TabView>();
 
-            prefabItemList.Add(itemName, itemInstance);
+            itemInstanceByName.Add(itemName, itemInstance);
 
             tabView.Initialize(shopView, tempItem, GameService.TabType.Player);
-            tabView.ItemsQuantity(playerItemTabs[itemName]);
+            tabView.ItemsQuantity(itemsCountByName[itemName]);
         }
     }
 
@@ -129,5 +130,25 @@ public class PlayerView : MonoBehaviour
         rarity.text = "Rarity";
         itemName.text = "Name";
         description.text = "Description";
+    }
+
+    //make unselected from itmeInstance by name when click outside
+    public void SelectPlayerItem(TabView view)
+    {
+        view.itemBGIconGameobject.sprite = ServiceLocator.Get<UIService>().SelectedPlayerItemBGIcon;
+    }
+
+    public void UnSelectAnotherItem(TabView view)
+    {
+        foreach (var item in itemInstanceByName.Values)
+        {
+            Sprite unselectedSprite = view.itemBGIconGameobject.sprite;
+
+            TabView tabView = item.GetComponent<TabView>();
+            if (tabView != null && tabView != view)
+            {
+                tabView.itemBGIconGameobject.sprite = unselectedSprite;
+            }
+        }
     }
 }

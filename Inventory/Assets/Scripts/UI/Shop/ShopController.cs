@@ -56,23 +56,23 @@ public class ShopController
         if (ShopModel.GetTabButton(tabID) != null)
             ShopModel.GetTabButton(tabID).color = ShopModel.activeColor;
 
-        if (ShopModel.GetTabPanel(tabID) != null)
-            ShopModel.GetTabPanel(tabID).SetActive(true);
+        if (ShopModel.GetTabPanelbyID(tabID) != null)
+            ShopModel.GetTabPanelbyID(tabID).SetActive(true);
     }
 
     public GameObject[] GetTabsPanelList()
     {
         return ShopModel.GetTabPanelsList();
     }
-    public GameObject GetTabPanel(int tabID)
+    public GameObject GetTabPanelbyID(int tabID)
     {
-        return ShopModel.GetTabPanel(tabID);
+        return ShopModel.GetTabPanelbyID(tabID);
     }
     public TextMeshProUGUI[] GetTabsButton()
     {
         return ShopModel.GetTabButtonList();
     }
-    public ShopDatabaseSO GetShopDatabase()
+    public ShopDatabaseSO GetShopDatabase()   //List of ScriptableObjects
     {
         return ShopModel.ShopDataBase;
     }

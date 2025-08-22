@@ -12,6 +12,7 @@ public class ShopItemSO : ScriptableObject
     public int sellingPrice;
     public int weight;
     public Rarity rarity;
+    public Sprite iconBG;
 }
 
 public enum ItemType

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,6 +17,7 @@ public class TabView : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI rarityGameobject;
     public TextMeshProUGUI priceGameobject;
     public TextMeshProUGUI quantityGameobject;
+    public Image itemBGIconGameobject;
 
     public TabType tabType;
     private ItemType itemType;
@@ -56,6 +58,12 @@ public class TabView : MonoBehaviour, IPointerClickHandler
     {
         if(itemName != null)
             shopView.FillItemInfo(tabType, itemName);
+
+        ServiceLocator.Get<EventService>().ClickedItem(this);
+
+        //UnityEngine.Debug.Log("Clicked on item: " + itemName);
+        //make unselected from itmeInstance by name when click outside
+
     }
 
     public void ItemsQuantity(int quantity)

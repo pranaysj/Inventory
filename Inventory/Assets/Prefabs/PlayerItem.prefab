@@ -229,6 +229,7 @@ MonoBehaviour:
   rarityGameobject: {fileID: 0}
   priceGameobject: {fileID: 0}
   quantityGameobject: {fileID: 8816895039681804469}
+  itemBGIconGameobject: {fileID: 6904045424447828847}
   tabType: 0
   quantity: 0
 --- !u!1 &9211715842215769026
@@ -265,7 +266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00000023841858, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -13.999998, y: -14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3412786909380203606
@@ -296,8 +297,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 785379054, guid: f78969cc73318d44d9d9582f06790667, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 2c38d8450d3cf0a4286d8b17ae5368b5, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
