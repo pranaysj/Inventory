@@ -10,6 +10,7 @@ public class ShopView : MonoBehaviour
 {
     private ShopController shopController;
     public ShopController ShopController => shopController;
+
     private Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
 
     public void Initialize(ShopController controller)
@@ -57,14 +58,14 @@ public class ShopView : MonoBehaviour
 
     public void SelectShopItem(TabView view)
     {
-        view.itemBGIconGameobject.sprite = ServiceLocator.Get<UIService>().SelectedShopItemBGIcon;
+        view.itemBGIconGameobject.sprite = ShopController.GetSelectedShopItemBGIcon;
     }
 
     private void UnSelectAnotherItem(TabView view)
     {
         foreach (var item in itemInstanceByName.Values)
         {
-            Sprite unselectedSprite = view.itemBGIconGameobject.sprite;
+            Sprite unselectedSprite = ShopController.GetUnselectedShopItemBGIcon;
 
             TabView tabView = item.GetComponent<TabView>();
             if (tabView != null && tabView != view)

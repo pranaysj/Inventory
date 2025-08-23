@@ -1051,8 +1051,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 200
-  m_PreferredHeight: 130
+  m_PreferredWidth: 250
+  m_PreferredHeight: 140
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -1867,7 +1867,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 100
+  m_PreferredWidth: 150
   m_PreferredHeight: 50
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -2831,8 +2831,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1587931787}
   m_HandleRect: {fileID: 1587931786}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3857,7 +3857,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 350
+  m_PreferredWidth: 400
   m_PreferredHeight: 150
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -6292,8 +6292,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2072946959}
   m_HandleRect: {fileID: 2072946958}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7709,7 +7709,7 @@ GameObject:
   - component: {fileID: 1561228440}
   - component: {fileID: 1561228439}
   m_Layer: 5
-  m_Name: Count
+  m_Name: Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7754,7 +7754,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1050
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2086e2f51caa8cc4f8d984cec786ef0a, type: 2}
   m_sharedMaterial: {fileID: 7224956381691025097, guid: 2086e2f51caa8cc4f8d984cec786ef0a, type: 2}
@@ -8013,6 +8013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b835217f0bddb234cae9ade13752a17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bagWeight: 0
 --- !u!114 &1592680159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8048,6 +8049,12 @@ MonoBehaviour:
   r_rarity: {fileID: 1371114775}
   r_itemName: {fileID: 1214509713}
   r_description: {fileID: 159515877}
+  selectedShopItemBGIcon: {fileID: 21300000, guid: 710e9523dc499354c97cabcfa63c610b, type: 3}
+  unselectedShopItemBGIcon: {fileID: 21300000, guid: ff9b65f61fe365649a3b7a2bd0a28001, type: 3}
+  selectedPlayerItemBGIcon: {fileID: 21300000, guid: e6ca787219bc5874e9eb40320782a753, type: 3}
+  unselectedPlayerItemBGIcon: {fileID: 21300000, guid: 2c38d8450d3cf0a4286d8b17ae5368b5, type: 3}
+  money: {fileID: 1561228439}
+  bagWeight: {fileID: 1499233358}
 --- !u!1 &1600265535
 GameObject:
   m_ObjectHideFlags: 0
@@ -8185,8 +8192,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.000038146973, y: 0}
+  m_SizeDelta: {x: -0, y: -5.031}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1633931458
 MonoBehaviour:

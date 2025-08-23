@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class ShopService
 {
     private ShopController shopController;
+    private ShopView shopView;
+    private ShopDatabaseSO shopDatabaseSO;
 
     private TextMeshProUGUI[] tabsButton;
     private GameObject[] tabPanels;
@@ -19,14 +21,19 @@ public class ShopService
     private TextMeshProUGUI transaction;
     private TextMeshProUGUI price;
 
-    public ShopService(ShopView shopView, ShopDatabaseSO shopDatabase)
+    private Sprite selectedShopItemBGIcon;
+    private Sprite unselectedShopItemBGIcon;
+    public ShopService()
     {
-        shopController = new ShopController(this, shopView, shopDatabase);
+        shopController = new ShopController();
         Initialize();
     }
 
     public void Initialize()
     {
+        shopView = ServiceLocator.Get<GameService>().ShopView;
+        shopDatabaseSO = ServiceLocator.Get<GameService>().ShopDatabase;
+
         tabsButton = ServiceLocator.Get<UIService>().TanNames;
         tabPanels = ServiceLocator.Get<UIService>().TabItems;
         shopItemPrefab = ServiceLocator.Get<GameService>().ShopItemPrefab;
@@ -38,7 +45,23 @@ public class ShopService
         transaction = ServiceLocator.Get<UIService>().Transaction;
         price = ServiceLocator.Get<UIService>().Price;
 
-        shopController.Initialize(tabsButton, tabPanels, shopItemPrefab, icon, itemName, description, weight, transaction, price);
+        selectedShopItemBGIcon = ServiceLocator.Get<UIService>().SelectedShopItemBGIcon;
+        unselectedShopItemBGIcon = ServiceLocator.Get<UIService>().UnselectedShopItemBGIcon;
+
+        shopController.Initialize(
+            shopView, 
+            shopDatabaseSO, 
+            tabsButton, 
+            tabPanels, 
+            shopItemPrefab, 
+            icon, 
+            itemName, 
+            description, 
+            weight, 
+            transaction, 
+            price,
+            selectedShopItemBGIcon,
+            unselectedShopItemBGIcon);
     }
 
     public void Switch(int tabID)

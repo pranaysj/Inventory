@@ -33,7 +33,15 @@ public class UIService : MonoBehaviour
 
     [Header("PROJECT")]
     [SerializeField] private Sprite selectedShopItemBGIcon;
+    [SerializeField] private Sprite unselectedShopItemBGIcon;
     [SerializeField] private Sprite selectedPlayerItemBGIcon;
+    [SerializeField] private Sprite unselectedPlayerItemBGIcon;
+
+    [Header("HIERARCHY : UIService")]
+    [SerializeField] private TextMeshProUGUI money;
+
+    [Header("HIERARCHY : Canvas/Menu/Inventory/Item Panel/Player/Inventory/Weight Text")]
+    [SerializeField] private TextMeshProUGUI bagWeight;
 
     public TextMeshProUGUI[] TanNames => tabNames;
     public GameObject[] TabItems => tabItems;
@@ -52,7 +60,11 @@ public class UIService : MonoBehaviour
     public TextMeshProUGUI RarityR => r_rarity;
     public TextMeshProUGUI ItemNameR => r_itemName;
     public TextMeshProUGUI DescriptionR => r_description;
+    public TextMeshProUGUI Money => money;
+    public TextMeshProUGUI BagWeight => bagWeight;
 
     public Sprite SelectedShopItemBGIcon => selectedShopItemBGIcon;
+    public Sprite UnselectedShopItemBGIcon => unselectedShopItemBGIcon;
     public Sprite SelectedPlayerItemBGIcon => selectedPlayerItemBGIcon;
+    public Sprite UnselectedPlayerItemBGIcon => unselectedPlayerItemBGIcon;
 }

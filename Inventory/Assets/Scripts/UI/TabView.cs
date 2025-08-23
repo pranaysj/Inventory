@@ -60,10 +60,6 @@ public class TabView : MonoBehaviour, IPointerClickHandler
             shopView.FillItemInfo(tabType, itemName);
 
         ServiceLocator.Get<EventService>().ClickedItem(this);
-
-        //UnityEngine.Debug.Log("Clicked on item: " + itemName);
-        //make unselected from itmeInstance by name when click outside
-
     }
 
     public void ItemsQuantity(int quantity)

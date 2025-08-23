@@ -36,7 +36,7 @@ public class GameService : MonoBehaviour
         ServiceLocator.Register(eventService);
 
         ServiceLocator.Register(uiService);
-        shopService = new ShopService(shopView, ShopDatabase);
+        shopService = new ShopService();
         playerService = new PlayerService();
 
         ServiceLocator.Register(shopService);

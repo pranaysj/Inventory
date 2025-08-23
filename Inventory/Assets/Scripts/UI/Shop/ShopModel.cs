@@ -23,19 +23,34 @@ public class ShopModel
     private TextMeshProUGUI transaction;
     private TextMeshProUGUI price;
 
+    private Sprite selectedShopItemBGIcon;
+    private Sprite unselectedShopItemBGIcon;
+
+    public Image TempIcon => tempIcon;
+    public Image Icon => icon;
+    public TextMeshProUGUI ItemName => itemName;
+    public TextMeshProUGUI Description => description;
+    public TextMeshProUGUI Weight => weight;
+    public TextMeshProUGUI Transaction => transaction;
+    public TextMeshProUGUI Price => price;
+
+
     public ShopDatabaseSO ShopDataBase => shopDataBase;
     public ShopController ShopController => shopController;
+
+    public Sprite SelectedShopItemBGIcon => selectedShopItemBGIcon;
+    public Sprite UnselectedShopItemBGIcon => unselectedShopItemBGIcon;
 
     public Color activeColor = new Color32(220, 219, 218, 225);
     public Color inactiveColor = new Color32(115, 115, 115, 225);
 
-    public ShopModel(ShopController shopController, ShopDatabaseSO shopDataBase)
+    public ShopModel(ShopController shopController)
     {
         this.shopController = shopController;
-        this.shopDataBase = shopDataBase;
     }
 
     public void Initialize(
+        ShopDatabaseSO database,
         TextMeshProUGUI[] tabsButtons,
         GameObject[] tabsPanels,
         GameObject shopItemPrefab,
@@ -44,8 +59,11 @@ public class ShopModel
         TextMeshProUGUI description,
         TextMeshProUGUI weight,
         TextMeshProUGUI transaction,
-        TextMeshProUGUI price)
+        TextMeshProUGUI price,
+        Sprite selectedShopItemBGIcon,
+        Sprite unselectedShopItemBGIcon)
     {
+        this.shopDataBase = database;
         this.tabsButton = tabsButtons;
         this.tabPanels = tabsPanels;
         this.shopItemPrefab = shopItemPrefab;
@@ -57,7 +75,9 @@ public class ShopModel
         this.price = price;
 
         this.tempIcon = icon;
-        Reset();
+
+        this.selectedShopItemBGIcon = selectedShopItemBGIcon;
+        this.unselectedShopItemBGIcon = unselectedShopItemBGIcon;
     }
 
     public TextMeshProUGUI[] GetTabButtonList()
@@ -88,40 +108,5 @@ public class ShopModel
     public GameObject GetShopItemPrefab()
     {
         return shopItemPrefab;
-    }
-    public void SetItemInfo(TabType tabType, string name)
-    {
-        foreach (var item in shopDataBase.shopItems)
-        {
-            if (item.itemName == name)
-            {
-                icon.sprite = item.icon;
-                itemName.text = item.itemName;
-                description.text = item.description;
-                weight.text = item.weight.ToString() + " kg";
-
-                switch (tabType)
-                {
-                    case TabType.Shop:
-                        transaction.text = "Buying Price";
-                        price.text = item.buyingPrice.ToString() + " G";
-                        break;
-
-                    case TabType.Player:
-                        transaction.text = "Selling Price";
-                        price.text = item.sellingPrice.ToString() + " G";
-                        break;
-                }
-                
-                return;
-            }
-        }
-        Debug.LogWarning("Item not found: " + name);
-    }
-    private void Reset()
-    {
-        icon.sprite = tempIcon.sprite;
-        itemName.text = "Name";
-        description.text = "Description";
     }
 }

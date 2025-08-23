@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Transactions;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
@@ -9,22 +12,20 @@ using static GameService;
 
 public class ShopController
 {
-    private ShopService shopService;
     private ShopModel shopModel;
     private ShopView shopView;
 
-    public ShopService ShopService => shopService;
     public ShopModel ShopModel => shopModel;
     public ShopView ShopView => shopView;
 
-    public ShopController(ShopService service, ShopView view, ShopDatabaseSO database)
+    public ShopController()
     {
-        shopService = service;
-        shopView = view;
-        shopModel = new ShopModel(this, database);
+        shopModel = new ShopModel(this);
     }
 
     public void Initialize(
+        ShopView shopView,
+        ShopDatabaseSO database,
         TextMeshProUGUI[] tabsButtons,
         GameObject[] tabsPanels,
         GameObject shopItemPrefab,
@@ -33,10 +34,28 @@ public class ShopController
         TextMeshProUGUI description,
         TextMeshProUGUI weight,
         TextMeshProUGUI transaction,
-        TextMeshProUGUI price)
+        TextMeshProUGUI price,
+        Sprite selectedShopItemBGIcon,
+        Sprite unselectedShopItemBGIcon)
     {
+        this.shopView = shopView;
         ShopView.Initialize(this);
-        ShopModel.Initialize(tabsButtons, tabsPanels, shopItemPrefab, icon, itemName, description, weight, transaction, price);
+
+        ShopModel.Initialize(
+            database, 
+            tabsButtons, 
+            tabsPanels, 
+            shopItemPrefab, 
+            icon, 
+            itemName, 
+            description, 
+            weight, 
+            transaction, 
+            price,
+            selectedShopItemBGIcon,
+            unselectedShopItemBGIcon);
+
+        Reset();
     }
 
     public void Switch(int tabID)
@@ -82,6 +101,41 @@ public class ShopController
     }
     public void SetItemInfo(TabType tabType, string name)
     {
-        ShopModel.SetItemInfo(tabType, name);
+        foreach (var item in GetShopDatabase().shopItems)
+        {
+            if (item.itemName == name)
+            {
+                ShopModel.Icon.sprite = item.icon;
+                ShopModel.ItemName.text = item.itemName;
+                ShopModel.Description.text = item.description;
+                ShopModel.Weight.text = item.weight.ToString() + " kg";
+
+                switch (tabType)
+                {
+                    case TabType.Shop:
+                        ShopModel.Transaction.text = "Buying Price";
+                        ShopModel.Price.text = item.buyingPrice.ToString() + " G";
+                        break;
+
+                    case TabType.Player:
+                        ShopModel.Transaction.text = "Selling Price";
+                        ShopModel.Price.text = item.sellingPrice.ToString() + " G";
+                        break;
+                }
+
+                return;
+            }
+        }
+        UnityEngine.Debug.LogWarning("Item not found: " + name);
     }
+    private void Reset()
+    {
+        ShopModel.Icon.sprite = ShopModel.TempIcon.sprite;
+        ShopModel.ItemName.text = "Name";
+        ShopModel.Description.text = "Description";
+    }
+
+    public Sprite GetSelectedShopItemBGIcon => ShopModel.SelectedShopItemBGIcon;
+    public Sprite GetUnselectedShopItemBGIcon => ShopModel.UnselectedShopItemBGIcon;
+
 }

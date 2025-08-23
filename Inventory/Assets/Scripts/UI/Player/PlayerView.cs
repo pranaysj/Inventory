@@ -10,47 +10,25 @@ public class PlayerView : MonoBehaviour
     private PlayerController playerController;
     public PlayerController PlayerController => playerController;
 
-    private GameObject contentHolder;
-    private GameObject itemPrefab;
-    private ShopView shopView;
-    private ShopDatabaseSO shopDatabaseSO;
-
-    private Dictionary<string, int> itemsCountByName = new Dictionary<string, int>();
-    private Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
-
-    private Image icon;
-    private TextMeshProUGUI type;
-    private TextMeshProUGUI rarity;
-    private TextMeshProUGUI itemName;
-    private TextMeshProUGUI description;
-    
-    public Sprite tempIcon;
     private ShopItemSO tempItem;
+
+    [SerializeField]private int bagWeight = 0;
+    private TextMeshProUGUI bagWeightText;
+    
 
     private void Start()
     {
         ServiceLocator.Get<EventService>().OnPlayerGetItem += GetTemporaryItemInPanel;
         ServiceLocator.Get<EventService>().OnClikedIPlayerItem += SelectPlayerItem;
         ServiceLocator.Get<EventService>().OnClickedAnotehrItem += UnSelectAnotherItem;
+
+        bagWeightText = PlayerController.GetBagWight();
     }
 
     public void Initialize(PlayerController playerController)
     {
         this.playerController = playerController;
 
-        contentHolder = ServiceLocator.Get<UIService>().Content;
-        itemPrefab = ServiceLocator.Get<GameService>().PlayerItemPrefab;
-        shopView = ServiceLocator.Get<GameService>().ShopView;
-        shopDatabaseSO = ServiceLocator.Get<GameService>().ShopDatabase;
-
-        icon = ServiceLocator.Get<UIService>().IconR;
-        type = ServiceLocator.Get<UIService>().TypeR;
-        rarity = ServiceLocator.Get<UIService>().RarityR;
-        itemName = ServiceLocator.Get<UIService>().ItemNameR;
-        description = ServiceLocator.Get<UIService>().DescriptionR;
-
-        tempIcon = icon.sprite;
-        Reset();
     }
 
     private void OnDestroy()
@@ -60,91 +38,56 @@ public class PlayerView : MonoBehaviour
         ServiceLocator.Get<EventService>().OnClickedAnotehrItem -= UnSelectAnotherItem;
     }
 
-    private ShopItemSO GetItemData()
+    public GameObject InstantiateItem()
     {
-        int randomIndex = Random.Range(0, shopDatabaseSO.shopItems.Count);
-        ShopItemSO itemData = shopDatabaseSO.shopItems[randomIndex];
-        return itemData;
+        return Instantiate(PlayerController.GetItemPrefab(), PlayerController.GetContentHolder().transform);
     }
-
-    private bool IsItemAlreadyInInventory(string itemName)
+    public void UpdateBagWeight(int weightChange)
     {
-        return itemsCountByName.ContainsKey(itemName);
-    }
-
-    private void SpawnItemInPlayerInventory(ShopItemSO tempItem)
-    {
-        string itemName = tempItem.itemName;
-        int itemQuantity = itemsCountByName.ContainsKey(itemName) ? itemsCountByName[itemName] : 0;
-
-        if (IsItemAlreadyInInventory(itemName))
-        {
-            itemsCountByName[itemName]++;
-
-            TabView tabView = itemInstanceByName.TryGetValue(itemName, out GameObject itemInstance) 
-                ? itemInstance.GetComponent<TabView>() 
-                : null;
-
-            tabView?.ItemsQuantity(itemsCountByName[itemName]);
-        }
-        else
-        {
-            itemsCountByName.Add(itemName, 1);
-
-            GameObject itemInstance = Instantiate(itemPrefab, contentHolder.transform);
-            TabView tabView = itemInstance.GetComponent<TabView>();
-
-            itemInstanceByName.Add(itemName, itemInstance);
-
-            tabView.Initialize(shopView, tempItem, GameService.TabType.Player);
-            tabView.ItemsQuantity(itemsCountByName[itemName]);
-        }
+        bagWeight += weightChange;
+        PlayerController.SetWeight(bagWeight);
+        bagWeightText.text = "Weight: " + bagWeight.ToString() + " / " + PlayerController.GetMaxWeight() + " kg";
     }
 
     public void GetTemporaryItemInPanel()
     {
-        tempItem = GetItemData();
+        tempItem = PlayerController.GetItemData();
 
-        icon.sprite = tempItem.icon;
-        type.text = tempItem.itemType.ToString();
-        rarity.text = tempItem.rarity.ToString();
-        itemName.text = tempItem.itemName;
-        description.text = tempItem.description;
+        PlayerController.GetIcon().sprite = tempItem.icon;
+        PlayerController.GetItemType().text = tempItem.itemType.ToString();
+        PlayerController.GetRarity().text = tempItem.rarity.ToString();
+        PlayerController.GetItemName().text = tempItem.itemName;
+        PlayerController.GetDescription().text = tempItem.description;
 
     }
 
     public void GetTempItemInPlayerInventory()
     {
-        if (tempItem != null)
+        if (tempItem == null) return;
+
+        int nextWeight = PlayerController.GetWeight() + tempItem.weight;
+
+        if (tempItem != null && nextWeight < PlayerController.GetMaxWeight())
         {
-            SpawnItemInPlayerInventory(tempItem);
+            PlayerController.SpawnItemInPlayerInventory(tempItem);
             tempItem = null;
-            Reset();
+            PlayerController.Reset();
         }
     }
 
-    private void Reset()
-    {
-        icon.sprite = tempIcon;
-        type.text = "Item Type";
-        rarity.text = "Rarity";
-        itemName.text = "Name";
-        description.text = "Description";
-    }
-
-    //make unselected from itmeInstance by name when click outside
     public void SelectPlayerItem(TabView view)
     {
-        view.itemBGIconGameobject.sprite = ServiceLocator.Get<UIService>().SelectedPlayerItemBGIcon;
+        view.itemBGIconGameobject.sprite = PlayerController.GetSelectedPlayerItemBGIcon;
     }
 
     public void UnSelectAnotherItem(TabView view)
     {
-        foreach (var item in itemInstanceByName.Values)
+        foreach (var item in PlayerController.GetItemInstanceByName().Values)
         {
-            Sprite unselectedSprite = view.itemBGIconGameobject.sprite;
+            Sprite unselectedSprite = PlayerController.GetUnselectedPlayerItemBGIcon;
 
             TabView tabView = item.GetComponent<TabView>();
+
             if (tabView != null && tabView != view)
             {
                 tabView.itemBGIconGameobject.sprite = unselectedSprite;
