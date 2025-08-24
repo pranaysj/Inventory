@@ -45,7 +45,7 @@ public class ShopView : MonoBehaviour
                 {
                     TabView tabView = Instantiate(ShopController.GetShopItemPrefab(), contentHolder.transform).GetComponent<TabView>();
                     itemInstanceByName[item.itemName] = tabView.gameObject;
-                    tabView.Initialize(this, item, GameService.TabType.Shop);
+                    tabView.Initialize(this, item, TabType.Shop);
                 }
             }
         }

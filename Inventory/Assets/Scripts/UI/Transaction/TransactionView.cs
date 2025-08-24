@@ -68,11 +68,13 @@ public class TransactionView : MonoBehaviour
 
     public void IncreaseQuantity()
     {
+        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
+
         if (!isItemIsSelected) return;
 
         quantity++;
 
-        if(selectedItemView.TabType == GameService.TabType.Shop)
+        if(selectedItemView.TabType == TabType.Shop)
         {
             if (!IsBuyingLimitExceed())
             {
@@ -81,7 +83,7 @@ public class TransactionView : MonoBehaviour
             }
         }
 
-        if(selectedItemView.TabType == GameService.TabType.Player)
+        if(selectedItemView.TabType == TabType.Player)
         {
             if (!IsSellingLimitExceed())
             {
@@ -100,6 +102,8 @@ public class TransactionView : MonoBehaviour
 
     public void DecreaseQuantity()
     {
+        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
+
         if (!isItemIsSelected) return;
 
         quantity--;
@@ -120,7 +124,7 @@ public class TransactionView : MonoBehaviour
 
         switch (selectedItemView.TabType)
         {
-            case GameService.TabType.Player:
+            case TabType.Player:
                 if(type == TransactionType.Increment)
                 {
                     sellingPrice = sellingPrice + selectedItemView.SellingPrice;
@@ -135,7 +139,7 @@ public class TransactionView : MonoBehaviour
                 TransactionController.GetTotalPrice.text = sellingPrice.ToString() + " G";
                 break;
 
-            case GameService.TabType.Shop:
+            case TabType.Shop:
                 if(type == TransactionType.Increment)
                 {
                     buyingPrice = buyingPrice + selectedItemView.BuyingPrice;
@@ -204,12 +208,14 @@ public class TransactionView : MonoBehaviour
 
         switch (selectedItemView.TabType)
         {
-            case GameService.TabType.Player:
+            case TabType.Player:
                 transactionController.GetPlayerService.SellItem(selectedItemView, quantity, sellingPrice, grossWeight);
+                ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ItemSold);
                 break;
-            case GameService.TabType.Shop:
+            case TabType.Shop:
                 transactionController.GetPlayerService.BuyItem(selectedItemView, quantity, buyingPrice, grossWeight);
                 selectedItemView.itemBGIconGameobject.sprite = transactionController.GetShopService.ShopController.GetUnselectedShopItemBGIcon;
+                ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ItemPurchased);
                 break;
         }
         ResetTransactionInfo();

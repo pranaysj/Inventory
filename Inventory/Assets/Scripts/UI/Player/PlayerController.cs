@@ -89,7 +89,7 @@ public class PlayerController
             PlayerView.UpdateBagWeight(tempItem.weight);
             PlayerView.UpdateMoney();
 
-            tabView.Initialize(GetShopView(), tempItem, GameService.TabType.Player);
+            tabView.Initialize(GetShopView(), tempItem, TabType.Player);
             tabView.ItemsQuantity(itemsCountByName[itemName]);
         }
     }

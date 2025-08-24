@@ -6,7 +6,7 @@ using static GameService;
 
 public class EventService
 {
-    public event Action OnInventoryKeyPressed, OnPlayerGetItem;
+    public event Action OnInventoryKeyPressed;
     public event Action<TabView> OnClikedIPlayerItem, OnClikedIShopItem, OnClickedAnotehrItem;
 
     public void Update()
@@ -14,11 +14,7 @@ public class EventService
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             OnInventoryKeyPressed?.Invoke();
-        }
-
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            OnPlayerGetItem?.Invoke();
+            ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.KeyboardClick);
         }
     }
 

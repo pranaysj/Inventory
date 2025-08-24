@@ -68,6 +68,8 @@ public class TabView : MonoBehaviour, IPointerClickHandler
             shopView.FillItemInfo(tabType, itemName);
 
         ServiceLocator.Get<EventService>().ClickedItem(this);
+        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ItemSelected);
+
     }
 
     public void ItemsQuantity(int quantity)

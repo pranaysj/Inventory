@@ -18,7 +18,6 @@ public class PlayerView : MonoBehaviour
 
     private void Start()
     {
-        ServiceLocator.Get<EventService>().OnPlayerGetItem += GetTemporaryItemInPanel;
         ServiceLocator.Get<EventService>().OnClikedIPlayerItem += SelectPlayerItem;
         ServiceLocator.Get<EventService>().OnClickedAnotehrItem += UnSelectAnotherItem;
 
@@ -34,7 +33,6 @@ public class PlayerView : MonoBehaviour
 
     private void OnDestroy()
     {
-        ServiceLocator.Get<EventService>().OnPlayerGetItem -= GetTemporaryItemInPanel;
         ServiceLocator.Get<EventService>().OnClikedIPlayerItem -= SelectPlayerItem;
         ServiceLocator.Get<EventService>().OnClickedAnotehrItem -= UnSelectAnotherItem;
     }
@@ -56,6 +54,8 @@ public class PlayerView : MonoBehaviour
 
     public void GetTemporaryItemInPanel()
     {
+        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
+
         tempItem = PlayerController.GetItemData();
 
         PlayerController.GetIcon().sprite = tempItem.icon;
@@ -68,6 +68,8 @@ public class PlayerView : MonoBehaviour
 
     public void GetTempItemInPlayerInventory()
     {
+        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
+
         if (tempItem == null) return;
 
         int nextWeight = PlayerController.GetWeight() + tempItem.weight;
