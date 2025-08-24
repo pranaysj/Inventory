@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -22,6 +23,7 @@ public class PlayerService
     private TextMeshProUGUI description;
 
     private TextMeshProUGUI bagWight;
+    private TextMeshProUGUI money;
 
     private Sprite selectedPlayerItemBGIcon;
     private Sprite unselectedPlayerItemBGIcon;
@@ -47,6 +49,7 @@ public class PlayerService
         description = ServiceLocator.Get<UIService>().DescriptionR;
 
         bagWight = ServiceLocator.Get<UIService>().BagWeight;
+        money = ServiceLocator.Get<UIService>().Money;
 
         selectedPlayerItemBGIcon = ServiceLocator.Get<UIService>().SelectedPlayerItemBGIcon;
         unselectedPlayerItemBGIcon = ServiceLocator.Get<UIService>().UnselectedPlayerItemBGIcon;
@@ -63,7 +66,26 @@ public class PlayerService
             itemName,
             description,
             bagWight,
+            money,
             selectedPlayerItemBGIcon,
             unselectedPlayerItemBGIcon);
+    }
+
+    public int GetMoney()
+    {
+        return PlayerController.GetMoney();
+    }
+    public void SetMoney(int value)
+    {
+        PlayerController.SetMoney(value);
+    }
+    internal void SellItem(TabView selectedItemView, int quantity, int sellingPrice, int grossWeight)
+    {
+        PlayerController.SellItem(selectedItemView, quantity, sellingPrice, grossWeight);
+    }
+
+    internal void BuyItem(TabView selectedItemView, int quantity, int buyingPrice, int grossWeight)
+    {
+        PlayerController.BuyItem(selectedItemView, quantity, buyingPrice, grossWeight);
     }
 }

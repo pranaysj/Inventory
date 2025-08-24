@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -68,4 +69,6 @@ public class ShopService
     {
         shopController.Switch(tabID);
     }
+
+    public ShopController ShopController => shopController;
 }

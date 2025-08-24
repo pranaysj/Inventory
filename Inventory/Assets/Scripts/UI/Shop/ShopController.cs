@@ -128,6 +128,11 @@ public class ShopController
         }
         UnityEngine.Debug.LogWarning("Item not found: " + name);
     }
+
+    public void UnSelectAnotherItem(TabView view)
+    {
+        ShopView.UnSelectAnotherItem(view);
+    }
     private void Reset()
     {
         ShopModel.Icon.sprite = ShopModel.TempIcon.sprite;

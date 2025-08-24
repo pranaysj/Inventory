@@ -7,6 +7,8 @@ public class TransactionService
 {
     private TransactionController transactionController;
     private TransactionView transactionView;
+    private PlayerService playerService;
+    private ShopService shopService;
 
     private TextMeshProUGUI grossWeight;
     private TextMeshProUGUI buyAndSellText;
@@ -27,14 +29,19 @@ public class TransactionService
         quantity = ServiceLocator.Get<UIService>().Quantity;
         buttonText = ServiceLocator.Get<UIService>().ButtonText;
 
+        playerService = ServiceLocator.Get<PlayerService>();
+        shopService = ServiceLocator.Get<ShopService>();
         transactionView = ServiceLocator.Get<GameService>().TransactionView;
 
         transactionController.Initialize(
+            playerService,
+            shopService,
             transactionView,
             grossWeight,
             buyAndSellText,
             totalPrice,
             quantity,
             buttonText);
+
     }
 }

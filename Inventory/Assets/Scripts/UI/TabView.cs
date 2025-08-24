@@ -19,7 +19,7 @@ public class TabView : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI quantityGameobject;
     public Image itemBGIconGameobject;
 
-    public TabType tabType;
+    private TabType tabType;
     private ItemType itemType;
     private string itemName;
     private Sprite icon;
@@ -32,6 +32,8 @@ public class TabView : MonoBehaviour, IPointerClickHandler
 
     private ShopView shopView;
 
+    public TabType TabType => tabType;
+    public string ItemName => itemName;
     public int Weight => weight;
     public int BuyingPrice => buyingPrice;
     public int SellingPrice => sellingPrice;
@@ -72,5 +74,19 @@ public class TabView : MonoBehaviour, IPointerClickHandler
     {
         this.quantity = quantity;
         if (quantityGameobject) quantityGameobject.text = "x " + this.quantity.ToString();
+    }
+
+    internal ShopItemSO GetItemData()
+    {
+        ShopItemSO itemData = ScriptableObject.CreateInstance<ShopItemSO>();
+        itemData.itemName = itemName;
+        itemData.icon = icon;
+        itemData.description = description;
+        itemData.buyingPrice = buyingPrice;
+        itemData.sellingPrice = sellingPrice;
+        itemData.weight = weight;
+        itemData.rarity = rarity;
+        itemData.itemType = itemType;
+        return itemData;
     }
 }

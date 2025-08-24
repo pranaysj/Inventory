@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum TransactionType
@@ -71,6 +72,24 @@ public class TransactionView : MonoBehaviour
 
         quantity++;
 
+        if(selectedItemView.TabType == GameService.TabType.Shop)
+        {
+            if (!IsBuyingLimitExceed())
+            {
+                quantity--;
+                return;
+            }
+        }
+
+        if(selectedItemView.TabType == GameService.TabType.Player)
+        {
+            if (!IsSellingLimitExceed())
+            {
+                quantity--;
+                return;
+            }
+        }
+
         grossWeight = grossWeight + selectedItemView.Weight;
 
         CheckItemTypeForBuyAndSellButton(TransactionType.Increment);
@@ -99,7 +118,7 @@ public class TransactionView : MonoBehaviour
     {
         if (!isItemIsSelected) return;
 
-        switch (selectedItemView.tabType)
+        switch (selectedItemView.TabType)
         {
             case GameService.TabType.Player:
                 if(type == TransactionType.Increment)
@@ -149,4 +168,51 @@ public class TransactionView : MonoBehaviour
         TransactionController.GetQuantity.text = "0";
         TransactionController.GetButtonText.text = "BUY/SELL";
     }
+
+    private bool IsBuyingLimitExceed()
+    {
+        int tempBuyingLimit = buyingPrice;
+        tempBuyingLimit = tempBuyingLimit + selectedItemView.BuyingPrice;
+
+        int tempWeightLimit = grossWeight;
+        tempWeightLimit = tempWeightLimit + selectedItemView.Weight;
+
+        int monkey = transactionController.GetPlayerService.PlayerController.GetMoney();
+        int maxWeight = transactionController.GetPlayerService.PlayerController.GetMaxWeight();
+
+        if (tempBuyingLimit < monkey && tempWeightLimit < maxWeight)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private bool IsSellingLimitExceed()
+    {
+        int itemQuantity = selectedItemView.Quantity;
+
+        if (quantity <= itemQuantity)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void BuyAndSellButton()
+    {
+        if (!isItemIsSelected) return;
+
+        switch (selectedItemView.TabType)
+        {
+            case GameService.TabType.Player:
+                transactionController.GetPlayerService.SellItem(selectedItemView, quantity, sellingPrice, grossWeight);
+                break;
+            case GameService.TabType.Shop:
+                transactionController.GetPlayerService.BuyItem(selectedItemView, quantity, buyingPrice, grossWeight);
+                selectedItemView.itemBGIconGameobject.sprite = transactionController.GetShopService.ShopController.GetUnselectedShopItemBGIcon;
+                break;
+        }
+        ResetTransactionInfo();
+    }
 }
+

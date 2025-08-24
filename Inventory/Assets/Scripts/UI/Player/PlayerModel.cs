@@ -21,6 +21,7 @@ public class PlayerModel
     private TextMeshProUGUI description;
 
     private TextMeshProUGUI bagWeight;
+    private TextMeshProUGUI moneyText;
 
     private Sprite selectedPlayerItemBGIcon;
     private Sprite unselectedPlayerItemBGIcon;
@@ -39,6 +40,7 @@ public class PlayerModel
     public TextMeshProUGUI ItemName => itemName;
     public TextMeshProUGUI Description => description;
     public TextMeshProUGUI BagWeight => bagWeight;
+    public TextMeshProUGUI MoneyText => moneyText;
 
     public Sprite SelectedPlayerItemBGIcon => selectedPlayerItemBGIcon;
     public Sprite UnselectedPlayerItemBGIcon => unselectedPlayerItemBGIcon;
@@ -63,6 +65,7 @@ public class PlayerModel
         TextMeshProUGUI itemName, 
         TextMeshProUGUI description,
         TextMeshProUGUI bagWeight,
+        TextMeshProUGUI money,
         Sprite selectedPlayerItemBGIcon,
         Sprite unselectedPlayerItemBGIcon)
     {
@@ -76,6 +79,7 @@ public class PlayerModel
         this.itemName = itemName;
         this.description = description;
         this.bagWeight = bagWeight;
+        this.moneyText = money;
         this.selectedPlayerItemBGIcon = selectedPlayerItemBGIcon;
         this.unselectedPlayerItemBGIcon = unselectedPlayerItemBGIcon;
     }

@@ -35,6 +35,7 @@ public class PlayerController
         TextMeshProUGUI itemName, 
         TextMeshProUGUI description,
         TextMeshProUGUI bagWeight,
+        TextMeshProUGUI money,
         Sprite selectedPlayerItemBGIcon,
         Sprite unselectedPlayerItemBGIcon)
     {
@@ -52,6 +53,7 @@ public class PlayerController
             itemName,
             description,
             bagWeight,
+            money,
             selectedPlayerItemBGIcon,
             unselectedPlayerItemBGIcon);
 
@@ -85,6 +87,7 @@ public class PlayerController
             itemInstanceByName.Add(itemName, itemInstance);
 
             PlayerView.UpdateBagWeight(tempItem.weight);
+            PlayerView.UpdateMoney();
 
             tabView.Initialize(GetShopView(), tempItem, GameService.TabType.Player);
             tabView.ItemsQuantity(itemsCountByName[itemName]);
@@ -100,6 +103,75 @@ public class PlayerController
         int randomIndex = UnityEngine.Random.Range(0, GetShopDatabaseSO().shopItems.Count);
         ShopItemSO itemData = GetShopDatabaseSO().shopItems[randomIndex];
         return itemData;
+    }
+
+    public void SellItem(TabView selectedItemView, int quantity, int sellingPrice, int grossWeight)
+    {
+        if (selectedItemView == null)
+        {
+            Debug.LogWarning("No item selected to sell.");
+            return;
+        }
+        string itemName = selectedItemView.ItemName;
+        if (itemsCountByName.ContainsKey(itemName))
+        {
+            itemsCountByName[itemName] -= quantity;
+            if (itemsCountByName[itemName] <= 0)
+            {
+                itemsCountByName.Remove(itemName);
+                if (itemInstanceByName.TryGetValue(itemName, out GameObject itemInstance))
+                {
+                    GameObject.Destroy(itemInstance);
+                    itemInstanceByName.Remove(itemName);
+                }
+            }
+            else
+            {
+                TabView tabView = itemInstanceByName.TryGetValue(itemName, out GameObject itemInstance)
+                    ? itemInstance.GetComponent<TabView>()
+                    : null;
+                tabView?.ItemsQuantity(itemsCountByName[itemName]);
+            }
+            SetMoney(GetMoney() + sellingPrice);
+            PlayerView.UpdateBagWeight(-grossWeight);
+            PlayerView.UpdateMoney();
+        }
+    }
+
+    internal void BuyItem(TabView selectedItemView, int quantity, int buyingPrice, int grossWeight)
+    {
+        string itemName = selectedItemView.nameGameobject.text;
+        ShopItemSO itemData = GetItemScriptableObject(itemName);
+        if (GetMoney() >= buyingPrice && (GetWeight() + grossWeight) <= GetMaxWeight())
+        {
+            SetMoney(GetMoney() - buyingPrice);
+            SpawnItemInPlayerInventory(itemData);
+            //PlayerView.UpdateBagWeight(grossWeight);
+        }
+        else
+        {
+            if (GetMoney() < buyingPrice)
+            {
+                Debug.LogWarning("Not enough money to buy the item.");
+            }
+            if ((GetWeight() + grossWeight) > GetMaxWeight())
+            {
+                Debug.LogWarning("Not enough bag weight capacity to carry the item.");
+            }
+        }
+    }
+
+    private ShopItemSO GetItemScriptableObject(string itemName)
+    {
+        foreach (var item in GetShopDatabaseSO().shopItems)
+        {
+            if (item.itemName == itemName)
+            {
+                return item;
+            }
+        }
+        Debug.LogWarning("Item not found: " + itemName);
+        return null;
     }
 
     public void Reset()
@@ -174,6 +246,10 @@ public class PlayerController
     public TextMeshProUGUI GetBagWight()
     {
         return playerModel.BagWeight;
+    }
+    public TextMeshProUGUI GetMonkeyText()
+    {
+        return playerModel.MoneyText;
     }
     public Sprite GetSelectedPlayerItemBGIcon => playerModel.SelectedPlayerItemBGIcon;
     public Sprite GetUnselectedPlayerItemBGIcon => playerModel.UnselectedPlayerItemBGIcon;

@@ -7,6 +7,8 @@ using UnityEngine;
 public class TransactionModel 
 {
     private TransactionController transactionController;
+    private PlayerService playerService;
+    private ShopService shopService;
 
     private TextMeshProUGUI grossWeight;
     private TextMeshProUGUI buyAndSellText;
@@ -14,6 +16,9 @@ public class TransactionModel
     private TextMeshProUGUI quantity;
     private TextMeshProUGUI buttonText;
     public TransactionController TransactionController => transactionController;
+    public PlayerService PlayerService => playerService;
+    public ShopService ShopService => shopService;
+
     public TextMeshProUGUI GrossWeight => grossWeight;
     public TextMeshProUGUI BuyAndSellText => buyAndSellText;
     public TextMeshProUGUI TotalPrice => totalPrice;
@@ -25,13 +30,17 @@ public class TransactionModel
         this.transactionController = transactionController;
     }
 
-    internal void Initialize( 
+    internal void Initialize(
+        PlayerService playerService,
+        ShopService shopService,
         TextMeshProUGUI grossWeight, 
         TextMeshProUGUI buyAndSellText, 
         TextMeshProUGUI totalPrice, 
         TextMeshProUGUI quantity, 
         TextMeshProUGUI buttonText)
     {
+        this.playerService = playerService;
+        this.shopService = shopService;
         this.grossWeight = grossWeight;
         this.buyAndSellText = buyAndSellText;
         this.totalPrice = totalPrice;

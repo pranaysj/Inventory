@@ -16,12 +16,22 @@ public class TransactionController
         transactionModel = new TransactionModel(this);
     }
 
-    public void Initialize(TransactionView transactionView, TextMeshProUGUI grossWeight, TextMeshProUGUI buyAndSellText, TextMeshProUGUI totalPrice, TextMeshProUGUI quantity, TextMeshProUGUI buttonText)
+    public void Initialize(
+        PlayerService playerService, 
+        ShopService shopService,
+        TransactionView transactionView, 
+        TextMeshProUGUI grossWeight, 
+        TextMeshProUGUI buyAndSellText, 
+        TextMeshProUGUI totalPrice, 
+        TextMeshProUGUI quantity, 
+        TextMeshProUGUI buttonText)
     {
         this.transactionView = transactionView;
         TransactionView.Initialize(this);
 
         TransactionModel.Initialize(
+            playerService,
+            shopService,
             grossWeight,
             buyAndSellText,
             totalPrice,
@@ -34,4 +44,6 @@ public class TransactionController
     public TextMeshProUGUI GetTotalPrice => TransactionModel.TotalPrice;
     public TextMeshProUGUI GetQuantity => TransactionModel.Quantity;
     public TextMeshProUGUI GetButtonText => TransactionModel.ButtonText;
+    public PlayerService GetPlayerService => TransactionModel.PlayerService;
+    public ShopService GetShopService => TransactionModel.ShopService;
 }

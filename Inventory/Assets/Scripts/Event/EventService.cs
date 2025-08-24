@@ -26,7 +26,7 @@ public class EventService
     {
         OnClickedAnotehrItem?.Invoke(view);
 
-        TabType type = view.tabType;
+        TabType type = view.TabType;
 
         if (type == TabType.Player)
             OnClikedIPlayerItem?.Invoke(view);

@@ -23,6 +23,7 @@ public class PlayerView : MonoBehaviour
         ServiceLocator.Get<EventService>().OnClickedAnotehrItem += UnSelectAnotherItem;
 
         bagWeightText = PlayerController.GetBagWight();
+        bagWeightText.text = "Weight: " + bagWeight.ToString() + " / " + PlayerController.GetMaxWeight() + " kg";
     }
 
     public void Initialize(PlayerController playerController)
@@ -47,6 +48,10 @@ public class PlayerView : MonoBehaviour
         bagWeight += weightChange;
         PlayerController.SetWeight(bagWeight);
         bagWeightText.text = "Weight: " + bagWeight.ToString() + " / " + PlayerController.GetMaxWeight() + " kg";
+    }
+    public void UpdateMoney()
+    {
+        PlayerController.GetMonkeyText().text = PlayerController.GetMoney().ToString();
     }
 
     public void GetTemporaryItemInPanel()

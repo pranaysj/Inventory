@@ -61,7 +61,7 @@ public class ShopView : MonoBehaviour
         view.itemBGIconGameobject.sprite = ShopController.GetSelectedShopItemBGIcon;
     }
 
-    private void UnSelectAnotherItem(TabView view)
+    public void UnSelectAnotherItem(TabView view)
     {
         foreach (var item in itemInstanceByName.Values)
         {
