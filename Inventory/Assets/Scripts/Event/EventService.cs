@@ -30,6 +30,7 @@ public class EventService
 
         if (type == TabType.Player)
             OnClikedIPlayerItem?.Invoke(view);
+
         if (type == TabType.Shop)
             OnClikedIShopItem?.Invoke(view);
     }

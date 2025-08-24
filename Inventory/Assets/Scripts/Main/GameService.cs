@@ -10,6 +10,7 @@ public class GameService : MonoBehaviour
     [SerializeField] private UIService uiService;
     [SerializeField] private ShopView shopView;
     [SerializeField] private PlayerView playerView;
+    [SerializeField] private TransactionView transactionView;
 
     [Header("PROJECT")]
     [Header("ScriptableObject")]
@@ -23,10 +24,12 @@ public class GameService : MonoBehaviour
     public GameObject PlayerItemPrefab => playerItemPrefab;
     public ShopView ShopView => shopView;
     public PlayerView PlayerView => playerView;
+    public TransactionView TransactionView => transactionView;
 
     private EventService eventService;
     private ShopService shopService;
-    public PlayerService playerService;
+    private PlayerService playerService;
+    private TransactionService transactionService;
 
     private void Awake()
     {
@@ -38,9 +41,11 @@ public class GameService : MonoBehaviour
         ServiceLocator.Register(uiService);
         shopService = new ShopService();
         playerService = new PlayerService();
+        transactionService = new TransactionService();
 
         ServiceLocator.Register(shopService);
         ServiceLocator.Register(playerService);
+        ServiceLocator.Register(transactionService);
     }
 
     private void Update()

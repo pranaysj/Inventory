@@ -28,9 +28,15 @@ public class TabView : MonoBehaviour, IPointerClickHandler
     private int sellingPrice;
     private int weight;
     private Rarity rarity;
-    public int quantity;
+    private int quantity;
 
     private ShopView shopView;
+
+    public int Weight => weight;
+    public int BuyingPrice => buyingPrice;
+    public int SellingPrice => sellingPrice;
+    public int Quantity => quantity;
+
 
     public void Initialize(ShopView shopView, ShopItemSO itemSO, TabType tabType)
     {

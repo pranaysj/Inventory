@@ -43,6 +43,13 @@ public class UIService : MonoBehaviour
     [Header("HIERARCHY : Canvas/Menu/Inventory/Item Panel/Player/Inventory/Weight Text")]
     [SerializeField] private TextMeshProUGUI bagWeight;
 
+    [Header("HIERARCHY : Canvas/Menu/Inventory/Item Panel/Shop/Item Info")]
+    [SerializeField] private TextMeshProUGUI grossWeight;
+    [SerializeField] private TextMeshProUGUI buyAndSellText;
+    [SerializeField] private TextMeshProUGUI totalPrice;
+    [SerializeField] private TextMeshProUGUI quantity;
+    [SerializeField] private TextMeshProUGUI buttonText;
+
     public TextMeshProUGUI[] TanNames => tabNames;
     public GameObject[] TabItems => tabItems;
     public GameObject InventoryPanel => inventoryPanel;
@@ -62,6 +69,12 @@ public class UIService : MonoBehaviour
     public TextMeshProUGUI DescriptionR => r_description;
     public TextMeshProUGUI Money => money;
     public TextMeshProUGUI BagWeight => bagWeight;
+
+    public TextMeshProUGUI GrossWeight => grossWeight;
+    public TextMeshProUGUI BuyAndSellText => buyAndSellText;
+    public TextMeshProUGUI TotalPrice => totalPrice;
+    public TextMeshProUGUI Quantity => quantity;
+    public TextMeshProUGUI ButtonText => buttonText;
 
     public Sprite SelectedShopItemBGIcon => selectedShopItemBGIcon;
     public Sprite UnselectedShopItemBGIcon => unselectedShopItemBGIcon;

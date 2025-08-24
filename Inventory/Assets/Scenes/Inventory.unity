@@ -581,11 +581,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1692203694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 122.4, y: 0.000010759}
-  m_SizeDelta: {x: 121.207, y: 20.4}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0.000045776367, y: 0}
+  m_SizeDelta: {x: 101.29, y: 20.4}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &112673278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,7 +606,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0 gold
+  m_text: 0 G
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2086e2f51caa8cc4f8d984cec786ef0a, type: 2}
   m_sharedMaterial: {fileID: 7224956381691025097, guid: 2086e2f51caa8cc4f8d984cec786ef0a, type: 2}
@@ -641,7 +641,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -765,7 +765,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 150230093}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1592680160}
+        m_TargetAssemblyTypeName: TransactionView, Assembly-CSharp
+        m_MethodName: DecreaseQuantity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &150230093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1267,7 +1279,7 @@ GameObject:
   - component: {fileID: 191443350}
   - component: {fileID: 191443349}
   m_Layer: 5
-  m_Name: Weight
+  m_Name: Gross Weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1291,7 +1303,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 116.2552, y: 20}
+  m_SizeDelta: {x: 229.81, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &191443349
 MonoBehaviour:
@@ -1313,7 +1325,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Weight : '
+  m_text: 'Gross Weight : '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2086e2f51caa8cc4f8d984cec786ef0a, type: 2}
   m_sharedMaterial: {fileID: 7224956381691025097, guid: 2086e2f51caa8cc4f8d984cec786ef0a, type: 2}
@@ -1348,7 +1360,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -4784,6 +4796,7 @@ MonoBehaviour:
   uiService: {fileID: 1592680159}
   shopView: {fileID: 1592680156}
   playerView: {fileID: 1592680158}
+  transactionView: {fileID: 1592680160}
   shopDatabase: {fileID: 11400000, guid: 88439876ea731ed449c557a091fe4919, type: 2}
   shopItemPrefab: {fileID: 862374535394353465, guid: 6dc330b40a1c0ce4c912e98aa8339b4e, type: 3}
   playerItemPrefab: {fileID: 8771213596775170964, guid: 3f5d584c226c30d4683e3ad2e1fe2b22, type: 3}
@@ -6573,7 +6586,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1409637663}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1592680160}
+        m_TargetAssemblyTypeName: TransactionView, Assembly-CSharp
+        m_MethodName: IncreaseQuantity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1409637663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6884,7 +6909,7 @@ GameObject:
   - component: {fileID: 1427074990}
   - component: {fileID: 1427074989}
   m_Layer: 5
-  m_Name: CounterText
+  m_Name: Quantity Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7955,6 +7980,7 @@ GameObject:
   - component: {fileID: 1592680156}
   - component: {fileID: 1592680157}
   - component: {fileID: 1592680158}
+  - component: {fileID: 1592680160}
   m_Layer: 0
   m_Name: UIService
   m_TagString: Untagged
@@ -8055,6 +8081,23 @@ MonoBehaviour:
   unselectedPlayerItemBGIcon: {fileID: 21300000, guid: 2c38d8450d3cf0a4286d8b17ae5368b5, type: 3}
   money: {fileID: 1561228439}
   bagWeight: {fileID: 1499233358}
+  grossWeight: {fileID: 2079377459}
+  buyAndSellText: {fileID: 1692203695}
+  totalPrice: {fileID: 112673278}
+  quantity: {fileID: 1427074989}
+  buttonText: {fileID: 966198166}
+--- !u!114 &1592680160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592680153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e5eae52bbdc5046ada8c10b2b9d561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1600265535
 GameObject:
   m_ObjectHideFlags: 0
@@ -8475,7 +8518,7 @@ GameObject:
   - component: {fileID: 1692203696}
   - component: {fileID: 1692203695}
   m_Layer: 5
-  m_Name: Buying Price
+  m_Name: Buying/Selling Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8499,7 +8542,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 207.495, y: 20.4}
+  m_SizeDelta: {x: 227.53, y: 20.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1692203695
 MonoBehaviour:
@@ -8556,7 +8599,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -10261,11 +10304,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 191443348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 77.1, y: -0.000010744}
-  m_SizeDelta: {x: 121.0773, y: 20}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 98.047, y: 20}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &2079377459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10321,7 +10364,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
