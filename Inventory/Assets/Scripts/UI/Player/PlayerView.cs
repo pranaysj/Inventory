@@ -12,7 +12,7 @@ public class PlayerView : MonoBehaviour
 
     private ShopItemSO tempItem;
 
-    [SerializeField]private int bagWeight = 0;
+    [SerializeField] private int bagWeight = 0;
     private TextMeshProUGUI bagWeightText;
     
 

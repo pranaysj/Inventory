@@ -10,20 +10,58 @@ public class TransactionModel
     private PlayerService playerService;
     private ShopService shopService;
 
-    private TextMeshProUGUI grossWeight;
+    private TextMeshProUGUI grossWeightText;
     private TextMeshProUGUI buyAndSellText;
-    private TextMeshProUGUI totalPrice;
-    private TextMeshProUGUI quantity;
+    private TextMeshProUGUI totalPriceText;
+    private TextMeshProUGUI quantityText;
     private TextMeshProUGUI buttonText;
     public TransactionController TransactionController => transactionController;
     public PlayerService PlayerService => playerService;
     public ShopService ShopService => shopService;
 
-    public TextMeshProUGUI GrossWeight => grossWeight;
+    public TextMeshProUGUI GrossWeightText => grossWeightText;
     public TextMeshProUGUI BuyAndSellText => buyAndSellText;
-    public TextMeshProUGUI TotalPrice => totalPrice;
-    public TextMeshProUGUI Quantity => quantity;
+    public TextMeshProUGUI TotalPriceText => totalPriceText;
+    public TextMeshProUGUI QuantityText => quantityText;
     public TextMeshProUGUI ButtonText => buttonText;
+
+    private int grossWeight = 0;
+    private int buyingPrice = 0;
+    private int sellingPrice = 0;
+    private int quantity = 0;
+
+    public int GrossWeightValue
+    {
+        get => grossWeight;
+        set
+        {
+            grossWeight = value;
+        }
+    }
+    public int BuyingPrice
+    {
+        get => buyingPrice;
+        set
+        {
+            buyingPrice = value;
+        }
+    }
+    public int SellingPrice
+    {
+        get => sellingPrice;
+        set
+        {
+            sellingPrice = value;
+        }
+    }
+    public int QuantityValue
+    {
+        get => quantity;
+        set
+        {
+            quantity = value;
+        }
+    }
 
     public TransactionModel(TransactionController transactionController)
     {
@@ -41,10 +79,10 @@ public class TransactionModel
     {
         this.playerService = playerService;
         this.shopService = shopService;
-        this.grossWeight = grossWeight;
+        this.grossWeightText = grossWeight;
         this.buyAndSellText = buyAndSellText;
-        this.totalPrice = totalPrice;
-        this.quantity = quantity;
+        this.totalPriceText = totalPrice;
+        this.quantityText = quantity;
         this.buttonText = buttonText;
     }
 }

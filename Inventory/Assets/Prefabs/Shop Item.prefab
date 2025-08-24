@@ -123,8 +123,6 @@ MonoBehaviour:
   priceGameobject: {fileID: 8258307991924721921}
   quantityGameobject: {fileID: 0}
   itemBGIconGameobject: {fileID: 1932353453394145422}
-  tabType: 0
-  quantity: 0
 --- !u!1 &2179744213647902777
 GameObject:
   m_ObjectHideFlags: 0

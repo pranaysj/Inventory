@@ -145,7 +145,11 @@ public class PlayerController
         if (GetMoney() >= buyingPrice && (GetWeight() + grossWeight) <= GetMaxWeight())
         {
             SetMoney(GetMoney() - buyingPrice);
-            SpawnItemInPlayerInventory(itemData);
+            for (int i = 0; i < quantity; i++)
+            {
+                SpawnItemInPlayerInventory(itemData);
+            }
+            //SpawnItemInPlayerInventory(itemData);
             //PlayerView.UpdateBagWeight(grossWeight);
         }
         else

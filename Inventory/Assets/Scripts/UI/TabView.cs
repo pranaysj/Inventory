@@ -77,18 +77,4 @@ public class TabView : MonoBehaviour, IPointerClickHandler
         this.quantity = quantity;
         if (quantityGameobject) quantityGameobject.text = "x " + this.quantity.ToString();
     }
-
-    internal ShopItemSO GetItemData()
-    {
-        ShopItemSO itemData = ScriptableObject.CreateInstance<ShopItemSO>();
-        itemData.itemName = itemName;
-        itemData.icon = icon;
-        itemData.description = description;
-        itemData.buyingPrice = buyingPrice;
-        itemData.sellingPrice = sellingPrice;
-        itemData.weight = weight;
-        itemData.rarity = rarity;
-        itemData.itemType = itemType;
-        return itemData;
-    }
 }
