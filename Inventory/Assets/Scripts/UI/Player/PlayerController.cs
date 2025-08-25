@@ -17,6 +17,7 @@ public class PlayerController
     private Dictionary<string, int> itemsCountByName = new Dictionary<string, int>();
     private Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
 
+    private GameObject moneyGameObject;
 
     public PlayerController()
     {
@@ -59,6 +60,8 @@ public class PlayerController
 
         tempIcon = icon.sprite;
         Reset();
+
+        this.moneyGameObject = money.gameObject;
     }
     public void SpawnItemInPlayerInventory(ShopItemSO tempItem)
     {
@@ -149,8 +152,6 @@ public class PlayerController
             {
                 SpawnItemInPlayerInventory(itemData);
             }
-            //SpawnItemInPlayerInventory(itemData);
-            //PlayerView.UpdateBagWeight(grossWeight);
         }
         else
         {
@@ -233,7 +234,17 @@ public class PlayerController
     }
     public void SetMoney(int value)
     {
-        playerModel.Money = value;
+        NumberCounter numberCounter = moneyGameObject.GetComponent<NumberCounter>();
+        if (numberCounter != null)
+        {
+            numberCounter.Value = value;
+            playerModel.Money = value;
+        }
+        else
+        {
+            playerModel.Money = value;
+            moneyGameObject.GetComponent<TextMeshProUGUI>().text = value.ToString();
+        }
     }
     public int GetWeight()
     {

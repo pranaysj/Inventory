@@ -13,10 +13,6 @@ public class TransactionView : MonoBehaviour
 {
     private TransactionController transactionController;
     public TransactionController TransactionController => transactionController;
-    //private int grossWeight = 0;
-    //private int buyingPrice = 0;
-    //private int sellingPrice = 0;  
-    //private int quantity = 0;
 
     private bool isItemIsSelected = false;
 
@@ -120,73 +116,6 @@ public class TransactionView : MonoBehaviour
         TransactionController.GetQuantityText.text = TransactionController.QuantityValue.ToString();
         TransactionController.GetGrossWeighText.text = TransactionController.GrossWeightValue.ToString() + " kg";
     }
-
-    //void CheckItemTypeForBuyAndSellButton(TransactionType type)
-    //{
-    //    if (!isItemIsSelected) return;
-
-    //    switch (selectedItemView.TabType)
-    //    {
-    //        case TabType.Player:
-    //            if(type == TransactionType.Increment)
-    //            {
-    //                sellingPrice = sellingPrice + selectedItemView.SellingPrice;
-    //            }
-    //            if(type == TransactionType.Decrement)
-    //            {
-    //                sellingPrice = sellingPrice - selectedItemView.SellingPrice;
-
-    //                if (sellingPrice < 0)
-    //                    sellingPrice = 0;
-    //            }
-    //            TransactionController.GetTotalPrice.text = sellingPrice.ToString() + " G";
-    //            break;
-
-    //        case TabType.Shop:
-    //            if(type == TransactionType.Increment)
-    //            {
-    //                buyingPrice = buyingPrice + selectedItemView.BuyingPrice;
-    //            }
-    //            if(type == TransactionType.Decrement)
-    //            {
-    //                buyingPrice = buyingPrice - selectedItemView.BuyingPrice;
-
-    //                if (buyingPrice < 0)
-    //                    buyingPrice = 0;
-    //            }
-    //            TransactionController.GetTotalPrice.text = buyingPrice.ToString() + " G";
-    //            break;
-    //    }
-    //}
-
-    //private bool IsBuyingLimitExceed()
-    //{
-    //    int tempBuyingLimit = buyingPrice;
-    //    tempBuyingLimit = tempBuyingLimit + selectedItemView.BuyingPrice;
-
-    //    int tempWeightLimit = grossWeight;
-    //    tempWeightLimit = tempWeightLimit + selectedItemView.Weight;
-
-    //    int monkey = transactionController.GetPlayerService.PlayerController.GetMoney();
-    //    int maxWeight = transactionController.GetPlayerService.PlayerController.GetMaxWeight();
-
-    //    if (tempBuyingLimit < monkey && tempWeightLimit < maxWeight)
-    //    {
-    //        return true;
-    //    }
-    //    return false;
-    //}
-
-    //private bool IsSellingLimitExceed()
-    //{
-    //    int itemQuantity = selectedItemView.Quantity;
-
-    //    if (quantity <= itemQuantity)
-    //    {
-    //        return true;
-    //    }
-    //    return false;
-    //}
 
     public void BuyAndSellButton()
     {

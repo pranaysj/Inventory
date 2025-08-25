@@ -69,59 +69,6 @@ public class TransactionController
         set => TransactionModel.QuantityValue = value;
     }
 
-    //Call from button
-    //public void IncreaseQuantity()
-    //{
-    //    ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
-
-    //    if (!TransactionView.IsItemIsSelected) return;
-
-    //    TransactionModel.QuantityValue++;
-
-    //    if (TransactionView.SelectedItemView.TabType == TabType.Shop)
-    //    {
-    //        if (!IsBuyingLimitExceed())
-    //        {
-    //            TransactionModel.QuantityValue--;
-    //            return;
-    //        }
-    //    }
-
-    //    if (TransactionView.SelectedItemView.TabType == TabType.Player)
-    //    {
-    //        if (!IsSellingLimitExceed())
-    //        {
-    //            TransactionModel.QuantityValue--;
-    //            return;
-    //        }
-    //    }
-
-    //    TransactionModel.GrossWeightValue = TransactionModel.GrossWeightValue + TransactionView.SelectedItemView.Weight;
-
-    //    CheckItemTypeForBuyAndSellButton(TransactionType.Increment);
-
-    //    GetQuantity.text = TransactionModel.QuantityValue.ToString();
-    //    GetGrossWeight.text = TransactionModel.GrossWeightValue.ToString() + " kg";
-    //}
-
-    //public void DecreaseQuantity()
-    //{
-    //    ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
-
-    //    if (!TransactionView.IsItemIsSelected) return;
-
-    //    TransactionModel.QuantityValue--;
-    //    if (TransactionModel.QuantityValue < 0) TransactionModel.QuantityValue = 0;
-
-    //    TransactionModel.GrossWeightValue = TransactionModel.GrossWeightValue - TransactionView.SelectedItemView.Weight;
-    //    if (TransactionModel.GrossWeightValue < 0) TransactionModel.GrossWeightValue = 0;
-
-    //    CheckItemTypeForBuyAndSellButton(TransactionType.Decrement);
-
-    //    GetQuantity.text = TransactionModel.QuantityValue.ToString();
-    //    GetGrossWeight.text = TransactionModel.GrossWeightValue.ToString() + " kg";
-    //}
-
     public bool IsBuyingLimitExceed()
     {
         int tempBuyingLimit = BuyingPrice;
@@ -189,31 +136,11 @@ public class TransactionController
         }
     }
 
-    //public void BuyAndSellButton()
-    //{
-    //    if (!TransactionView.IsItemIsSelected) return;
-
-    //    switch (TransactionView.SelectedItemView.TabType)
-    //    {
-    //        case TabType.Player:
-    //            GetPlayerService.SellItem(TransactionView.SelectedItemView, TransactionModel.QuantityValue, TransactionModel.SellingPrice, TransactionModel.GrossWeightValue);
-    //            ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ItemSold);
-    //            break;
-    //        case TabType.Shop:
-    //            GetPlayerService.BuyItem(TransactionView.SelectedItemView, TransactionModel.QuantityValue, TransactionModel.BuyingPrice, TransactionModel.GrossWeightValue);
-    //            TransactionView.SelectedItemView.itemBGIconGameobject.sprite = GetShopService.ShopController.GetUnselectedShopItemBGIcon;
-    //            ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ItemPurchased);
-    //            break;
-    //    }
-    //    ResetTransactionInfo();
-    //}
-
     public void ResetTransactionInfo()
     {
         TransactionModel.GrossWeightValue = 0;
         TransactionModel.BuyingPrice = 0;
         TransactionModel.SellingPrice = 0;
         TransactionModel.QuantityValue = 0;
-        //TransactionView.ResetTransactionInfo();
     }
 }
