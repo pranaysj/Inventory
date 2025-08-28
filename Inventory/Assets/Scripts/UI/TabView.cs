@@ -7,8 +7,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static GameService;
-using static UnityEditor.Progress;
 
 public class TabView : MonoBehaviour, IPointerClickHandler
 {

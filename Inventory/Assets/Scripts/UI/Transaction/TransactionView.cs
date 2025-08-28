@@ -72,7 +72,7 @@ public class TransactionView : MonoBehaviour
         if (!isItemIsSelected) return;
 
         TransactionController.QuantityValue++;
-
+        Debug.Log("Quantity Value: " + TransactionController.QuantityValue);
         if (selectedItemView.TabType == TabType.Shop)
         {
             if (!TransactionController.IsBuyingLimitExceed())

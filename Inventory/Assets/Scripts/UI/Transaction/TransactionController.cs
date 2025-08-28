@@ -74,7 +74,7 @@ public class TransactionController
         int tempBuyingLimit = BuyingPrice;
         tempBuyingLimit = tempBuyingLimit + TransactionView.SelectedItemView.BuyingPrice;
 
-        int tempWeightLimit = TransactionModel.GrossWeightValue;
+        int tempWeightLimit = GrossWeightValue;
         tempWeightLimit = tempWeightLimit + TransactionView.SelectedItemView.Weight;
 
         int monkey = GetPlayerService.PlayerController.GetMoney();

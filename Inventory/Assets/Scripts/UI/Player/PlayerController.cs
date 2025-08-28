@@ -147,9 +147,9 @@ public class PlayerController
         ShopItemSO itemData = GetItemScriptableObject(itemName);
         if (GetMoney() >= buyingPrice && (GetWeight() + grossWeight) <= GetMaxWeight())
         {
-            SetMoney(GetMoney() - buyingPrice);
             for (int i = 0; i < quantity; i++)
             {
+                SetMoney(GetMoney() - buyingPrice);
                 SpawnItemInPlayerInventory(itemData);
             }
         }

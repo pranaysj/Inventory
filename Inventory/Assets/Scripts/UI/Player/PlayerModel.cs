@@ -52,6 +52,7 @@ public class PlayerModel
     public PlayerModel(PlayerController playerController)
     {
         this.playerController = playerController;
+
     }
 
     public void Initialize(
