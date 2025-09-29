@@ -13,6 +13,8 @@ public class ShopView : MonoBehaviour
 
     private Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
 
+    private GameObject shopItemPrefab;
+
     public void Initialize(ShopController controller)
     {
         this.shopController = controller;
@@ -24,14 +26,17 @@ public class ShopView : MonoBehaviour
             ShopController.Switch(0); // Switch to the first tab by default
             FillTabs();
         }
-        ServiceLocator.Get<EventService>().OnClikedIShopItem += SelectShopItem;
-        ServiceLocator.Get<EventService>().OnClickedAnotehrItem += UnSelectAnotherItem;
+
+        shopItemPrefab = ServiceLocator.Get<GameService>().ShopItemPrefab;
+
+        ServiceLocator.Get<EventService>().OnClickedIShopItem += SelectShopItem;
+        ServiceLocator.Get<EventService>().OnClickedAnotherItem += UnSelectAnotherItem;
     }
 
     private void OnDestroy()
     {
-        ServiceLocator.Get<EventService>().OnClikedIShopItem -= SelectShopItem;
-        ServiceLocator.Get<EventService>().OnClickedAnotehrItem += UnSelectAnotherItem;
+        ServiceLocator.Get<EventService>().OnClickedIShopItem -= SelectShopItem;
+        ServiceLocator.Get<EventService>().OnClickedAnotherItem -= UnSelectAnotherItem;
     }
     public void FillTabs()
     {
@@ -43,7 +48,7 @@ public class ShopView : MonoBehaviour
             {
                 if (item.itemType == (ItemType)i)
                 {
-                    TabView tabView = Instantiate(ShopController.GetShopItemPrefab(), contentHolder.transform).GetComponent<TabView>();
+                    TabView tabView = Instantiate(shopItemPrefab, contentHolder.transform).GetComponent<TabView>();
                     itemInstanceByName[item.itemName] = tabView.gameObject;
                     tabView.Initialize(this, item, TabType.Shop);
                 }

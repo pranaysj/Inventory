@@ -24,16 +24,17 @@ public class ShopService
 
     private Sprite selectedShopItemBGIcon;
     private Sprite unselectedShopItemBGIcon;
-    public ShopService()
+
+    public ShopService(ShopDatabaseSO shopDatabase, ShopView shopView)
     {
+        this.shopDatabaseSO = shopDatabase;
+        this.shopView = shopView;
         shopController = new ShopController();
         Initialize();
     }
 
     public void Initialize()
     {
-        shopView = ServiceLocator.Get<GameService>().ShopView;
-        shopDatabaseSO = ServiceLocator.Get<GameService>().ShopDatabase;
 
         tabsButton = ServiceLocator.Get<UIService>().TanNames;
         tabPanels = ServiceLocator.Get<UIService>().TabItems;

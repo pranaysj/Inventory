@@ -28,31 +28,34 @@ public class PlayerService
     private Sprite selectedPlayerItemBGIcon;
     private Sprite unselectedPlayerItemBGIcon;
 
-    public PlayerService()
+    public PlayerService(ShopDatabaseSO shopDatabase, ShopView shopView, PlayerView playerView)
     {
+        this.shopDatabaseSO = shopDatabase;
+        this.shopView = shopView;
+        this.playerView = playerView;
+
         playerController = new PlayerController();
+
         Initialize();
     }
     public void Initialize()
     {
-        playerView = ServiceLocator.Get<GameService>().PlayerView;
-
-        contentHolder = ServiceLocator.Get<UIService>().Content;
+        UIService uIService = ServiceLocator.Get<UIService>();
         itemPrefab = ServiceLocator.Get<GameService>().PlayerItemPrefab;
-        shopView = ServiceLocator.Get<GameService>().ShopView;
-        shopDatabaseSO = ServiceLocator.Get<GameService>().ShopDatabase;
 
-        icon = ServiceLocator.Get<UIService>().IconR;
-        type = ServiceLocator.Get<UIService>().TypeR;
-        rarity = ServiceLocator.Get<UIService>().RarityR;
-        itemName = ServiceLocator.Get<UIService>().ItemNameR;
-        description = ServiceLocator.Get<UIService>().DescriptionR;
+        contentHolder = uIService.Content;
 
-        bagWight = ServiceLocator.Get<UIService>().BagWeight;
-        money = ServiceLocator.Get<UIService>().Money;
+        icon = uIService.IconR;
+        type = uIService.TypeR;
+        rarity = uIService.RarityR;
+        itemName = uIService.ItemNameR;
+        description = uIService.DescriptionR;
 
-        selectedPlayerItemBGIcon = ServiceLocator.Get<UIService>().SelectedPlayerItemBGIcon;
-        unselectedPlayerItemBGIcon = ServiceLocator.Get<UIService>().UnselectedPlayerItemBGIcon;
+        bagWight = uIService.BagWeight;
+        money = uIService.Money;
+
+        selectedPlayerItemBGIcon = uIService.SelectedPlayerItemBGIcon;
+        unselectedPlayerItemBGIcon = uIService.UnselectedPlayerItemBGIcon;
 
         PlayerController.Initialize(
             playerView, 

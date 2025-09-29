@@ -3,24 +3,21 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class InventoryController : MonoBehaviour
+public class InventoryController 
 {
-    private GameObject inventoryPanel;
-    private EventService eventService;
+    private readonly GameObject inventoryPanel;
+    private readonly EventService eventService;
 
-    private void Start()
+    public InventoryController(GameObject inventoryPanel, EventService eventService)
     {
-        inventoryPanel = ServiceLocator.Get<UIService>().InventoryPanel;
-        eventService = ServiceLocator.Get<EventService>();
+        this.inventoryPanel = inventoryPanel;
+        this.eventService = eventService;
 
-        eventService.OnInventoryKeyPressed += ToggleInventoryPanel;
-
-
-        if (inventoryPanel != null)
-            inventoryPanel.SetActive(false); // Ensure the inventory panel is initially hidden
+        this.eventService.OnInventoryKeyPressed += ToggleInventoryPanel;
+        this.inventoryPanel.SetActive(false);
     }
 
-    private void OnDestroy()
+    ~InventoryController()
     {
         eventService.OnInventoryKeyPressed -= ToggleInventoryPanel; 
     }

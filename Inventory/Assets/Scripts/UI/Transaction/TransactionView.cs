@@ -25,13 +25,13 @@ public class TransactionView : MonoBehaviour
 
     void Start()
     {
-        ServiceLocator.Get<EventService>().OnClikedIShopItem += BuyInfo;
-        ServiceLocator.Get<EventService>().OnClikedIPlayerItem += SellInfo;
+        ServiceLocator.Get<EventService>().OnClickedIShopItem += BuyInfo;
+        ServiceLocator.Get<EventService>().OnClickedIPlayerItem += SellInfo;
     }
     void OnDestroy()
     {
-        ServiceLocator.Get<EventService>().OnClikedIShopItem -= BuyInfo;
-        ServiceLocator.Get<EventService>().OnClikedIShopItem -= SellInfo;
+        ServiceLocator.Get<EventService>().OnClickedIShopItem -= BuyInfo;
+        ServiceLocator.Get<EventService>().OnClickedIShopItem -= SellInfo;
     }
 
     public void Initialize(TransactionController controller)

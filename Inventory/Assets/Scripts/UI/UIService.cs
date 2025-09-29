@@ -80,4 +80,6 @@ public class UIService : MonoBehaviour
     public Sprite UnselectedShopItemBGIcon => unselectedShopItemBGIcon;
     public Sprite SelectedPlayerItemBGIcon => selectedPlayerItemBGIcon;
     public Sprite UnselectedPlayerItemBGIcon => unselectedPlayerItemBGIcon;
+
+    public GameObject PlayerItemPrefab { get; internal set; }
 }

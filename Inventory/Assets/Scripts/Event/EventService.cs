@@ -1,33 +1,40 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using static GameService;
 
 public class EventService
 {
+    private SoundService soundService;
     public event Action OnInventoryKeyPressed;
-    public event Action<TabView> OnClikedIPlayerItem, OnClikedIShopItem, OnClickedAnotehrItem;
+    public event Action<TabView> OnClickedIPlayerItem, OnClickedIShopItem, OnClickedAnotherItem;
+
+    public EventService(SoundService soundService)
+    {
+        this.soundService = soundService;
+    }
 
     public void Update()
     {
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             OnInventoryKeyPressed?.Invoke();
-            ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.KeyboardClick);
+            soundService?.PlaySoundEffects(SoundType.KeyboardClick);
         }
     }
 
     public void ClickedItem(TabView view)
     {
-        OnClickedAnotehrItem?.Invoke(view);
+        OnClickedAnotherItem?.Invoke(view);
 
         TabType type = view.TabType;
 
         if (type == TabType.Player)
-            OnClikedIPlayerItem?.Invoke(view);
+            OnClickedIPlayerItem?.Invoke(view);
 
         if (type == TabType.Shop)
-            OnClikedIShopItem?.Invoke(view);
+            OnClickedIShopItem?.Invoke(view);
     }
 }

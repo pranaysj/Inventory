@@ -1,20 +1,37 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEngine;
 
 public static class ServiceLocator
 {
-    private static readonly Dictionary<Type, object> services = new Dictionary<Type, object>();
+    private static readonly Dictionary<Type, object> services = new();
 
     public static void Register<T>(T service)
     {
-        services[typeof(T)] = service;
+        var type = typeof(T);
+        if (services.ContainsKey(type))
+            throw new InvalidOperationException($"Service of type {type} is already registered.");
+
+        services[type] = service;
     }
 
     public static T Get<T>()
     {
-        return (T)services[typeof(T)];
+        var type = typeof(T);
+        if (services.TryGetValue(type, out var service))
+            return (T)service;
+
+        throw new KeyNotFoundException($"Service of type {type} is not registered.");
+    }
+
+    public static void Unregister<T>()
+    {
+        var type = typeof(T);
+        if (!services.Remove(type))
+            throw new KeyNotFoundException($"Service of type {type} was not found to unregister.");
+    }
+
+    public static void Clean()
+    {
+        services.Clear();
     }
 }

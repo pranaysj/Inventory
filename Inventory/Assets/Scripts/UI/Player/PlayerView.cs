@@ -18,8 +18,8 @@ public class PlayerView : MonoBehaviour
 
     private void Start()
     {
-        ServiceLocator.Get<EventService>().OnClikedIPlayerItem += SelectPlayerItem;
-        ServiceLocator.Get<EventService>().OnClickedAnotehrItem += UnSelectAnotherItem;
+        ServiceLocator.Get<EventService>().OnClickedIPlayerItem += SelectPlayerItem;
+        ServiceLocator.Get<EventService>().OnClickedAnotherItem += UnSelectAnotherItem;
 
         bagWeightText = PlayerController.GetBagWight();
         bagWeightText.text = "Weight: " + bagWeight.ToString() + " / " + PlayerController.GetMaxWeight() + " kg";
@@ -33,8 +33,8 @@ public class PlayerView : MonoBehaviour
 
     private void OnDestroy()
     {
-        ServiceLocator.Get<EventService>().OnClikedIPlayerItem -= SelectPlayerItem;
-        ServiceLocator.Get<EventService>().OnClickedAnotehrItem -= UnSelectAnotherItem;
+        ServiceLocator.Get<EventService>().OnClickedIPlayerItem -= SelectPlayerItem;
+        ServiceLocator.Get<EventService>().OnClickedAnotherItem -= UnSelectAnotherItem;
     }
 
     public GameObject InstantiateItem()

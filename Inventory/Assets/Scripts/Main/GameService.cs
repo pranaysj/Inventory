@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 public enum TabType
 {
     Shop,
@@ -13,10 +10,10 @@ public class GameService : MonoBehaviour
 {
     [Header("HIERARCHY : UIService")]
     [SerializeField] private UIService uiService;
+
     [SerializeField] private ShopView shopView;
     [SerializeField] private PlayerView playerView;
     [SerializeField] private TransactionView transactionView;
-    [SerializeField] private SoundService soundService;
 
     [Header("PROJECT")]
     [Header("ScriptableObject")]
@@ -31,37 +28,35 @@ public class GameService : MonoBehaviour
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioSource bgMusicSource;
 
-    public ShopDatabaseSO ShopDatabase => shopDatabase;
     public GameObject ShopItemPrefab => shopItemPrefab;
     public GameObject PlayerItemPrefab => playerItemPrefab;
-    public ShopView ShopView => shopView;
-    public PlayerView PlayerView => playerView;
-    public TransactionView TransactionView => transactionView;
-    public SoundService SoundService => soundService;
 
-    private EventService eventService;
     private ShopService shopService;
-    private PlayerService playerService;
-    private TransactionService transactionService;
+    private EventService eventService;
+    private SoundService soundService;
+
+    private InventoryController inventoryController;
 
     private void Awake()
     {
-
-        eventService = new EventService();
         ServiceLocator.Register(this);
-        ServiceLocator.Register(eventService);
         ServiceLocator.Register(uiService);
 
-        shopService = new ShopService();
-        playerService = new PlayerService();
-        ServiceLocator.Register(shopService);
-        ServiceLocator.Register(playerService);
+        ServiceLocator.Register(new SoundService(soundSO, sfxSource, bgMusicSource));
+        soundService = ServiceLocator.Get<SoundService>();
 
-        transactionService = new TransactionService();
-        ServiceLocator.Register(transactionService);
+        ServiceLocator.Register(new EventService(soundService));
+        eventService = ServiceLocator.Get<EventService>();
 
-        soundService = new SoundService(soundSO, sfxSource, bgMusicSource);
-        ServiceLocator.Register(soundService);
+        ServiceLocator.Register(new ShopService(shopDatabase, shopView));
+        ServiceLocator.Register(new PlayerService(shopDatabase, shopView, playerView));
+        ServiceLocator.Register(new TransactionService(transactionView));
+
+    }
+
+    private void Start()
+    {
+        inventoryController = new InventoryController(uiService.InventoryPanel, eventService);
     }
 
     private void Update()
@@ -69,17 +64,22 @@ public class GameService : MonoBehaviour
         eventService.Update();
     }
 
-    public void SwitchTab(int tanID)
+    public void SwitchTab(int tabID)
     {
         //get the switch function from the controller
         if (shopService != null)
         {
-            shopService.Switch(tanID);
+            shopService.Switch(tabID);
         }
         else
         {
             Debug.LogError("ShopService is not initialized in GameService.");
         }
-        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.TabChanged);
+        soundService.PlaySoundEffects(SoundType.TabChanged);
+    }
+
+    private void OnDestroy()
+    {
+        ServiceLocator.Clean();
     }
 }

@@ -16,8 +16,9 @@ public class TransactionService
     private TextMeshProUGUI quantity;
     private TextMeshProUGUI buttonText;
     public TransactionController TransactionController => transactionController;
-    public TransactionService()
+    public TransactionService(TransactionView transactionView)
     {
+        this.transactionView = transactionView;
         transactionController = new TransactionController();
         Initialize();
     }
@@ -31,7 +32,6 @@ public class TransactionService
 
         playerService = ServiceLocator.Get<PlayerService>();
         shopService = ServiceLocator.Get<ShopService>();
-        transactionView = ServiceLocator.Get<GameService>().TransactionView;
 
         transactionController.Initialize(
             playerService,
