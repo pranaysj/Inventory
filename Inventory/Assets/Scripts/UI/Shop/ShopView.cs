@@ -21,13 +21,13 @@ public class ShopView : MonoBehaviour
     }
     private void Start()
     {
+        shopItemPrefab = ServiceLocator.Get<GameService>().ShopItemPrefab;
         if (ShopController != null)
         {
             ShopController.Switch(0); // Switch to the first tab by default
             FillTabs();
         }
 
-        shopItemPrefab = ServiceLocator.Get<GameService>().ShopItemPrefab;
 
         ServiceLocator.Get<EventService>().OnClickedIShopItem += SelectShopItem;
         ServiceLocator.Get<EventService>().OnClickedAnotherItem += UnSelectAnotherItem;
