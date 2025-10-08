@@ -9,8 +9,11 @@ public class PlayerService
 {
     private PlayerController playerController;
     private PlayerView playerView;
+    private UIService uIService;
+    private GameService gameService;
     public PlayerController PlayerController => playerController;
 
+    
     private GameObject contentHolder;
     private GameObject itemPrefab;
     private ShopView shopView;
@@ -28,13 +31,17 @@ public class PlayerService
     private Sprite selectedPlayerItemBGIcon;
     private Sprite unselectedPlayerItemBGIcon;
 
-    public PlayerService(ShopDatabaseSO shopDatabase, ShopView shopView, PlayerView playerView)
+    public PlayerService(UIService uiService, GameService gameService, PlayerView playerView)
     {
-        this.shopDatabaseSO = shopDatabase;
-        this.shopView = shopView;
+        //this.uIService = uiService;
+        //this.gameService = gameService;
+
+        //this.shopDatabaseSO = shopDatabase;
+        //this.shopView = shopView;
+        
         this.playerView = playerView;
 
-        playerController = new PlayerController();
+        playerController = new PlayerController(uiService, gameService);
 
         Initialize();
     }

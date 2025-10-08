@@ -39,6 +39,7 @@ public class GameService : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Hello");
         ServiceLocator.Register(this);
         ServiceLocator.Register(uiService);
 
@@ -48,10 +49,11 @@ public class GameService : MonoBehaviour
         ServiceLocator.Register(new EventService(soundService));
         eventService = ServiceLocator.Get<EventService>();
 
-        ServiceLocator.Register(new ShopService(shopDatabase, shopView));
-        ServiceLocator.Register(new PlayerService(shopDatabase, shopView, playerView));
+        ServiceLocator.Register(new ShopService(shopDatabase, this, uiService, shopView));
+        ServiceLocator.Register(new PlayerService(uiService, this, playerView));
         ServiceLocator.Register(new TransactionService(transactionView));
 
+        shopService = ServiceLocator.Get<ShopService>();
     }
 
     private void Start()

@@ -9,25 +9,30 @@ using static GameService;
 public class ShopView : MonoBehaviour
 {
     private ShopController shopController;
+    private UIService uiService;
+    private ShopDatabaseSO shopDatabase;
     public ShopController ShopController => shopController;
 
-    private Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
 
     private GameObject shopItemPrefab;
 
-    public void Initialize(ShopController controller)
+    public void Initialize(ShopController controller, UIService uiService, ShopDatabaseSO shopDatabase)
     {
         this.shopController = controller;
+        this.uiService = uiService;
+        this.shopDatabase = shopDatabase;
     }
     private void Start()
     {
+        shopItemPrefab = ServiceLocator.Get<GameService>().ShopItemPrefab;
+
         if (ShopController != null)
         {
             ShopController.Switch(0); // Switch to the first tab by default
-            FillTabs();
+            //FillTabs();
         }
 
-        shopItemPrefab = ServiceLocator.Get<GameService>().ShopItemPrefab;
 
         ServiceLocator.Get<EventService>().OnClickedIShopItem += SelectShopItem;
         ServiceLocator.Get<EventService>().OnClickedAnotherItem += UnSelectAnotherItem;
@@ -42,13 +47,19 @@ public class ShopView : MonoBehaviour
     {
         for (int i = 0; i < ShopController.GetTabsPanelList().Length; i++)
         {
-            GameObject contentHolder = GameObjectExtensions.FindChildOfChildByName(ShopController.GetTabPanelbyID(i), "Content");
+            GameObject contentHolder = GameObjectExtensions.FindChildOfChildByName(ShopController.GetTabPanelByID(i), "Content");
             
-            foreach (var item in ShopController.GetShopDatabase().shopItems)
+            foreach (var item in shopDatabase.shopItems)
             {
                 if (item.itemType == (ItemType)i)
                 {
-                    TabView tabView = Instantiate(shopItemPrefab, contentHolder.transform).GetComponent<TabView>();
+                    if(shopItemPrefab == null)
+                    {
+                        Debug.LogError("Shop Item Prefab is not assigned in GameService.");
+                    }
+                    var gameobject = Instantiate(shopItemPrefab, contentHolder.transform);
+                    TabView tabView = gameobject.GetComponent<TabView>();
+                   
                     itemInstanceByName[item.itemName] = tabView.gameObject;
                     tabView.Initialize(this, item, TabType.Shop);
                 }

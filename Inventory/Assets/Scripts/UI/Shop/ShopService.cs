@@ -9,6 +9,9 @@ public class ShopService
 {
     private ShopController shopController;
     private ShopView shopView;
+    private GameService gameService;
+    private UIService uiService;
+
     private ShopDatabaseSO shopDatabaseSO;
 
     private TextMeshProUGUI[] tabsButton;
@@ -25,18 +28,21 @@ public class ShopService
     private Sprite selectedShopItemBGIcon;
     private Sprite unselectedShopItemBGIcon;
 
-    public ShopService(ShopDatabaseSO shopDatabase, ShopView shopView)
+    public ShopService(ShopDatabaseSO shopDatabase, GameService gameService, UIService uIService, ShopView shopView)
     {
-        this.shopDatabaseSO = shopDatabase;
+        //this.shopDatabaseSO = shopDatabase;
+        this.uiService = uIService;
+        this.gameService = gameService;
         this.shopView = shopView;
-        shopController = new ShopController();
+
+        shopController = new ShopController(shopDatabase, gameService, uIService);
         Initialize();
     }
 
     public void Initialize()
     {
 
-        tabsButton = ServiceLocator.Get<UIService>().TanNames;
+        tabsButton = ServiceLocator.Get<UIService>().TabNames;
         tabPanels = ServiceLocator.Get<UIService>().TabItems;
         shopItemPrefab = ServiceLocator.Get<GameService>().ShopItemPrefab;
 
@@ -51,16 +57,16 @@ public class ShopService
         unselectedShopItemBGIcon = ServiceLocator.Get<UIService>().UnselectedShopItemBGIcon;
 
         shopController.Initialize(
-            shopView, 
-            shopDatabaseSO, 
-            tabsButton, 
-            tabPanels, 
-            shopItemPrefab, 
-            icon, 
-            itemName, 
-            description, 
-            weight, 
-            transaction, 
+            shopView,
+            shopDatabaseSO,
+            tabsButton,
+            tabPanels,
+            shopItemPrefab,
+            icon,
+            itemName,
+            description,
+            weight,
+            transaction,
             price,
             selectedShopItemBGIcon,
             unselectedShopItemBGIcon);

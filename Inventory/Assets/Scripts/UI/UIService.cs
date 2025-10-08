@@ -50,7 +50,7 @@ public class UIService : MonoBehaviour
     [SerializeField] private TextMeshProUGUI quantity;
     [SerializeField] private TextMeshProUGUI buttonText;
 
-    public TextMeshProUGUI[] TanNames => tabNames;
+    public TextMeshProUGUI[] TabNames => tabNames;
     public GameObject[] TabItems => tabItems;
     public GameObject InventoryPanel => inventoryPanel;
     public GameObject Content => content;

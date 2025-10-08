@@ -1,26 +1,26 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Transactions;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
-using static GameService;
 
 public class ShopController
 {
     private ShopModel shopModel;
     private ShopView shopView;
+    private GameService gameService;
+    private UIService uiService;
+    private ShopDatabaseSO shopDatabase;
 
-    public ShopModel ShopModel => shopModel;
     public ShopView ShopView => shopView;
 
-    public ShopController()
+    public Color activeColor = new Color32(220, 219, 218, 225);
+    public Color inactiveColor = new Color32(115, 115, 115, 225);
+
+    public ShopController(ShopDatabaseSO shopDatabase, GameService gameService, UIService uiService)
     {
-        shopModel = new ShopModel(this);
+        this.shopDatabase = shopDatabase;
+        this.uiService = uiService;
+        this.gameService = gameService;
+
     }
 
     public void Initialize(
@@ -39,87 +39,100 @@ public class ShopController
         Sprite unselectedShopItemBGIcon)
     {
         this.shopView = shopView;
-        ShopView.Initialize(this);
+        ShopView.Initialize(this, uiService, shopDatabase);
 
-        ShopModel.Initialize(
-            database, 
-            tabsButtons, 
-            tabsPanels, 
-            shopItemPrefab, 
-            icon, 
-            itemName, 
-            description, 
-            weight, 
-            transaction, 
-            price,
-            selectedShopItemBGIcon,
-            unselectedShopItemBGIcon);
-
+        FillTabs();
         Reset();
+    }
+
+    public void FillTabs()
+    {
+        for (int i = 0; i < GetTabsPanelList().Length; i++)
+        {
+            GameObject contentHolder = GameObjectExtensions.FindChildOfChildByName(GetTabPanelByID(i), "Content");
+
+            foreach (var item in shopDatabase.shopItems)
+            {
+                if (item.itemType == (ItemType)i)
+                {
+                    var prefab = gameService.ShopItemPrefab;
+                    if (prefab == null)
+                    {
+                        Debug.LogError("Shop Item Prefab is not assigned in GameService.");
+                    }
+                    var gameobject = GameObject.Instantiate(prefab, contentHolder.transform);
+                    TabView tabView = gameobject.GetComponent<TabView>();
+
+                    shopView.itemInstanceByName[item.itemName] = tabView.gameObject;
+                    tabView.Initialize(shopView, item, TabType.Shop);
+                }
+            }
+        }
     }
 
     public void Switch(int tabID)
     {
-        foreach (var button in ShopModel.GetTabButtonList())
+        foreach (var button in uiService.TabNames)
         {
             if (button != null)
-                button.color = ShopModel.inactiveColor;
+                button.color = inactiveColor;
         }
 
-        foreach (var panel in ShopModel.GetTabPanelsList())
+        foreach (var panel in uiService.TabItems)
         {
             if (panel != null)
                 panel.SetActive(false);
         }
 
-        if (ShopModel.GetTabButton(tabID) != null)
-            ShopModel.GetTabButton(tabID).color = ShopModel.activeColor;
+        if (GetTabsButtonByID(tabID) != null)
+            GetTabsButtonByID(tabID).color = activeColor;
 
-        if (ShopModel.GetTabPanelbyID(tabID) != null)
-            ShopModel.GetTabPanelbyID(tabID).SetActive(true);
+        if (GetTabPanelByID(tabID) != null)
+            GetTabPanelByID(tabID).SetActive(true);
     }
 
     public GameObject[] GetTabsPanelList()
     {
-        return ShopModel.GetTabPanelsList();
+        return uiService.TabItems;
     }
-    public GameObject GetTabPanelbyID(int tabID)
+
+    public GameObject GetTabPanelByID(int tabID)
     {
-        return ShopModel.GetTabPanelbyID(tabID);
+        GameObject[] tabPanels = uiService.TabItems;
+
+        if (tabID < 0 || tabID >= tabPanels.Length)
+            return null;
+        return tabPanels[tabID];
     }
-    public TextMeshProUGUI[] GetTabsButton()
+    public TextMeshProUGUI GetTabsButtonByID(int tabID)
     {
-        return ShopModel.GetTabButtonList();
-    }
-    public ShopDatabaseSO GetShopDatabase()   //List of ScriptableObjects
-    {
-        return ShopModel.ShopDataBase;
-    }
-    public GameObject GetShopItemPrefab()
-    {
-        return ShopModel.GetShopItemPrefab();
+        TextMeshProUGUI[] tabsButton = uiService.TabNames;
+
+        if (tabID < 0 || tabID >= tabsButton.Length)
+            return null;
+        return tabsButton[tabID];
     }
     public void SetItemInfo(TabType tabType, string name)
     {
-        foreach (var item in GetShopDatabase().shopItems)
+        foreach (var item in shopDatabase.shopItems)
         {
             if (item.itemName == name)
             {
-                ShopModel.Icon.sprite = item.icon;
-                ShopModel.ItemName.text = item.itemName;
-                ShopModel.Description.text = item.description;
-                ShopModel.Weight.text = item.weight.ToString() + " kg";
+                uiService.Icon.sprite = item.icon;
+                uiService.ItemName.text = item.itemName;
+                uiService.Description.text = item.description;
+                uiService.Weight.text = item.weight.ToString() + " kg";
 
                 switch (tabType)
                 {
                     case TabType.Shop:
-                        ShopModel.Transaction.text = "Buying Price";
-                        ShopModel.Price.text = item.buyingPrice.ToString() + " G";
+                        uiService.Transaction.text = "Buying Price";
+                        uiService.Price.text = item.buyingPrice.ToString() + " G";
                         break;
 
                     case TabType.Player:
-                        ShopModel.Transaction.text = "Selling Price";
-                        ShopModel.Price.text = item.sellingPrice.ToString() + " G";
+                        uiService.Transaction.text = "Selling Price";
+                        uiService.Price.text = item.sellingPrice.ToString() + " G";
                         break;
                 }
 
@@ -133,14 +146,15 @@ public class ShopController
     {
         ShopView.UnSelectAnotherItem(view);
     }
+
     private void Reset()
     {
-        ShopModel.Icon.sprite = ShopModel.TempIcon.sprite;
-        ShopModel.ItemName.text = "Name";
-        ShopModel.Description.text = "Description";
+        uiService.Icon.sprite = uiService.Icon.sprite;
+        uiService.ItemName.text = "Name";
+        uiService.Description.text = "Description";
     }
 
-    public Sprite GetSelectedShopItemBGIcon => ShopModel.SelectedShopItemBGIcon;
-    public Sprite GetUnselectedShopItemBGIcon => ShopModel.UnselectedShopItemBGIcon;
+    public Sprite GetSelectedShopItemBGIcon => uiService.SelectedShopItemBGIcon;
+    public Sprite GetUnselectedShopItemBGIcon => uiService.UnselectedShopItemBGIcon;
 
 }

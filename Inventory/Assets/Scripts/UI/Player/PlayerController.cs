@@ -9,6 +9,9 @@ public class PlayerController
 {
     private PlayerModel playerModel;
     private PlayerView playerView;
+    private UIService uiService;    
+    private GameService gameService;
+
     public PlayerModel PlayerModel => playerModel;
     public PlayerView PlayerView => playerView;
 
@@ -19,8 +22,10 @@ public class PlayerController
 
     private GameObject moneyGameObject;
 
-    public PlayerController()
+    public PlayerController(UIService uiService, GameService gameService)
     {
+        this.uiService = uiService;
+        this.gameService = gameService;
         playerModel = new PlayerModel(this);
 
     }
