@@ -30,11 +30,15 @@ public class PlayerController
     private GameObject contentHolder;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public PlayerController(UIService uiService, GameService gameService)
     {
         this.uiService = uiService;
         this.gameService = gameService;
         playerModel = new PlayerModel(this);
+=======
+    private ShopView shopView;
+>>>>>>> Stashed changes
 =======
     private ShopView shopView;
 >>>>>>> Stashed changes

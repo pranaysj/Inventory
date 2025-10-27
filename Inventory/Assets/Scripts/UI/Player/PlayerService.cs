@@ -10,12 +10,22 @@ public class PlayerService
     private PlayerController playerController;
     private PlayerView playerView;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     private UIService uIService;
     private GameService gameService;
     public PlayerController PlayerController => playerController;
 =======
     private UIService uiService;
     private GameService gameService;
+=======
+    private UIService uiService;
+    private GameService gameService;
+
+    public PlayerController PlayerController 
+    {
+        get { return playerController; }
+    }
+>>>>>>> Stashed changes
 
     public PlayerController PlayerController 
     {
@@ -42,6 +52,7 @@ public class PlayerService
     private Sprite unselectedPlayerItemBGIcon;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public PlayerService(UIService uiService, GameService gameService, PlayerView playerView)
 =======
     public PlayerService(ShopDatabaseSO shopDatabase, ShopView shopView, PlayerView playerView, UIService uiService, GameService gameService)
@@ -60,6 +71,17 @@ public class PlayerService
 <<<<<<< Updated upstream
         playerController = new PlayerController(uiService, gameService);
 =======
+        playerController = new PlayerController(playerView, uiService, gameService, shopDatabaseSO);
+>>>>>>> Stashed changes
+=======
+    public PlayerService(ShopDatabaseSO shopDatabase, ShopView shopView, PlayerView playerView, UIService uiService, GameService gameService)
+    {
+        this.shopDatabaseSO = shopDatabase;
+        this.shopView = shopView;
+        this.playerView = playerView;
+        this.uiService = uiService;
+        this.gameService = gameService;
+
         playerController = new PlayerController(playerView, uiService, gameService, shopDatabaseSO);
 >>>>>>> Stashed changes
 

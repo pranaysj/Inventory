@@ -57,6 +57,9 @@ public class GameService : MonoBehaviour
         shopService = ServiceLocator.Get<ShopService>();
 
         ServiceLocator.Register(new PlayerService(shopDatabase, shopView, playerView, uiService, this));
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         ServiceLocator.Register(new TransactionService(transactionView));
 

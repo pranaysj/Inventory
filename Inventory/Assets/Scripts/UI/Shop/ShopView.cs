@@ -47,6 +47,9 @@ public class ShopView : MonoBehaviour
 <<<<<<< Updated upstream
 =======
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     public void FillTabs()
     {
@@ -75,8 +78,11 @@ public class ShopView : MonoBehaviour
     public void FillItemInfo(TabType tabType, string itemName)
     {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         ShopController.SetItemInfo(tabType, itemName);
 =======
+=======
+>>>>>>> Stashed changes
         foreach (var item in gameService.ShopDatabase.shopItems)
         {
             if (item.itemName == itemName)
