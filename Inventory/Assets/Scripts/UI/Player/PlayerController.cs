@@ -20,8 +20,6 @@ public class PlayerController
     private ShopItemSO tempItem;
 
 
-    private UIService uIService;
-    private GameService gameService;
     private ShopDatabaseSO shopDatabaseSO;
     private Dictionary<string, int> itemsCountByName = new Dictionary<string, int>();
     private Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
@@ -29,38 +27,26 @@ public class PlayerController
     private GameObject itemPrefab;
     private GameObject contentHolder;
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    public PlayerController(UIService uiService, GameService gameService)
-    {
-        this.uiService = uiService;
-        this.gameService = gameService;
-        playerModel = new PlayerModel(this);
-=======
+
     private ShopView shopView;
->>>>>>> Stashed changes
-=======
-    private ShopView shopView;
->>>>>>> Stashed changes
 
     public PlayerController(PlayerView playerView, UIService uiService, GameService gameService, ShopDatabaseSO shopDatabaseSO)
     {
         playerModel = new PlayerModel();
         this.playerView = playerView;
-        this.uIService = uiService;
+        this.uiService = uiService;
         this.gameService = gameService;
         this.shopDatabaseSO = shopDatabaseSO;
 
         PlayerView.Initialize(this, uiService);
     }
-
     public void Initialize()
     {
         playerView.Reset();
 
         //NEW approach to get prefab from GameService
         this.itemPrefab = gameService.PlayerItemPrefab;
-        this.contentHolder = uIService.Content;
+        this.contentHolder = uiService.Content;
 
         this.shopView = gameService.ShopView;
     }
@@ -196,7 +182,7 @@ public class PlayerController
     }
     public void SetMoney(int value)
     {
-        var moneyTxtGO = uIService.Money.gameObject;
+        var moneyTxtGO = uiService.Money.gameObject;
         NumberCounter numberCounter = moneyTxtGO.GetComponent<NumberCounter>();
         if (numberCounter != null)
         {
