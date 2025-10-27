@@ -7,37 +7,33 @@ using UnityEngine.UI;
 
 public class PlayerController
 {
-    private PlayerModel playerModel;
-    private PlayerView playerView;
     private UIService uiService;    
     private GameService gameService;
 
+    private PlayerModel playerModel;
     public PlayerModel PlayerModel => playerModel;
+
+    private PlayerView playerView;
     public PlayerView PlayerView => playerView;
-
-    public Sprite tempIcon;
-
-    private ShopItemSO tempItem;
-
-
-    private ShopDatabaseSO shopDatabaseSO;
-    private Dictionary<string, int> itemsCountByName = new Dictionary<string, int>();
-    private Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
+    private ShopView shopView;
 
     private GameObject itemPrefab;
     private GameObject contentHolder;
 
+    private ShopItemSO tempItem;
+    private ShopDatabaseSO shopDatabaseSO;
 
-    private ShopView shopView;
+    private Dictionary<string, int> itemsCountByName = new Dictionary<string, int>();
+    private Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
 
-    public PlayerController(PlayerView playerView, UIService uiService, GameService gameService, ShopDatabaseSO shopDatabaseSO)
+    public PlayerController(PlayerView playerView, UIService uiService, GameService gameService)
     {
         playerModel = new PlayerModel();
         this.playerView = playerView;
         this.uiService = uiService;
         this.gameService = gameService;
-        this.shopDatabaseSO = shopDatabaseSO;
 
+        Initialize();
         PlayerView.Initialize(this, uiService);
     }
     public void Initialize()
@@ -45,10 +41,11 @@ public class PlayerController
         playerView.Reset();
 
         //NEW approach to get prefab from GameService
-        this.itemPrefab = gameService.PlayerItemPrefab;
-        this.contentHolder = uiService.Content;
+        itemPrefab = gameService.PlayerItemPrefab;
+        shopDatabaseSO = gameService.ShopDatabase;
+        shopView = gameService.ShopView;
 
-        this.shopView = gameService.ShopView;
+        contentHolder = uiService.Content;
     }
     public void SpawnItemInPlayerInventory(ShopItemSO tempItem)
     {

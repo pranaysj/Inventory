@@ -31,6 +31,7 @@ public class GameService : MonoBehaviour
     public ShopView ShopView => shopView;
     public GameObject ShopItemPrefab => shopItemPrefab;
     public GameObject PlayerItemPrefab => playerItemPrefab;
+    public ShopDatabaseSO ShopDatabase => shopDatabase;
 
     private ShopService shopService;
     private EventService eventService;
@@ -53,7 +54,7 @@ public class GameService : MonoBehaviour
         ServiceLocator.Register(new ShopService(shopDatabase, this, uiService, shopView));
         shopService = ServiceLocator.Get<ShopService>();
 
-        ServiceLocator.Register(new PlayerService(shopDatabase, shopView, playerView, uiService, this));
+        ServiceLocator.Register(new PlayerService(playerView, uiService, this));
         ServiceLocator.Register(new TransactionService(transactionView));
 
     }

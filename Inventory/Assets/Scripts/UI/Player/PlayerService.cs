@@ -12,58 +12,11 @@ public class PlayerService
 
     public PlayerController PlayerController => playerController;
 
-    private UIService uiService;
-    private GameService gameService;
 
-    private GameObject contentHolder;
-    private GameObject itemPrefab;
-    private ShopView shopView;
-    private ShopDatabaseSO shopDatabaseSO;
-
-    private Image icon;
-    private TextMeshProUGUI type;
-    private TextMeshProUGUI rarity;
-    private TextMeshProUGUI itemName;
-    private TextMeshProUGUI description;
-
-    private TextMeshProUGUI bagWight;
-    private TextMeshProUGUI money;
-
-    private Sprite selectedPlayerItemBGIcon;
-    private Sprite unselectedPlayerItemBGIcon;
-
-   
-    public PlayerService(ShopDatabaseSO shopDatabase, ShopView shopView, PlayerView playerView, UIService uiService, GameService gameService)
+    public PlayerService(PlayerView playerView, UIService uiService, GameService gameService)
     {
-        this.shopDatabaseSO = shopDatabase;
-        this.shopView = shopView;
-        this.playerView = playerView;
-        this.uiService = uiService;
-        this.gameService = gameService;
+        playerController = new PlayerController(playerView, uiService, gameService);
 
-        playerController = new PlayerController(playerView, uiService, gameService, shopDatabaseSO);
-
-        Initialize();
-    }
-    public void Initialize()
-    {
-        UIService uIService = ServiceLocator.Get<UIService>();
-        itemPrefab = ServiceLocator.Get<GameService>().PlayerItemPrefab;
-
-        contentHolder = uIService.Content;
-
-        icon = uIService.IconR;
-        type = uIService.TypeR;
-        rarity = uIService.RarityR;
-        itemName = uIService.ItemNameR;
-        description = uIService.DescriptionR;
-        bagWight = uIService.BagWeight;
-        money = uIService.Money;
-
-        selectedPlayerItemBGIcon = uIService.SelectedPlayerItemBGIcon;
-        unselectedPlayerItemBGIcon = uIService.UnselectedPlayerItemBGIcon;
-
-        PlayerController.Initialize();
     }
 
     public int GetMoney()
