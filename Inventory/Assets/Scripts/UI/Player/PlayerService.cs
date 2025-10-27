@@ -9,9 +9,19 @@ public class PlayerService
 {
     private PlayerController playerController;
     private PlayerView playerView;
+<<<<<<< Updated upstream
     private UIService uIService;
     private GameService gameService;
     public PlayerController PlayerController => playerController;
+=======
+    private UIService uiService;
+    private GameService gameService;
+
+    public PlayerController PlayerController 
+    {
+        get { return playerController; }
+    }
+>>>>>>> Stashed changes
 
     
     private GameObject contentHolder;
@@ -31,7 +41,11 @@ public class PlayerService
     private Sprite selectedPlayerItemBGIcon;
     private Sprite unselectedPlayerItemBGIcon;
 
+<<<<<<< Updated upstream
     public PlayerService(UIService uiService, GameService gameService, PlayerView playerView)
+=======
+    public PlayerService(ShopDatabaseSO shopDatabase, ShopView shopView, PlayerView playerView, UIService uiService, GameService gameService)
+>>>>>>> Stashed changes
     {
         //this.uIService = uiService;
         //this.gameService = gameService;
@@ -40,8 +54,14 @@ public class PlayerService
         //this.shopView = shopView;
         
         this.playerView = playerView;
+        this.uiService = uiService;
+        this.gameService = gameService;
 
+<<<<<<< Updated upstream
         playerController = new PlayerController(uiService, gameService);
+=======
+        playerController = new PlayerController(playerView, uiService, gameService, shopDatabaseSO);
+>>>>>>> Stashed changes
 
         Initialize();
     }
@@ -57,28 +77,13 @@ public class PlayerService
         rarity = uIService.RarityR;
         itemName = uIService.ItemNameR;
         description = uIService.DescriptionR;
-
         bagWight = uIService.BagWeight;
         money = uIService.Money;
 
         selectedPlayerItemBGIcon = uIService.SelectedPlayerItemBGIcon;
         unselectedPlayerItemBGIcon = uIService.UnselectedPlayerItemBGIcon;
 
-        PlayerController.Initialize(
-            playerView, 
-            contentHolder, 
-            itemPrefab, 
-            shopView, 
-            shopDatabaseSO,
-            icon,
-            type,
-            rarity,
-            itemName,
-            description,
-            bagWight,
-            money,
-            selectedPlayerItemBGIcon,
-            unselectedPlayerItemBGIcon);
+        PlayerController.Initialize();
     }
 
     public int GetMoney()
@@ -93,7 +98,6 @@ public class PlayerService
     {
         PlayerController.SellItem(selectedItemView, quantity, sellingPrice, grossWeight);
     }
-
     internal void BuyItem(TabView selectedItemView, int quantity, int buyingPrice, int grossWeight)
     {
         PlayerController.BuyItem(selectedItemView, quantity, buyingPrice, grossWeight);

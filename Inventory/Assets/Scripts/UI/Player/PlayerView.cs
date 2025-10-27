@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -7,98 +8,121 @@ using UnityEngine.UI;
 
 public class PlayerView : MonoBehaviour
 {
+    private EventService eventService;
+
     private PlayerController playerController;
+    private UIService uiService;
+
     public PlayerController PlayerController => playerController;
+    
+    private Image itemIcon;
+    private TextMeshProUGUI typeTxt;
+    private TextMeshProUGUI rarityTxt;
+    private TextMeshProUGUI itemNameTxt;
+    private TextMeshProUGUI descriptionTxt;
+
+    private TextMeshProUGUI bagWeightTxt;
+    private TextMeshProUGUI moneyTextTxt;
+
+    private Sprite selectedPlayerItemBGSprite;
+    private Sprite unselectedPlayerItemBGSprite;
 
     private ShopItemSO tempItem;
 
-    [SerializeField] private int bagWeight = 0;
-    private TextMeshProUGUI bagWeightText;
-    
 
+    private void Awake()
+    {
+        eventService = ServiceLocator.Get<EventService>();
+    }
     private void Start()
     {
-        ServiceLocator.Get<EventService>().OnClickedIPlayerItem += SelectPlayerItem;
-        ServiceLocator.Get<EventService>().OnClickedAnotherItem += UnSelectAnotherItem;
 
-        bagWeightText = PlayerController.GetBagWight();
-        bagWeightText.text = "Weight: " + bagWeight.ToString() + " / " + PlayerController.GetMaxWeight() + " kg";
+        eventService.OnClickedIPlayerItem += SelectPlayerItem;
+        eventService.OnClickedAnotherItem += UnSelectAnotherItem;
+
+        UpdateBagWeight(0);
     }
 
-    public void Initialize(PlayerController playerController)
+    public void Initialize(PlayerController playerController, UIService uiService)
     {
         this.playerController = playerController;
+        this.uiService = uiService;
+
+        InitializeUIElement();
+    }
+
+    private void InitializeUIElement()
+    {
+        itemIcon = uiService.IconR;
+        typeTxt = uiService.TypeR;
+        rarityTxt = uiService.RarityR;
+        itemNameTxt = uiService.ItemNameR;
+        descriptionTxt = uiService.DescriptionR;
+        bagWeightTxt = uiService.BagWeight;
+        moneyTextTxt = uiService.Money;
+        selectedPlayerItemBGSprite = uiService.SelectedPlayerItemBGIcon;
+        unselectedPlayerItemBGSprite = uiService.UnselectedPlayerItemBGIcon;
 
     }
 
     private void OnDestroy()
     {
-        ServiceLocator.Get<EventService>().OnClickedIPlayerItem -= SelectPlayerItem;
-        ServiceLocator.Get<EventService>().OnClickedAnotherItem -= UnSelectAnotherItem;
+        eventService.OnClickedIPlayerItem -= SelectPlayerItem;
+        eventService.OnClickedAnotherItem -= UnSelectAnotherItem;
     }
-
     public GameObject InstantiateItem()
     {
         return Instantiate(PlayerController.GetItemPrefab(), PlayerController.GetContentHolder().transform);
     }
-    public void UpdateBagWeight(int weightChange)
+    public void UpdateBagWeight(int bagWeight)
     {
-        bagWeight += weightChange;
-        PlayerController.SetWeight(bagWeight);
-        bagWeightText.text = "Weight: " + bagWeight.ToString() + " / " + PlayerController.GetMaxWeight() + " kg";
+        bagWeightTxt.text = "Weight: " + bagWeight.ToString() + " / " + PlayerController.GetMaxWeight() + " kg";
     }
     public void UpdateMoney()
     {
-        PlayerController.GetMonkeyText().text = PlayerController.GetMoney().ToString();
+        moneyTextTxt.text = PlayerController.GetMoney().ToString();
     }
-
-    public void GetTemporaryItemInPanel()
-    {
-        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
-
-        tempItem = PlayerController.GetItemData();
-
-        PlayerController.GetIcon().sprite = tempItem.icon;
-        PlayerController.GetItemType().text = tempItem.itemType.ToString();
-        PlayerController.GetRarity().text = tempItem.rarity.ToString();
-        PlayerController.GetItemName().text = tempItem.itemName;
-        PlayerController.GetDescription().text = tempItem.description;
-
-    }
-
-    public void GetTempItemInPlayerInventory()
-    {
-        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
-
-        if (tempItem == null) return;
-
-        int nextWeight = PlayerController.GetWeight() + tempItem.weight;
-
-        if (tempItem != null && nextWeight < PlayerController.GetMaxWeight())
-        {
-            PlayerController.SpawnItemInPlayerInventory(tempItem);
-            tempItem = null;
-            PlayerController.Reset();
-        }
-    }
-
+   
+   
     public void SelectPlayerItem(TabView view)
     {
-        view.itemBGIconGameobject.sprite = PlayerController.GetSelectedPlayerItemBGIcon;
+        view.itemBGIconGameobject.sprite = selectedPlayerItemBGSprite;
     }
-
     public void UnSelectAnotherItem(TabView view)
     {
         foreach (var item in PlayerController.GetItemInstanceByName().Values)
         {
-            Sprite unselectedSprite = PlayerController.GetUnselectedPlayerItemBGIcon;
 
             TabView tabView = item.GetComponent<TabView>();
 
             if (tabView != null && tabView != view)
             {
-                tabView.itemBGIconGameobject.sprite = unselectedSprite;
+                tabView.itemBGIconGameobject.sprite = unselectedPlayerItemBGSprite;
             }
         }
+    }
+
+    public ShopItemSO GetTemporaryItemInPanel()
+    {
+        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
+
+        tempItem = PlayerController.GetItemData();
+
+        itemIcon.sprite = tempItem.icon;
+        typeTxt.text = tempItem.itemType.ToString();
+        rarityTxt.text = tempItem.rarity.ToString();
+        itemNameTxt.text = tempItem.itemName;
+        descriptionTxt.text = tempItem.description;
+
+        return tempItem;
+    }
+
+    public void Reset()
+    {
+        itemIcon.sprite = unselectedPlayerItemBGSprite;
+        typeTxt.text = "Item Type";
+        rarityTxt.text = "Rarity";
+        itemNameTxt.text = "Name";
+        descriptionTxt.text = "Description";
     }
 }

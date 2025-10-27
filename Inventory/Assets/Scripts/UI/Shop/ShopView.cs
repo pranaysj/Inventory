@@ -23,6 +23,7 @@ public class ShopView : MonoBehaviour
         this.uiService = uiService;
         this.shopDatabase = shopDatabase;
     }
+
     private void Start()
     {
         shopItemPrefab = ServiceLocator.Get<GameService>().ShopItemPrefab;
@@ -43,6 +44,10 @@ public class ShopView : MonoBehaviour
         ServiceLocator.Get<EventService>().OnClickedIShopItem -= SelectShopItem;
         ServiceLocator.Get<EventService>().OnClickedAnotherItem -= UnSelectAnotherItem;
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     public void FillTabs()
     {
         for (int i = 0; i < ShopController.GetTabsPanelList().Length; i++)
@@ -69,7 +74,35 @@ public class ShopView : MonoBehaviour
 
     public void FillItemInfo(TabType tabType, string itemName)
     {
+<<<<<<< Updated upstream
         ShopController.SetItemInfo(tabType, itemName);
+=======
+        foreach (var item in gameService.ShopDatabase.shopItems)
+        {
+            if (item.itemName == itemName)
+            {
+                uiService.Icon.sprite = item.icon;
+                uiService.ItemName.text = item.itemName;
+                uiService.Description.text = item.description;
+                uiService.Weight.text = item.weight.ToString() + " kg";
+
+                switch (tabType)
+                {
+                    case TabType.Shop:
+                        uiService.Transaction.text = "Buying Price";
+                        uiService.Price.text = item.buyingPrice.ToString() + " G";
+                        break;
+
+                    case TabType.Player:
+                        uiService.Transaction.text = "Selling Price";
+                        uiService.Price.text = item.sellingPrice.ToString() + " G";
+                        break;
+                }
+                return;
+            }
+        }
+        Debug.LogWarning("Item not found: " + name);
+>>>>>>> Stashed changes
     }
 
     public void SelectShopItem(TabView view)

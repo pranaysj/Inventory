@@ -17,56 +17,48 @@ public class PlayerController
 
     public Sprite tempIcon;
 
+    private ShopItemSO tempItem;
+
+
+    private UIService uIService;
+    private GameService gameService;
+    private ShopDatabaseSO shopDatabaseSO;
     private Dictionary<string, int> itemsCountByName = new Dictionary<string, int>();
     private Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
 
-    private GameObject moneyGameObject;
+    private GameObject itemPrefab;
+    private GameObject contentHolder;
 
+<<<<<<< Updated upstream
     public PlayerController(UIService uiService, GameService gameService)
     {
         this.uiService = uiService;
         this.gameService = gameService;
         playerModel = new PlayerModel(this);
+=======
+    private ShopView shopView;
+>>>>>>> Stashed changes
 
-    }
-    public void Initialize(
-        PlayerView playerView, 
-        GameObject contentHolder, 
-        GameObject itemPrefab, 
-        ShopView shopView, 
-        ShopDatabaseSO shopDatabaseSO, 
-        Image icon, 
-        TextMeshProUGUI type, 
-        TextMeshProUGUI rarity, 
-        TextMeshProUGUI itemName, 
-        TextMeshProUGUI description,
-        TextMeshProUGUI bagWeight,
-        TextMeshProUGUI money,
-        Sprite selectedPlayerItemBGIcon,
-        Sprite unselectedPlayerItemBGIcon)
+    public PlayerController(PlayerView playerView, UIService uiService, GameService gameService, ShopDatabaseSO shopDatabaseSO)
     {
+        playerModel = new PlayerModel();
         this.playerView = playerView;
-        PlayerView.Initialize(this);
+        this.uIService = uiService;
+        this.gameService = gameService;
+        this.shopDatabaseSO = shopDatabaseSO;
 
-        PlayerModel.Initialize(
-            contentHolder,
-            itemPrefab,
-            shopView,
-            shopDatabaseSO,
-            icon,
-            type,
-            rarity,
-            itemName,
-            description,
-            bagWeight,
-            money,
-            selectedPlayerItemBGIcon,
-            unselectedPlayerItemBGIcon);
+        PlayerView.Initialize(this, uiService);
+    }
 
-        tempIcon = icon.sprite;
-        Reset();
+    public void Initialize()
+    {
+        playerView.Reset();
 
-        this.moneyGameObject = money.gameObject;
+        //NEW approach to get prefab from GameService
+        this.itemPrefab = gameService.PlayerItemPrefab;
+        this.contentHolder = uIService.Content;
+
+        this.shopView = gameService.ShopView;
     }
     public void SpawnItemInPlayerInventory(ShopItemSO tempItem)
     {
@@ -83,7 +75,8 @@ public class PlayerController
 
             tabView?.ItemsQuantity(itemsCountByName[itemName]);
 
-            PlayerView.UpdateBagWeight(tempItem.weight);
+            var bagWeight = PlayerModel.UpdateBagWeight(tempItem.weight);
+            PlayerView.UpdateBagWeight(bagWeight);
         }
         else
         {
@@ -97,22 +90,21 @@ public class PlayerController
             PlayerView.UpdateBagWeight(tempItem.weight);
             PlayerView.UpdateMoney();
 
-            tabView.Initialize(GetShopView(), tempItem, TabType.Player);
+            tabView.Initialize(shopView, tempItem, TabType.Player);
             tabView.ItemsQuantity(itemsCountByName[itemName]);
         }
     }
+
     private bool IsItemAlreadyInInventory(string itemName)
     {
         return itemsCountByName.ContainsKey(itemName);
     }
-
     public ShopItemSO GetItemData()
     {
-        int randomIndex = UnityEngine.Random.Range(0, GetShopDatabaseSO().shopItems.Count);
-        ShopItemSO itemData = GetShopDatabaseSO().shopItems[randomIndex];
+        int randomIndex = UnityEngine.Random.Range(0, shopDatabaseSO.shopItems.Count);
+        ShopItemSO itemData = shopDatabaseSO.shopItems[randomIndex];
         return itemData;
     }
-
     public void SellItem(TabView selectedItemView, int quantity, int sellingPrice, int grossWeight)
     {
         if (selectedItemView == null)
@@ -145,7 +137,6 @@ public class PlayerController
             PlayerView.UpdateMoney();
         }
     }
-
     internal void BuyItem(TabView selectedItemView, int quantity, int buyingPrice, int grossWeight)
     {
         string itemName = selectedItemView.nameGameobject.text;
@@ -170,10 +161,9 @@ public class PlayerController
             }
         }
     }
-
     private ShopItemSO GetItemScriptableObject(string itemName)
     {
-        foreach (var item in GetShopDatabaseSO().shopItems)
+        foreach (var item in shopDatabaseSO.shopItems)
         {
             if (item.itemName == itemName)
             {
@@ -183,63 +173,27 @@ public class PlayerController
         Debug.LogWarning("Item not found: " + itemName);
         return null;
     }
-
-    public void Reset()
-    {
-        GetIcon().sprite = tempIcon;
-        GetItemType().text = "Item Type";
-        GetRarity().text = "Rarity";
-        GetItemName().text = "Name";
-        GetDescription().text = "Description";
-    }
-
     public Dictionary<string, GameObject> GetItemInstanceByName()
     {
         return itemInstanceByName;
     }
     public GameObject GetContentHolder()
     {
-        return playerModel.ContentHolder;
+        return contentHolder;
     }
     public GameObject GetItemPrefab()
     {
-        return playerModel.ItemPrefab;
+        return itemPrefab;
     }
-    public ShopView GetShopView()
-    {
-        return playerModel.ShopView;
-    }
-    public ShopDatabaseSO GetShopDatabaseSO()
-    {
-        return playerModel.ShopDatabaseSO;
-    }
-    public Image GetIcon()
-    {
-        return playerModel.Icon;
-    }
-    public TextMeshProUGUI GetItemType()
-    {
-        return playerModel.Type;
-    }
-    public TextMeshProUGUI GetRarity()
-    {
-        return playerModel.Rarity;
-    }
-    public TextMeshProUGUI GetItemName()
-    {
-        return playerModel.ItemName;
-    }
-    public TextMeshProUGUI GetDescription()
-    {
-        return playerModel.Description;
-    }
+   
     public int GetMoney()
     {
         return playerModel.Money;
     }
     public void SetMoney(int value)
     {
-        NumberCounter numberCounter = moneyGameObject.GetComponent<NumberCounter>();
+        var moneyTxtGO = uIService.Money.gameObject;
+        NumberCounter numberCounter = moneyTxtGO.GetComponent<NumberCounter>();
         if (numberCounter != null)
         {
             numberCounter.Value = value;
@@ -248,7 +202,7 @@ public class PlayerController
         else
         {
             playerModel.Money = value;
-            moneyGameObject.GetComponent<TextMeshProUGUI>().text = value.ToString();
+            moneyTxtGO.GetComponent<TextMeshProUGUI>().text = value.ToString();
         }
     }
     public int GetWeight()
@@ -263,14 +217,24 @@ public class PlayerController
     {
         return playerModel.MaxWeight;
     }
-    public TextMeshProUGUI GetBagWight()
+
+    public void GetTemporaryItemInPanel()
     {
-        return playerModel.BagWeight;
+        tempItem = playerView.GetTemporaryItemInPanel();
     }
-    public TextMeshProUGUI GetMonkeyText()
+    public void GetTempItemInPlayerInventory()
     {
-        return playerModel.MoneyText;
+        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
+
+        if (tempItem == null) return;
+
+        int nextWeight = GetWeight() + tempItem.weight;
+
+        if (tempItem != null && nextWeight < GetMaxWeight())
+        {
+            SpawnItemInPlayerInventory(tempItem);
+            tempItem = null;
+            playerView.Reset();
+        }
     }
-    public Sprite GetSelectedPlayerItemBGIcon => playerModel.SelectedPlayerItemBGIcon;
-    public Sprite GetUnselectedPlayerItemBGIcon => playerModel.UnselectedPlayerItemBGIcon;
 }

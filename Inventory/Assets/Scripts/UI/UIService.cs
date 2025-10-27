@@ -82,4 +82,20 @@ public class UIService : MonoBehaviour
     public Sprite UnselectedPlayerItemBGIcon => unselectedPlayerItemBGIcon;
 
     public GameObject PlayerItemPrefab { get; internal set; }
+
+    private PlayerService playerService;
+
+    private void Start()
+    {
+        playerService = ServiceLocator.Get<PlayerService>();
+    }
+
+    public void GetTempItemInPlayerInventory()
+    {
+        playerService.PlayerController.GetTempItemInPlayerInventory();
+    }
+    public void GetTemporaryItemInPanel()
+    {
+        playerService.PlayerController.GetTemporaryItemInPanel();
+    }
 }

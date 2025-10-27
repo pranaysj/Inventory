@@ -49,8 +49,15 @@ public class GameService : MonoBehaviour
         ServiceLocator.Register(new EventService(soundService));
         eventService = ServiceLocator.Get<EventService>();
 
+<<<<<<< Updated upstream
         ServiceLocator.Register(new ShopService(shopDatabase, this, uiService, shopView));
         ServiceLocator.Register(new PlayerService(uiService, this, playerView));
+=======
+        ServiceLocator.Register(new ShopService(this));
+        shopService = ServiceLocator.Get<ShopService>();
+
+        ServiceLocator.Register(new PlayerService(shopDatabase, shopView, playerView, uiService, this));
+>>>>>>> Stashed changes
         ServiceLocator.Register(new TransactionService(transactionView));
 
         shopService = ServiceLocator.Get<ShopService>();
