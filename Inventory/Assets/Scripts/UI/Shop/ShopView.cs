@@ -8,21 +8,15 @@ using static GameService;
 
 public class ShopView : MonoBehaviour
 {
-    private ShopController shopController;
     private UIService uiService;
-    private ShopDatabaseSO shopDatabase;
+
+    private ShopController shopController;
     public ShopController ShopController => shopController;
 
-    public Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
-
     private GameObject shopItemPrefab;
+    private ShopDatabaseSO shopDatabase;
 
-    public void Initialize(ShopController controller, UIService uiService, ShopDatabaseSO shopDatabase)
-    {
-        this.shopController = controller;
-        this.uiService = uiService;
-        this.shopDatabase = shopDatabase;
-    }
+    public Dictionary<string, GameObject> itemInstanceByName = new Dictionary<string, GameObject>();
 
     private void Start()
     {
@@ -39,6 +33,12 @@ public class ShopView : MonoBehaviour
         ServiceLocator.Get<EventService>().OnClickedAnotherItem += UnSelectAnotherItem;
     }
 
+    public void Initialize(ShopController controller, UIService uiService, ShopDatabaseSO shopDatabase)
+    {
+        this.shopController = controller;
+        this.uiService = uiService;
+        this.shopDatabase = shopDatabase;
+    }
     private void OnDestroy()
     {
         ServiceLocator.Get<EventService>().OnClickedIShopItem -= SelectShopItem;
@@ -46,7 +46,7 @@ public class ShopView : MonoBehaviour
     }
     public void FillTabs()
     {
-        for (int i = 0; i < ShopController.GetTabsPanelList().Length; i++)
+        for (int i = 0; i < uiService.TabItems.Length; i++)
         {
             GameObject contentHolder = GameObjectExtensions.FindChildOfChildByName(ShopController.GetTabPanelByID(i), "Content");
             
@@ -70,8 +70,8 @@ public class ShopView : MonoBehaviour
 
     public void FillItemInfo(TabType tabType, string itemName)
     {
-        ShopController.SetItemInfo(tabType, itemName);
-        foreach (var item in gameService.ShopDatabase.shopItems)
+        SetItemInfo(tabType, itemName);
+        foreach (var item in shopDatabase.shopItems)
         {
             if (item.itemName == itemName)
             {
@@ -100,14 +100,14 @@ public class ShopView : MonoBehaviour
 
     public void SelectShopItem(TabView view)
     {
-        view.itemBGIconGameobject.sprite = ShopController.GetSelectedShopItemBGIcon;
+        view.itemBGIconGameobject.sprite = uiService.SelectedShopItemBGIcon;
     }
 
     public void UnSelectAnotherItem(TabView view)
     {
         foreach (var item in itemInstanceByName.Values)
         {
-            Sprite unselectedSprite = ShopController.GetUnselectedShopItemBGIcon;
+            Sprite unselectedSprite = uiService.UnselectedShopItemBGIcon;
 
             TabView tabView = item.GetComponent<TabView>();
             if (tabView != null && tabView != view)
@@ -115,5 +115,42 @@ public class ShopView : MonoBehaviour
                 tabView.itemBGIconGameobject.sprite = unselectedSprite;
             }
         }
+    }
+
+    public void SetItemInfo(TabType tabType, string name)
+    {
+        foreach (var item in shopDatabase.shopItems)
+        {
+            if (item.itemName == name)
+            {
+                uiService.Icon.sprite = item.icon;
+                uiService.ItemName.text = item.itemName;
+                uiService.Description.text = item.description;
+                uiService.Weight.text = item.weight.ToString() + " kg";
+
+                switch (tabType)
+                {
+                    case TabType.Shop:
+                        uiService.Transaction.text = "Buying Price";
+                        uiService.Price.text = item.buyingPrice.ToString() + " G";
+                        break;
+
+                    case TabType.Player:
+                        uiService.Transaction.text = "Selling Price";
+                        uiService.Price.text = item.sellingPrice.ToString() + " G";
+                        break;
+                }
+
+                return;
+            }
+        }
+        UnityEngine.Debug.LogWarning("Item not found: " + name);
+    }
+
+    public void Reset()
+    {
+        uiService.Icon.sprite = uiService.Icon.sprite;
+        uiService.ItemName.text = "Name";
+        uiService.Description.text = "Description";
     }
 }

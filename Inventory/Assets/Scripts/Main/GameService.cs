@@ -51,11 +51,11 @@ public class GameService : MonoBehaviour
         ServiceLocator.Register(new EventService(soundService));
         eventService = ServiceLocator.Get<EventService>();
 
-        ServiceLocator.Register(new ShopService(shopDatabase, this, uiService, shopView));
+        ServiceLocator.Register(new ShopService(this, uiService));
         shopService = ServiceLocator.Get<ShopService>();
 
         ServiceLocator.Register(new PlayerService(playerView, uiService, this));
-        ServiceLocator.Register(new TransactionService(transactionView));
+        ServiceLocator.Register(new TransactionService(transactionView, uiService));
 
     }
 

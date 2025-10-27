@@ -12,6 +12,8 @@ public enum TransactionType
 public class TransactionView : MonoBehaviour
 {
     private TransactionController transactionController;
+    private UIService uiService;
+
     public TransactionController TransactionController => transactionController;
 
     private bool isItemIsSelected = false;
@@ -34,9 +36,10 @@ public class TransactionView : MonoBehaviour
         ServiceLocator.Get<EventService>().OnClickedIShopItem -= SellInfo;
     }
 
-    public void Initialize(TransactionController controller)
+    public void Initialize(TransactionController controller, UIService uiService)
     {
         this.transactionController = controller;
+        this.uiService = uiService;
     }
 
     private void BuyInfo(TabView view)
@@ -129,7 +132,7 @@ public class TransactionView : MonoBehaviour
                 break;
             case TabType.Shop:
                 transactionController.GetPlayerService.BuyItem(selectedItemView, TransactionController.QuantityValue, selectedItemView.BuyingPrice, TransactionController.GrossWeightValue);
-                selectedItemView.itemBGIconGameobject.sprite = transactionController.GetShopService.ShopController.GetUnselectedShopItemBGIcon;
+                selectedItemView.itemBGIconGameobject.sprite = uiService.UnselectedShopItemBGIcon;
                 ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ItemPurchased);
                 break;
         }

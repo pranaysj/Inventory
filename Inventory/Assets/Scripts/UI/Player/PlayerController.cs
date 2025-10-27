@@ -15,6 +15,7 @@ public class PlayerController
 
     private PlayerView playerView;
     public PlayerView PlayerView => playerView;
+
     private ShopView shopView;
 
     private GameObject itemPrefab;
@@ -37,7 +38,8 @@ public class PlayerController
     }
     public void Initialize()
     {
-        playerView.Reset();
+        PlayerView.Initialize(this, uiService);
+        PlayerView.Reset();
 
         //NEW approach to get prefab from GameService
         itemPrefab = gameService.PlayerItemPrefab;
@@ -45,7 +47,6 @@ public class PlayerController
         shopView = gameService.ShopView;
         contentHolder = uiService.Content;
 
-        PlayerView.Initialize(this, uiService);
     }
     public void SpawnItemInPlayerInventory(ShopItemSO tempItem)
     {
@@ -207,7 +208,7 @@ public class PlayerController
 
     public void GetTemporaryItemInPanel()
     {
-        tempItem = playerView.GetTemporaryItemInPanel();
+        tempItem = PlayerView.GetTemporaryItemInPanel();
     }
     public void GetTempItemInPlayerInventory()
     {
@@ -221,7 +222,7 @@ public class PlayerController
         {
             SpawnItemInPlayerInventory(tempItem);
             tempItem = null;
-            playerView.Reset();
+            PlayerView.Reset();
         }
     }
 }

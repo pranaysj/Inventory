@@ -16,10 +16,10 @@ public class TransactionService
     private TextMeshProUGUI quantity;
     private TextMeshProUGUI buttonText;
     public TransactionController TransactionController => transactionController;
-    public TransactionService(TransactionView transactionView)
+    public TransactionService(TransactionView transactionView, UIService uiService)
     {
         this.transactionView = transactionView;
-        transactionController = new TransactionController();
+        transactionController = new TransactionController(uiService);
         Initialize();
     }
     public void Initialize()

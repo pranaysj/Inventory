@@ -7,13 +7,15 @@ using UnityEngine;
 public class TransactionController 
 {
     private TransactionModel transactionModel;
+    private UIService uiService;
     private TransactionView transactionView;
     public TransactionModel TransactionModel => transactionModel;
     public TransactionView TransactionView => transactionView;
 
-    public TransactionController()
+    public TransactionController(UIService uiService)
     {
         transactionModel = new TransactionModel(this);
+        this.uiService = uiService;
     }
 
     public void Initialize(
@@ -27,7 +29,7 @@ public class TransactionController
         TextMeshProUGUI buttonText)
     {
         this.transactionView = transactionView;
-        TransactionView.Initialize(this);
+        TransactionView.Initialize(this, uiService);
 
         TransactionModel.Initialize(
             playerService,
