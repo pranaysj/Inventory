@@ -44,13 +44,6 @@ public class ShopView : MonoBehaviour
         ServiceLocator.Get<EventService>().OnClickedIShopItem -= SelectShopItem;
         ServiceLocator.Get<EventService>().OnClickedAnotherItem -= UnSelectAnotherItem;
     }
-<<<<<<< Updated upstream
-=======
-
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     public void FillTabs()
     {
         for (int i = 0; i < ShopController.GetTabsPanelList().Length; i++)
@@ -77,12 +70,7 @@ public class ShopView : MonoBehaviour
 
     public void FillItemInfo(TabType tabType, string itemName)
     {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         ShopController.SetItemInfo(tabType, itemName);
-=======
-=======
->>>>>>> Stashed changes
         foreach (var item in gameService.ShopDatabase.shopItems)
         {
             if (item.itemName == itemName)
@@ -108,7 +96,6 @@ public class ShopView : MonoBehaviour
             }
         }
         Debug.LogWarning("Item not found: " + name);
->>>>>>> Stashed changes
     }
 
     public void SelectShopItem(TabView view)
