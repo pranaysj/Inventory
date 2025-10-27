@@ -41,7 +41,6 @@ public class GameService : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Hello");
         ServiceLocator.Register(this);
         ServiceLocator.Register(uiService);
 

@@ -13,6 +13,7 @@ public class TransactionView : MonoBehaviour
 {
     private TransactionController transactionController;
     private UIService uiService;
+    private EventService eventService;
 
     public TransactionController TransactionController => transactionController;
 
@@ -23,17 +24,19 @@ public class TransactionView : MonoBehaviour
     public bool IsItemIsSelected => isItemIsSelected;
     public TabView SelectedItemView => selectedItemView;
 
-
+    
 
     void Start()
     {
-        ServiceLocator.Get<EventService>().OnClickedIShopItem += BuyInfo;
-        ServiceLocator.Get<EventService>().OnClickedIPlayerItem += SellInfo;
+        eventService = ServiceLocator.Get<EventService>();
+
+        eventService.OnClickedIShopItem += BuyInfo;
+        eventService.OnClickedIPlayerItem += SellInfo;
     }
     void OnDestroy()
     {
-        ServiceLocator.Get<EventService>().OnClickedIShopItem -= BuyInfo;
-        ServiceLocator.Get<EventService>().OnClickedIShopItem -= SellInfo;
+        eventService.OnClickedIShopItem -= BuyInfo;
+        eventService.OnClickedIShopItem -= SellInfo;
     }
 
     public void Initialize(TransactionController controller, UIService uiService)

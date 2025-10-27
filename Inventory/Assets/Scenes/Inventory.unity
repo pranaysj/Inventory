@@ -6417,8 +6417,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2072946959}
   m_HandleRect: {fileID: 2072946958}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8291,12 +8291,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 1646394360}
-  tabButtons:
+  tabNames:
   - {fileID: 409130596}
   - {fileID: 2093650737}
   - {fileID: 1889773210}
   - {fileID: 1452948112}
-  tabPanels:
+  tabItems:
   - {fileID: 527063114}
   - {fileID: 1798967067}
   - {fileID: 775669609}

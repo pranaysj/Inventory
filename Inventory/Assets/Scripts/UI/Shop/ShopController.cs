@@ -31,7 +31,7 @@ public class ShopController
         tabItems = uiService.TabItems;
         tabName = uiService.TabNames;
 
-        shopView.Initialize(this, uiService, shopDatabase);
+        shopView.Initialize(this, gameService, uiService);
 
         FillTabs();
         shopView.Reset();
@@ -39,6 +39,7 @@ public class ShopController
 
     public void FillTabs()
     {
+        Debug.Log("Filling tab: " + tabItems.Length);
         for (int i = 0; i < tabItems.Length; i++)
         {
             GameObject contentHolder = GameObjectExtensions.FindChildOfChildByName(GetTabPanelByID(i), "Content");

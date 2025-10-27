@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,8 +10,11 @@ using static GameService;
 public class ShopView : MonoBehaviour
 {
     private UIService uiService;
+    private EventService eventService;
 
     private ShopController shopController;
+    private GameService gameService;
+
     public ShopController ShopController => shopController;
 
     private GameObject shopItemPrefab;
@@ -20,7 +24,7 @@ public class ShopView : MonoBehaviour
 
     private void Start()
     {
-        shopItemPrefab = ServiceLocator.Get<GameService>().ShopItemPrefab;
+        eventService = ServiceLocator.Get<EventService>();
 
         if (ShopController != null)
         {
@@ -28,22 +32,26 @@ public class ShopView : MonoBehaviour
             //FillTabs();
         }
 
-
-        ServiceLocator.Get<EventService>().OnClickedIShopItem += SelectShopItem;
-        ServiceLocator.Get<EventService>().OnClickedAnotherItem += UnSelectAnotherItem;
+        eventService.OnClickedIShopItem += SelectShopItem;
+        eventService.OnClickedAnotherItem += UnSelectAnotherItem;
     }
 
-    public void Initialize(ShopController controller, UIService uiService, ShopDatabaseSO shopDatabase)
+    public void Initialize(ShopController shopController, GameService gameService, UIService uiService)
     {
-        this.shopController = controller;
+        this.shopController = shopController;
+        this.gameService = gameService;
         this.uiService = uiService;
-        this.shopDatabase = shopDatabase;
+
+        shopDatabase = gameService.ShopDatabase;
+        shopItemPrefab = gameService.ShopItemPrefab;
     }
+
     private void OnDestroy()
     {
-        ServiceLocator.Get<EventService>().OnClickedIShopItem -= SelectShopItem;
-        ServiceLocator.Get<EventService>().OnClickedAnotherItem -= UnSelectAnotherItem;
+        eventService.OnClickedIShopItem -= SelectShopItem;
+        eventService.OnClickedAnotherItem -= UnSelectAnotherItem;
     }
+
     public void FillTabs()
     {
         for (int i = 0; i < uiService.TabItems.Length; i++)
