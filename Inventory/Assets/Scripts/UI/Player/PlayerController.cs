@@ -34,7 +34,6 @@ public class PlayerController
         this.gameService = gameService;
 
         Initialize();
-        PlayerView.Initialize(this, uiService);
     }
     public void Initialize()
     {
@@ -44,8 +43,9 @@ public class PlayerController
         itemPrefab = gameService.PlayerItemPrefab;
         shopDatabaseSO = gameService.ShopDatabase;
         shopView = gameService.ShopView;
-
         contentHolder = uiService.Content;
+
+        PlayerView.Initialize(this, uiService);
     }
     public void SpawnItemInPlayerInventory(ShopItemSO tempItem)
     {
