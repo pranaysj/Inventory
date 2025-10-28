@@ -1,46 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-
 public class TransactionService 
 {
     private TransactionController transactionController;
-    private TransactionView transactionView;
-    private PlayerService playerService;
-    private ShopService shopService;
 
-    private TextMeshProUGUI grossWeight;
-    private TextMeshProUGUI buyAndSellText;
-    private TextMeshProUGUI totalPrice;
-    private TextMeshProUGUI quantity;
-    private TextMeshProUGUI buttonText;
-    public TransactionService(TransactionView transactionView, UIService uiService)
+    public TransactionService(TransactionView transactionView, UIService uiService, PlayerService playerService)
     {
-        this.transactionView = transactionView;
-        transactionController = new TransactionController(transactionView, uiService);
-        Initialize();
+        transactionController = new TransactionController(transactionView, uiService, playerService);        
     }
-    public void Initialize()
+    public void PlusButton()
     {
-        grossWeight = ServiceLocator.Get<UIService>().GrossWeight;
-        buyAndSellText = ServiceLocator.Get<UIService>().BuyAndSellText;
-        totalPrice = ServiceLocator.Get<UIService>().TotalPrice;
-        quantity = ServiceLocator.Get<UIService>().Quantity;
-        buttonText = ServiceLocator.Get<UIService>().ButtonText;
+        transactionController.IncreaseQuantity();
+    }
 
-        playerService = ServiceLocator.Get<PlayerService>();
-        shopService = ServiceLocator.Get<ShopService>();
+    public void MinusButton()
+    {
+        transactionController.DecreaseQuantity();
+    }
 
-        transactionController.Initialize(
-            playerService,
-            shopService,
-            transactionView,
-            grossWeight,
-            buyAndSellText,
-            totalPrice,
-            quantity,
-            buttonText);
-
+    public void BuyAndSell()
+    {
+        transactionController.BuyAndSellButton();
     }
 }

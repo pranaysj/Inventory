@@ -36,6 +36,7 @@ public class GameService : MonoBehaviour
     private ShopService shopService;
     private EventService eventService;
     private SoundService soundService;
+    private PlayerService playerService;
 
     private InventoryController inventoryController;
 
@@ -54,7 +55,9 @@ public class GameService : MonoBehaviour
         shopService = ServiceLocator.Get<ShopService>();
 
         ServiceLocator.Register(new PlayerService(playerView, uiService, this));
-        ServiceLocator.Register(new TransactionService(transactionView, uiService));
+        playerService = ServiceLocator.Get<PlayerService>();
+
+        ServiceLocator.Register(new TransactionService(transactionView, uiService, playerService));
 
     }
 

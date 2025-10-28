@@ -84,10 +84,11 @@ public class UIService : MonoBehaviour
     public GameObject PlayerItemPrefab { get; internal set; }
 
     private PlayerService playerService;
-
+    private TransactionService transactionService;
     private void Start()
     {
         playerService = ServiceLocator.Get<PlayerService>();
+        transactionService = ServiceLocator.Get<TransactionService>();
     }
 
     public void GetTempItemInPlayerInventory()
@@ -97,5 +98,18 @@ public class UIService : MonoBehaviour
     public void GetTemporaryItemInPanel()
     {
         playerService.PlayerController.GetTemporaryItemInPanel();
+    }
+
+    public void PlusButton()
+    {
+        transactionService.PlusButton();
+    }
+    public void MinusButton()
+    {
+        transactionService.MinusButton();
+    }
+    public void BuyAndSellButton()
+    {
+        transactionService.BuyAndSell();
     }
 }

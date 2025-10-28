@@ -658,9 +658,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1592680160}
-        m_TargetAssemblyTypeName: TransactionView, Assembly-CSharp
-        m_MethodName: DecreaseQuantity
+      - m_Target: {fileID: 1592680159}
+        m_TargetAssemblyTypeName: UIService, Assembly-CSharp
+        m_MethodName: MinusButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6418,7 +6418,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2072946958}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6759,9 +6759,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1592680160}
-        m_TargetAssemblyTypeName: TransactionView, Assembly-CSharp
-        m_MethodName: IncreaseQuantity
+      - m_Target: {fileID: 1592680159}
+        m_TargetAssemblyTypeName: UIService, Assembly-CSharp
+        m_MethodName: PlusButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7603,8 +7603,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1592680160}
-        m_TargetAssemblyTypeName: TransactionView, Assembly-CSharp
+      - m_Target: {fileID: 1592680159}
+        m_TargetAssemblyTypeName: UIService, Assembly-CSharp
         m_MethodName: BuyAndSellButton
         m_Mode: 1
         m_Arguments:

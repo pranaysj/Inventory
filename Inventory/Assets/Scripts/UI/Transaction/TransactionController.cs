@@ -1,88 +1,33 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-
 public class TransactionController 
 {
-    private UIService uiService;
-
-    private TransactionModel transactionModel;
-    public TransactionModel TransactionModel => transactionModel;
+    private TransactionModel models;
+    public TransactionModel TransactionModel => models;
     
     private TransactionView view;
     public TransactionView TransactionView => view;
 
-    public TransactionController(TransactionView transactionView, UIService uiService)
-    {
-        transactionModel = new TransactionModel(this);
-        this.view = transactionView;
-        this.uiService = uiService;
-    }
+    private PlayerService playerService;
 
-    public void Initialize(
-        PlayerService playerService, 
-        ShopService shopService,
-        TransactionView transactionView, 
-        TextMeshProUGUI grossWeight, 
-        TextMeshProUGUI buyAndSellText, 
-        TextMeshProUGUI totalPrice, 
-        TextMeshProUGUI quantity, 
-        TextMeshProUGUI buttonText)
+    public TransactionController(TransactionView transactionView, UIService uiService, PlayerService playerService)
     {
-        TransactionView.Initialize(this, uiService);
+        view = transactionView;
+        this.playerService = playerService;
 
-        TransactionModel.Initialize(
-            playerService,
-            shopService,
-            grossWeight,
-            buyAndSellText,
-            totalPrice,
-            quantity,
-            buttonText);
-    }
+        models = new TransactionModel(this);
 
-    public TextMeshProUGUI GetGrossWeighText => TransactionModel.GrossWeightText;
-    public TextMeshProUGUI GetBuyAndSellText => TransactionModel.BuyAndSellText;
-    public TextMeshProUGUI GetTotalPriceText => TransactionModel.TotalPriceText;
-    public TextMeshProUGUI GetQuantityText => TransactionModel.QuantityText;
-    public TextMeshProUGUI GetButtonText => TransactionModel.ButtonText;
-
-    public PlayerService GetPlayerService => TransactionModel.PlayerService;
-    public ShopService GetShopService => TransactionModel.ShopService;
-
-    public int GrossWeightValue
-    {
-        get => TransactionModel.GrossWeightValue;
-        set => TransactionModel.GrossWeightValue = value;
-    }
-    public int BuyingPrice
-    {
-        get => TransactionModel.BuyingPrice;
-        set => TransactionModel.BuyingPrice = value;
-    }
-    public int SellingPrice
-    {
-        get => TransactionModel.SellingPrice;
-        set => TransactionModel.SellingPrice = value;
-    }
-    public int QuantityValue
-    {
-        get => TransactionModel.QuantityValue;
-        set => TransactionModel.QuantityValue = value;
+        view.Initialize(this, uiService);
     }
 
     public bool IsBuyingLimitExceed()
     {
-        int tempBuyingLimit = BuyingPrice;
+        int tempBuyingLimit = TransactionModel.BuyingPrice;
         tempBuyingLimit = tempBuyingLimit + TransactionView.SelectedItemView.BuyingPrice;
 
-        int tempWeightLimit = GrossWeightValue;
+        int tempWeightLimit = TransactionModel.GrossWeightValue;
         tempWeightLimit = tempWeightLimit + TransactionView.SelectedItemView.Weight;
 
-        int monkey = GetPlayerService.PlayerController.GetMoney();
-        int maxWeight = GetPlayerService.PlayerController.GetMaxWeight();
+        int monkey = playerService.PlayerController.GetMoney();
+        int maxWeight = playerService.PlayerController.GetMaxWeight();
 
         if (tempBuyingLimit < monkey && tempWeightLimit < maxWeight)
         {
@@ -120,7 +65,8 @@ public class TransactionController
                     if (TransactionModel.SellingPrice < 0)
                         TransactionModel.SellingPrice = 0;
                 }
-                GetTotalPriceText.text = TransactionModel.SellingPrice.ToString() + " G";
+                view.SetTotalPrice(TabType.Player, TransactionModel.SellingPrice);
+                
                 break;
 
             case TabType.Shop:
@@ -135,7 +81,7 @@ public class TransactionController
                     if (TransactionModel.BuyingPrice < 0)
                         TransactionModel.BuyingPrice = 0;
                 }
-                GetTotalPriceText.text = TransactionModel.BuyingPrice.ToString() + " G";
+                view.SetTotalPrice(TabType.Shop, TransactionModel.BuyingPrice);
                 break;
         }
     }
@@ -143,17 +89,17 @@ public class TransactionController
     //Assign on button click events
     public void IncreaseQuantity()
     {
-        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
-
         if (!view.isItemSelected) return;
 
-        QuantityValue++;
-        Debug.Log("Quantity Value: " + QuantityValue);
+        var quantity = TransactionModel.QuantityValue;
+
+        quantity++;
+
         if (view.SelectedTabTypeInShop())
         {
             if (!IsBuyingLimitExceed())
-            {
-                QuantityValue--;
+            {   
+                quantity--;
                 return;
             }
         }
@@ -162,18 +108,63 @@ public class TransactionController
         {
             if (!IsSellingLimitExceed())
             {
-                QuantityValue--;
+                quantity--;
                 return;
             }
         }
 
         TransactionModel.GrossWeightValue = TransactionModel.GrossWeightValue + view.TabView().Weight;
-
         CheckItemTypeForBuyAndSellButton(TransactionType.Increment);
-
         view.UpdateText();
-
     }
+
+    public void DecreaseQuantity()
+    {
+        if (!view.isItemSelected) return;
+
+        var quantity = TransactionModel.QuantityValue;
+
+        quantity--;
+
+        if (quantity < 0) 
+            quantity = 0;
+        
+        var weight = TransactionModel.GrossWeightValue;
+
+        weight = weight - view.TabView().Weight;
+        
+        if (weight < 0)
+            weight = 0;
+
+        CheckItemTypeForBuyAndSellButton(TransactionType.Decrement);
+        view.UpdateText();
+    }
+
+    public void BuyAndSellButton()
+    {
+        var quantity = TransactionModel.QuantityValue;
+
+        if (!view.isItemSelected || quantity == 0) 
+            return;
+        
+        var type = view.TabView();
+        
+        switch (type.TabType)
+        {
+            case TabType.Player:
+                playerService.SellItem(type, quantity, TransactionModel.SellingPrice, TransactionModel.GrossWeightValue);
+                view.SetBackgroundIcon(TabType.Player);
+                break;
+
+            case TabType.Shop:
+                playerService.BuyItem(type, quantity, type.BuyingPrice, TransactionModel.GrossWeightValue);
+                view.SetBackgroundIcon(TabType.Shop);
+                break;
+        }
+        view.ResetText();
+    }
+
+
     public void ResetData()
     {
         TransactionModel.GrossWeightValue = 0;
