@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,20 +13,23 @@ public enum TransactionType
 
 public class TransactionView : MonoBehaviour
 {
-    private TransactionController transactionController;
     private UIService uiService;
     private EventService eventService;
 
-    public TransactionController TransactionController => transactionController;
-
-    private bool isItemIsSelected = false;
+    private TransactionController controller;
+    public TransactionController Controller => controller;
 
     private TabView selectedItemView;
-
-    public bool IsItemIsSelected => isItemIsSelected;
     public TabView SelectedItemView => selectedItemView;
 
-    
+    private bool isItemIsSelected = false;
+    public bool isItemSelected => isItemIsSelected;
+
+    private TextMeshProUGUI grossWeightText;
+    private TextMeshProUGUI buyAndSellText;
+    private TextMeshProUGUI totalPriceText;
+    private TextMeshProUGUI quantityText;
+    private TextMeshProUGUI buttonText;
 
     void Start()
     {
@@ -41,34 +46,45 @@ public class TransactionView : MonoBehaviour
 
     public void Initialize(TransactionController controller, UIService uiService)
     {
-        this.transactionController = controller;
+        this.controller = controller;
         this.uiService = uiService;
+
+        InitializeText();
+    }
+
+    private void InitializeText()
+    {
+        grossWeightText = uiService.GrossWeight;
+        buyAndSellText = uiService.BuyAndSellText;
+        totalPriceText = uiService.TotalPrice;
+        quantityText = uiService.Quantity;
+        buttonText = uiService.ButtonText;
     }
 
     private void BuyInfo(TabView view)
     {
-        ResetTransactionInfo();
+        ResetText();
 
         selectedItemView = view;
         isItemIsSelected = true;
 
-        TransactionController.GetGrossWeighText.text = "0 kg";
-        TransactionController.GetBuyAndSellText.text = "Buying Price : ";
-        TransactionController.GetTotalPriceText.text = "0 G";
-        TransactionController.GetButtonText.text = "BUY";
+        grossWeightText.text = "0 kg";
+        buyAndSellText.text = "Buying Price : ";
+        totalPriceText.text = "0 G";
+        buttonText.text = "BUY";
     }
 
     private void SellInfo(TabView view)
     {
-        ResetTransactionInfo();
+        ResetText();
 
         selectedItemView = view;
         isItemIsSelected = true;
 
-        TransactionController.GetGrossWeighText.text = "0 kg";
-        TransactionController.GetBuyAndSellText.text = "Selling Price : ";
-        TransactionController.GetTotalPriceText.text = "0 G";
-        TransactionController.GetButtonText.text = "SELL";
+        grossWeightText.text = "0 kg";
+        buyAndSellText.text = "Selling Price : ";
+        totalPriceText.text = "0 G";
+        buttonText.text = "SELL";
     }
 
     public void IncreaseQuantity()
@@ -77,32 +93,55 @@ public class TransactionView : MonoBehaviour
 
         if (!isItemIsSelected) return;
 
-        TransactionController.QuantityValue++;
-        Debug.Log("Quantity Value: " + TransactionController.QuantityValue);
+        Controller.QuantityValue++;
+        Debug.Log("Quantity Value: " + Controller.QuantityValue);
         if (selectedItemView.TabType == TabType.Shop)
         {
-            if (!TransactionController.IsBuyingLimitExceed())
+            if (!Controller.IsBuyingLimitExceed())
             {
-                TransactionController.QuantityValue--;
+                Controller.QuantityValue--;
                 return;
             }
         }
 
         if (selectedItemView.TabType == TabType.Player)
         {
-            if (!TransactionController.IsSellingLimitExceed())
+            if (!Controller.IsSellingLimitExceed())
             {
-                TransactionController.QuantityValue--;
+                Controller.QuantityValue--;
                 return;
             }
         }
 
-        TransactionController.GrossWeightValue = TransactionController.GrossWeightValue + selectedItemView.Weight;
+        Controller.GrossWeightValue = Controller.GrossWeightValue + selectedItemView.Weight;
 
-        TransactionController.CheckItemTypeForBuyAndSellButton(TransactionType.Increment);
+        Controller.CheckItemTypeForBuyAndSellButton(TransactionType.Increment);
 
-        TransactionController.GetQuantityText.text = TransactionController.QuantityValue.ToString();
-        TransactionController.GetGrossWeighText.text = TransactionController.GrossWeightValue.ToString() + " kg";
+    }
+
+    public bool SelectedTabTypeInShop()
+    {
+        if (selectedItemView.TabType == TabType.Shop)
+            return true;
+        return false;
+    }
+
+    public bool SelectedTabTypeInPlayer()
+    {
+        if (selectedItemView.TabType == TabType.Player)
+            return true;
+        return false;
+    }
+
+    public TabView TabView()
+    {
+        return selectedItemView;
+    }
+
+    internal void UpdateText()
+    {
+        quantityText.text = Controller.QuantityValue.ToString();
+        grossWeightText.text = Controller.GrossWeightValue.ToString() + " kg";
     }
 
     public void DecreaseQuantity()
@@ -111,50 +150,51 @@ public class TransactionView : MonoBehaviour
 
         if (!isItemIsSelected) return;
 
-        TransactionController.QuantityValue--;
-        if (TransactionController.QuantityValue < 0) TransactionController.QuantityValue = 0;
+        Controller.QuantityValue--;
+        if (Controller.QuantityValue < 0) Controller.QuantityValue = 0;
 
-        TransactionController.GrossWeightValue = TransactionController.GrossWeightValue - selectedItemView.Weight;
-        if (TransactionController.GrossWeightValue < 0) TransactionController.GrossWeightValue = 0;
+        Controller.GrossWeightValue = Controller.GrossWeightValue - selectedItemView.Weight;
+        if (Controller.GrossWeightValue < 0) Controller.GrossWeightValue = 0;
 
-        TransactionController.CheckItemTypeForBuyAndSellButton(TransactionType.Decrement);
+        Controller.CheckItemTypeForBuyAndSellButton(TransactionType.Decrement);
 
-        TransactionController.GetQuantityText.text = TransactionController.QuantityValue.ToString();
-        TransactionController.GetGrossWeighText.text = TransactionController.GrossWeightValue.ToString() + " kg";
+        Controller.GetQuantityText.text = Controller.QuantityValue.ToString();
+        Controller.GetGrossWeighText.text = Controller.GrossWeightValue.ToString() + " kg";
     }
 
     public void BuyAndSellButton()
     {
-        if (!isItemIsSelected || TransactionController.QuantityValue == 0) return;
+        if (!isItemIsSelected || Controller.QuantityValue == 0) return;
 
         switch (selectedItemView.TabType)
         {
             case TabType.Player:
-                transactionController.GetPlayerService.SellItem(selectedItemView, TransactionController.QuantityValue, TransactionController.SellingPrice, TransactionController.GrossWeightValue);
+                controller.GetPlayerService.SellItem(selectedItemView, Controller.QuantityValue, Controller.SellingPrice, Controller.GrossWeightValue);
                 ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ItemSold);
                 break;
             case TabType.Shop:
-                transactionController.GetPlayerService.BuyItem(selectedItemView, TransactionController.QuantityValue, selectedItemView.BuyingPrice, TransactionController.GrossWeightValue);
+                controller.GetPlayerService.BuyItem(selectedItemView, Controller.QuantityValue, selectedItemView.BuyingPrice, Controller.GrossWeightValue);
                 selectedItemView.itemBGIconGameobject.sprite = uiService.UnselectedShopItemBGIcon;
                 ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ItemPurchased);
                 break;
         }
-        ResetTransactionInfo();
+        ResetText();
     }
 
-    public void ResetTransactionInfo()
+    public void ResetText()
     {
-        TransactionController.ResetTransactionInfo();
+        Controller.ResetData();
 
         isItemIsSelected = false;
         selectedItemView = null;
 
-        TransactionController.GetGrossWeighText.text = "0 kg";
-        TransactionController.GetBuyAndSellText.text = "Buying Price : ";
-        TransactionController.GetTotalPriceText.text = "0 G";
-        TransactionController.GetQuantityText.text = "0";
-        TransactionController.GetButtonText.text = "BUY/SELL";
+        grossWeightText.text = "0 kg";
+        buyAndSellText.text = "Buying Price : ";
+        totalPriceText.text = "0 G";
+        quantityText.text = "0";
+        buttonText.text = "BUY/SELL";
 
     }
+
 }
 

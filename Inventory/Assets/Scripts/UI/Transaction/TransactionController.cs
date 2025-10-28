@@ -6,15 +6,18 @@ using UnityEngine;
 
 public class TransactionController 
 {
-    private TransactionModel transactionModel;
     private UIService uiService;
-    private TransactionView transactionView;
-    public TransactionModel TransactionModel => transactionModel;
-    public TransactionView TransactionView => transactionView;
 
-    public TransactionController(UIService uiService)
+    private TransactionModel transactionModel;
+    public TransactionModel TransactionModel => transactionModel;
+    
+    private TransactionView view;
+    public TransactionView TransactionView => view;
+
+    public TransactionController(TransactionView transactionView, UIService uiService)
     {
         transactionModel = new TransactionModel(this);
+        this.view = transactionView;
         this.uiService = uiService;
     }
 
@@ -28,7 +31,6 @@ public class TransactionController
         TextMeshProUGUI quantity, 
         TextMeshProUGUI buttonText)
     {
-        this.transactionView = transactionView;
         TransactionView.Initialize(this, uiService);
 
         TransactionModel.Initialize(
@@ -102,7 +104,7 @@ public class TransactionController
 
     public void CheckItemTypeForBuyAndSellButton(TransactionType type)
     {
-        if (!TransactionView.IsItemIsSelected) return;
+        if (!TransactionView.isItemSelected) return;
 
         switch (TransactionView.SelectedItemView.TabType)
         {
@@ -138,7 +140,41 @@ public class TransactionController
         }
     }
 
-    public void ResetTransactionInfo()
+    //Assign on button click events
+    public void IncreaseQuantity()
+    {
+        ServiceLocator.Get<SoundService>().PlaySoundEffects(SoundType.ButtonClick);
+
+        if (!view.isItemSelected) return;
+
+        QuantityValue++;
+        Debug.Log("Quantity Value: " + QuantityValue);
+        if (view.SelectedTabTypeInShop())
+        {
+            if (!IsBuyingLimitExceed())
+            {
+                QuantityValue--;
+                return;
+            }
+        }
+
+        if (view.SelectedTabTypeInPlayer())
+        {
+            if (!IsSellingLimitExceed())
+            {
+                QuantityValue--;
+                return;
+            }
+        }
+
+        TransactionModel.GrossWeightValue = TransactionModel.GrossWeightValue + view.TabView().Weight;
+
+        CheckItemTypeForBuyAndSellButton(TransactionType.Increment);
+
+        view.UpdateText();
+
+    }
+    public void ResetData()
     {
         TransactionModel.GrossWeightValue = 0;
         TransactionModel.BuyingPrice = 0;
