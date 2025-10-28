@@ -87,6 +87,7 @@ public class GameService : MonoBehaviour
 
     private void OnDestroy()
     {
+        inventoryController?.Dispose();
         ServiceLocator.Clean();
     }
 }

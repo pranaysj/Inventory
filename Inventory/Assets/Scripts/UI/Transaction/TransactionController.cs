@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 public class TransactionController 
 {
     private TransactionModel models;
@@ -113,6 +115,8 @@ public class TransactionController
             }
         }
 
+        TransactionModel.QuantityValue = quantity;
+
         TransactionModel.GrossWeightValue = TransactionModel.GrossWeightValue + view.TabView().Weight;
         CheckItemTypeForBuyAndSellButton(TransactionType.Increment);
         view.UpdateText();
@@ -129,12 +133,16 @@ public class TransactionController
         if (quantity < 0) 
             quantity = 0;
         
+        TransactionModel.QuantityValue = quantity;
+
         var weight = TransactionModel.GrossWeightValue;
 
         weight = weight - view.TabView().Weight;
         
         if (weight < 0)
             weight = 0;
+
+        TransactionModel.GrossWeightValue = weight;
 
         CheckItemTypeForBuyAndSellButton(TransactionType.Decrement);
         view.UpdateText();
@@ -146,7 +154,7 @@ public class TransactionController
 
         if (!view.isItemSelected || quantity == 0) 
             return;
-        
+
         var type = view.TabView();
         
         switch (type.TabType)
