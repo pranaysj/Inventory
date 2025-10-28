@@ -62,11 +62,11 @@ public class UIService : MonoBehaviour
     public TextMeshProUGUI Transaction => transaction;
     public TextMeshProUGUI Price => price;
 
-    public Image IconR => r_icon;
-    public TextMeshProUGUI TypeR => r_type;
-    public TextMeshProUGUI RarityR => r_rarity;
-    public TextMeshProUGUI ItemNameR => r_itemName;
-    public TextMeshProUGUI DescriptionR => r_description;
+    public Image Icon_R => r_icon;
+    public TextMeshProUGUI Type_R => r_type;
+    public TextMeshProUGUI Rarity_R => r_rarity;
+    public TextMeshProUGUI ItemName_R => r_itemName;
+    public TextMeshProUGUI Description_R => r_description;
     public TextMeshProUGUI Money => money;
     public TextMeshProUGUI BagWeight => bagWeight;
 

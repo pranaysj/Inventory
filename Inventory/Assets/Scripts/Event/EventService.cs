@@ -9,7 +9,7 @@ public class EventService
 {
     private SoundService soundService;
     public event Action OnInventoryKeyPressed;
-    public event Action<TabView> OnClickedIPlayerItem, OnClickedIShopItem, OnClickedAnotherItem;
+    public event Action<TabView> OnClickedPlayerItem, OnClickedShopItem, OnClickedAnotherItem;
 
     public EventService(SoundService soundService)
     {
@@ -32,9 +32,9 @@ public class EventService
         TabType type = view.TabType;
 
         if (type == TabType.Player)
-            OnClickedIPlayerItem?.Invoke(view);
+            OnClickedPlayerItem?.Invoke(view);
 
         if (type == TabType.Shop)
-            OnClickedIShopItem?.Invoke(view);
+            OnClickedShopItem?.Invoke(view);
     }
 }

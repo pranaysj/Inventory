@@ -34,7 +34,7 @@ public class PlayerView : MonoBehaviour
     private void Start()
     {
 
-        eventService.OnClickedIPlayerItem += SelectPlayerItem;
+        eventService.OnClickedPlayerItem += SelectPlayerItem;
         eventService.OnClickedAnotherItem += UnSelectAnotherItem;
 
         UpdateBagWeight(0);
@@ -50,11 +50,11 @@ public class PlayerView : MonoBehaviour
 
     private void InitializeUIElement()
     {
-        itemIcon = uiService.IconR;
-        typeTxt = uiService.TypeR;
-        rarityTxt = uiService.RarityR;
-        itemNameTxt = uiService.ItemNameR;
-        descriptionTxt = uiService.DescriptionR;
+        itemIcon = uiService.Icon_R;
+        typeTxt = uiService.Type_R;
+        rarityTxt = uiService.Rarity_R;
+        itemNameTxt = uiService.ItemName_R;
+        descriptionTxt = uiService.Description_R;
         bagWeightTxt = uiService.BagWeight;
         moneyTextTxt = uiService.Money;
         selectedPlayerItemBGSprite = uiService.SelectedPlayerItemBGIcon;
@@ -64,7 +64,7 @@ public class PlayerView : MonoBehaviour
 
     private void OnDestroy()
     {
-        eventService.OnClickedIPlayerItem -= SelectPlayerItem;
+        eventService.OnClickedPlayerItem -= SelectPlayerItem;
         eventService.OnClickedAnotherItem -= UnSelectAnotherItem;
     }
     public GameObject InstantiateItem()

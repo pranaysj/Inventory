@@ -32,7 +32,7 @@ public class ShopView : MonoBehaviour
             //FillTabs();
         }
 
-        eventService.OnClickedIShopItem += SelectShopItem;
+        eventService.OnClickedShopItem += SelectShopItem;
         eventService.OnClickedAnotherItem += UnSelectAnotherItem;
     }
 
@@ -48,7 +48,7 @@ public class ShopView : MonoBehaviour
 
     private void OnDestroy()
     {
-        eventService.OnClickedIShopItem -= SelectShopItem;
+        eventService.OnClickedShopItem -= SelectShopItem;
         eventService.OnClickedAnotherItem -= UnSelectAnotherItem;
     }
 
