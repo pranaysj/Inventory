@@ -9,6 +9,7 @@ public class TransactionController
     public TransactionView TransactionView => view;
 
     private PlayerService playerService;
+    private PlayerController playerController;
 
     public TransactionController(TransactionView transactionView, UIService uiService, PlayerService playerService)
     {
@@ -18,6 +19,7 @@ public class TransactionController
         models = new TransactionModel(this);
 
         view.Initialize(this, uiService);
+        playerController = playerService.PlayerController;
     }
 
     public bool IsBuyingLimitExceed()
@@ -28,8 +30,8 @@ public class TransactionController
         int tempWeightLimit = TransactionModel.GrossWeightValue;
         tempWeightLimit = tempWeightLimit + TransactionView.SelectedItemView.Weight;
 
-        int monkey = playerService.PlayerController.GetMoney();
-        int maxWeight = playerService.PlayerController.GetMaxWeight();
+        int monkey = playerController.GetMoney();
+        int maxWeight = playerController.GetMaxWeight();
 
         if (tempBuyingLimit < monkey && tempWeightLimit < maxWeight)
         {
@@ -157,10 +159,16 @@ public class TransactionController
 
         var type = view.TabView();
         
+        var playerModel = playerController.PlayerModel;
+        int totalValue = playerController.GetTotalValue();
+        int defaultValue = playerModel.BagDefaultValue;
+
         switch (type.TabType)
         {
             case TabType.Player:
                 playerService.SellItem(type, quantity, TransactionModel.SellingPrice, TransactionModel.GrossWeightValue);
+                totalValue -= defaultValue;
+                playerModel.TotalValue = totalValue;
                 view.SetBackgroundIcon(TabType.Player);
                 break;
 

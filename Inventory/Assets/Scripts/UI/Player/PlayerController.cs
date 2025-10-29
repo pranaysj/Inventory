@@ -75,7 +75,8 @@ public class PlayerController
 
             itemInstanceByName.Add(itemName, itemInstance);
 
-            PlayerView.UpdateBagWeight(tempItem.weight);
+            var bagWeight = PlayerModel.UpdateBagWeight(tempItem.weight);
+            PlayerView.UpdateBagWeight(bagWeight);
             PlayerView.UpdateMoney();
 
             tabView.Initialize(shopView, tempItem, TabType.Player);
@@ -89,10 +90,20 @@ public class PlayerController
     }
     public ShopItemSO GetItemData()
     {
-        int randomIndex = UnityEngine.Random.Range(0, shopDatabaseSO.shopItems.Count);
-        ShopItemSO itemData = shopDatabaseSO.shopItems[randomIndex];
+        // pass the rarity as parameter
+        Rarity rarity = DetermineRarity(playerModel.TotalValue);//change the parameter
+        ShopItemSO itemData = shopDatabaseSO.GetRandomItemByRarity(rarity);
         return itemData;
     }
+    private Rarity DetermineRarity(int totalValue)
+    {
+        if (totalValue < 100) return Rarity.Common;
+        if (totalValue < 300) return Rarity.Uncommon;
+        if (totalValue < 600) return Rarity.Rare;
+        if (totalValue < 1000) return Rarity.Epic;
+        return Rarity.Legendary;
+    }
+
     public void SellItem(TabView selectedItemView, int quantity, int sellingPrice, int grossWeight)
     {
         if (selectedItemView == null)
@@ -197,13 +208,13 @@ public class PlayerController
     {
         return playerModel.Weight;
     }
-    public void SetWeight(int value)
-    {
-        playerModel.Weight = value;
-    }
     public int GetMaxWeight()
     {
         return playerModel.MaxWeight;
+    }
+    public int GetTotalValue()
+    {
+        return playerModel.TotalValue;
     }
 
     public void GetTemporaryItemInPanel()
@@ -221,6 +232,8 @@ public class PlayerController
         if (tempItem != null && nextWeight < GetMaxWeight())
         {
             SpawnItemInPlayerInventory(tempItem);
+            //playerModel.Weight = nextWeight;
+            playerModel.TotalValue += playerModel.BagDefaultValue;
             tempItem = null;
             PlayerView.Reset();
         }
